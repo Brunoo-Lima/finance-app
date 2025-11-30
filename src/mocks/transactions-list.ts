@@ -4,8 +4,8 @@ export const transactionsList = [
     description: "Luz",
     payment: "boleto",
     value: 350,
-    type: "saída",
-    status: "Pago",
+    type: "saida",
+    status: "pago",
     created_at: "02/11/2025",
   },
   {
@@ -13,8 +13,8 @@ export const transactionsList = [
     description: "Aluguel",
     payment: "pix",
     value: 1800,
-    type: "saída",
-    status: "Pago",
+    type: "saida",
+    status: "pago",
     created_at: "05/11/2025",
   },
   {
@@ -23,7 +23,7 @@ export const transactionsList = [
     payment: "cartao",
     value: 1200,
     type: "entrada",
-    status: "Pendente",
+    status: "pendente",
     created_at: "10/11/2025",
   },
   {
@@ -31,8 +31,8 @@ export const transactionsList = [
     description: "Compra no Mercado",
     payment: "cartao",
     value: 260,
-    type: "saída",
-    status: "Pago",
+    type: "saida",
+    status: "pago",
     created_at: "12/11/2025",
   },
   {
@@ -41,7 +41,7 @@ export const transactionsList = [
     payment: "boleto",
     value: 4500,
     type: "entrada",
-    status: "Pago",
+    status: "pago",
     created_at: "01/11/2025",
   },
   {
@@ -49,8 +49,8 @@ export const transactionsList = [
     description: "Internet",
     payment: "boleto",
     value: 120,
-    type: "saída",
-    status: "Atrasado",
+    type: "saida",
+    status: "atrasado",
     created_at: "08/11/2025",
   },
   {
@@ -59,7 +59,7 @@ export const transactionsList = [
     payment: "pix",
     value: 300,
     type: "entrada",
-    status: "Pago",
+    status: "pago",
     created_at: "14/11/2025",
   },
   {
@@ -67,8 +67,8 @@ export const transactionsList = [
     description: "Spotify",
     payment: "cartao",
     value: 34.9,
-    type: "saída",
-    status: "Pago",
+    type: "saida",
+    status: "pago",
     created_at: "03/11/2025",
   },
   {
@@ -76,8 +76,8 @@ export const transactionsList = [
     description: "Manutenção PC",
     payment: "Dinheiro",
     value: 250,
-    type: "saída",
-    status: "Pendente",
+    type: "saida",
+    status: "pendente",
     created_at: "16/11/2025",
   },
   {
@@ -85,8 +85,8 @@ export const transactionsList = [
     description: "Curso Online",
     payment: "cartao",
     value: 499,
-    type: "saída",
-    status: "Pago",
+    type: "saida",
+    status: "pago",
     created_at: "11/11/2025",
   },
   {
@@ -95,7 +95,7 @@ export const transactionsList = [
     payment: "pix",
     value: 180,
     type: "entrada",
-    status: "Pago",
+    status: "pago",
     created_at: "13/11/2025",
   },
   {
@@ -103,8 +103,8 @@ export const transactionsList = [
     description: "Academia",
     payment: "pix",
     value: 99,
-    type: "saída",
-    status: "Pago",
+    type: "saida",
+    status: "pago",
     created_at: "09/11/2025",
   },
 ];

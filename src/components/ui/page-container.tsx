@@ -6,7 +6,7 @@ interface IProps {
 }
 
 export const PageContainer = ({ children, className }: IProps) => {
-  return <section className="p-4 flex flex-col gap-y-4">{children}</section>;
+  return <section className="p-6 flex flex-col gap-y-4">{children}</section>;
 };
 
 export const PageHeader = ({ children, className }: IProps) => {
