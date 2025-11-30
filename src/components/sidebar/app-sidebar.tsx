@@ -1,12 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import {
   Sidebar,
   SidebarContent,
@@ -20,37 +15,31 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import {
-  CalendarDays,
+  ArrowLeftRightIcon,
+  CircleUserRoundIcon,
   GemIcon,
-  LayoutDashboard,
+  LayoutDashboardIcon,
   LogOut,
-  Stethoscope,
-  UsersRound,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "../ui/button";
 
 const items = [
   {
     title: "Dashboard",
     url: "/dashboard",
-    icon: LayoutDashboard,
+    icon: LayoutDashboardIcon,
   },
   {
-    title: "Agendamentos",
-    url: "/agendamentos",
-    icon: CalendarDays,
+    title: "Transações",
+    url: "/transacoes",
+    icon: ArrowLeftRightIcon,
   },
   {
-    title: "Médicos",
-    url: "/medicos",
-    icon: Stethoscope,
-  },
-  {
-    title: "Pacientes",
-    url: "/pacientes",
-    icon: UsersRound,
+    title: "Conta",
+    url: "/conta",
+    icon: CircleUserRoundIcon,
   },
 ];
 
@@ -62,7 +51,7 @@ export const AppSidebar = () => {
   return (
     <Sidebar>
       <SidebarHeader className="border-b p-4">
-        <Image src="/logo.svg" alt="Doutor Agenda" width={136} height={28} />
+        {/* <Image src="/logo.svg" alt="Doutor Agenda" width={136} height={28} /> */}
       </SidebarHeader>
 
       <SidebarContent>
@@ -83,14 +72,14 @@ export const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
+        {/* <SidebarGroup>
           <SidebarGroupLabel>Outros</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === "/assinatura"}
+                  isActive={pathname === '/assinatura'}
                 >
                   <Link href="/assinatura">
                     <GemIcon />
@@ -100,32 +89,13 @@ export const AppSidebar = () => {
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+        </SidebarGroup> */}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg">
-                  <Avatar>
-                    <AvatarFallback>F</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-sm">Teste</p>
-                    <p className="text-muted-foreground text-sm">Admin</p>
-                  </div>
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={handleSignOut}>
-                  <LogOut />
-                  Sair
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <Button variant="ghost" onClick={handleSignOut}>
+          <LogOut />
+          Sair
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );

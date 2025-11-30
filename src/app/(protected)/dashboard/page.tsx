@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { DashLayout } from "./_components/dash-layout";
+import { PageContainer, PageHeader } from "@/components/ui/page-container";
+import { TitlePage } from "@/components/ui/title-page";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -8,10 +10,12 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <section>
-      <h1>Dashboard</h1>
+    <PageContainer>
+      <PageHeader>
+        <TitlePage>Dashboard</TitlePage>
+      </PageHeader>
 
       <DashLayout />
-    </section>
+    </PageContainer>
   );
 }

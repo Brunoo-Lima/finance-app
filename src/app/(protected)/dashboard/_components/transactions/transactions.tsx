@@ -14,7 +14,7 @@ export const Transactions = () => {
         </Button>
       </CardHeader>
 
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 p-0">
         {transactionsList.map((transaction) => (
           <CardTransaction key={transaction.id} transaction={transaction} />
         ))}
