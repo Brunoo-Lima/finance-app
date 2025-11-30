@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DashLayout } from "./_components/dash-layout";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -9,6 +10,8 @@ export default function DashboardPage() {
   return (
     <section>
       <h1>Dashboard</h1>
+
+      <DashLayout />
     </section>
   );
 }
