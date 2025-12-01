@@ -1,19 +1,31 @@
 $primary-color: #5ea500;
 
+$second-color: #ffffff1a;
+
 $color-black: #09090b;
+$color-black-80: #18181b;
 
 $color-white: #ffffff;
+
+$color-gray: #9f9fa9;
+
+$error: #ff0000;
 
 :root {
   --primary-color: #{$primary-color};
 
+  --second-color: #{$second-color};
+
   --color-black: #{$color-black};
+  --color-black-80: #{$color-black-80};
 
   --color-white: #{$color-white};
 
-  --background: oklch(0.141 0.005 285.823);
+  --color-gray: #{$color-gray};
+
+  --error: #{$error};
+
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.21 0.006 285.885);
   --popover-foreground: oklch(0.985 0 0);
@@ -22,7 +34,6 @@ $color-white: #ffffff;
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
   --accent: oklch(0.274 0.006 286.033);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -40,6 +51,5 @@ $color-white: #ffffff;
   --sidebar-primary-foreground: oklch(0.986 0.031 120.757);
   --sidebar-accent: oklch(0.274 0.006 286.033);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.405 0.101 131.063);
 }

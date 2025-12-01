@@ -12,20 +12,20 @@
 
   .input__field {
     border-radius: 0.5rem;
-    border: 1px solid var(--border-color-60);
-    background-color: var(--color-white);
+    border: 1px solid var(--second-color);
+    background-color: var(--color-black-80);
 
     padding: 0.6875rem 1rem;
 
     font-size: 0.875rem;
     font-weight: 400;
-    color: var(--color-black-80);
+    color: var(--color-white);
     outline: none;
 
     transition: border-color 0.2s ease;
 
     &::placeholder {
-      color: var(--color-black-20);
+      color: var(--color-gray);
     }
 
     &:focus-visible {
