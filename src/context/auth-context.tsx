@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
       setUser(fakeUser);
 
-      router.push("/");
+      router.push("/dashboard");
     } catch (error) {
       setError(error instanceof Error ? error.message : "Erro desconhecido");
       throw error;

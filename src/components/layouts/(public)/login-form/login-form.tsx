@@ -12,8 +12,10 @@ import s from "./_login-form.module.scss";
 import { Button } from "@/components/ui/button/button";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox/checkbox";
+import { useAuth } from "@/hooks/use-auth";
 
 export const LoginForm = () => {
+  const { loginService } = useAuth();
   const {
     register,
     handleSubmit,
@@ -30,6 +32,8 @@ export const LoginForm = () => {
 
   const onSubmit = (data: ILoginFormSchema) => {
     console.log(data);
+
+    loginService(data.email, data.password, data.remember ?? false);
   };
 
   return (
@@ -61,7 +65,9 @@ export const LoginForm = () => {
         </Link>
       </div>
 
-      <Button className={s.button__send}>Entrar</Button>
+      <Button type="submit" disabled={isSubmitting} className={s.button__send}>
+        Entrar
+      </Button>
 
       <p className={s.register}>
         Não tem conta ainda? <Link href="/cadastrar">Clique aqui!</Link>

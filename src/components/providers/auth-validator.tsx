@@ -2,7 +2,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { useAuth } from "@/hooks/use-auth";
-import { Spinner } from "../ui/spinner";
+import Loading from "../ui/loading/loading";
 
 interface IAuthProviderProps {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export const AuthValidator = ({ children }: IAuthProviderProps) => {
     }
   }, [isAuthenticated, isLoading, pathname, router]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Loading size={32} />;
 
   return <>{children}</>;
 };
