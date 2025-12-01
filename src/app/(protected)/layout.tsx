@@ -1,5 +1,4 @@
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function ProtectedLayout({
   children,
@@ -7,13 +6,10 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarProvider>
+    <>
       <AppSidebar />
 
-      <main className="w-full">
-        <SidebarTrigger />
-        {children}
-      </main>
-    </SidebarProvider>
+      <main className="w-full">{children}</main>
+    </>
   );
 }

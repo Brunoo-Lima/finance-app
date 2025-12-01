@@ -1,6 +1,5 @@
 import { ITransaction } from "@/@types/ITransaction";
 import { PixIcon } from "@/components/icons/pix-icon";
-import { Badge } from "@/components/ui/badge";
 import { formatCurrencyBR } from "@/utils/format-currency";
 import { formatDateTransaction } from "@/utils/format-date";
 import { BarcodeIcon, CreditCardIcon } from "lucide-react";

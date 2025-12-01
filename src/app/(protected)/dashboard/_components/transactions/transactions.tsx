@@ -1,13 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { transactionsList } from "@/mocks/transactions-list";
 import { CardTransaction } from "./card-transaction";
 import Link from "next/link";
 
 export const Transactions = () => {
   return (
-    <Card className="rounded-[20px] p-6 bg-[#0B0B0D]">
-      <CardHeader className="flex items-center justify-between border-b border-b-accent p-0">
-        <CardTitle>Transações</CardTitle>
+    <div className="rounded-[20px] p-6 bg-[#0B0B0D]">
+      <div className="flex items-center justify-between border-b border-b-accent p-0">
+        <strong>Transações</strong>
 
         <Link
           href={"/transacoes"}
@@ -15,13 +14,13 @@ export const Transactions = () => {
         >
           Ver mais
         </Link>
-      </CardHeader>
+      </div>
 
-      <CardContent className="space-y-6 p-0">
+      <div className="space-y-6 p-0">
         {transactionsList.map((transaction) => (
           <CardTransaction key={transaction.id} transaction={transaction} />
         ))}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

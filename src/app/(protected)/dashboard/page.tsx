@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { DashLayout } from "./_components/dash-layout";
-import { PageContainer, PageHeader } from "@/components/ui/page-container";
-import { TitlePage } from "@/components/ui/title-page";
+import {
+  PageContainer,
+  PageHeader,
+} from "@/components/ui/page-container/page-container";
+import { TitlePage } from "@/components/ui/title-page/title-page";
 
 export const metadata: Metadata = {
   title: "Dashboard",

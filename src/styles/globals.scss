@@ -1,0 +1,7 @@
+@use 'base/reset';
+@use 'base/variables';
+
+body {
+  color: var(--color-white);
+  background-color: var(--color-black);
+}

@@ -1,7 +1,9 @@
+import { PageContainer } from "@/components/ui/page-container/page-container";
+
 export default function TransactionsPage() {
   return (
-    <section>
+    <PageContainer>
       <h1>Transações</h1>
-    </section>
+    </PageContainer>
   );
 }

@@ -1,3 +1,5 @@
+import s from "./_page-container.module.scss";
+
 import { ReactNode } from "react";
 
 interface IProps {
@@ -6,15 +8,17 @@ interface IProps {
 }
 
 export const PageContainer = ({ children, className }: IProps) => {
-  return <section className="p-6 flex flex-col gap-y-4">{children}</section>;
-};
-
-export const PageHeader = ({ children, className }: IProps) => {
   return (
-    <div className="flex items-center gap-4 justify-between">{children}</div>
+    <section className={`${s.page__container} ${className}`}>
+      {children}
+    </section>
   );
 };
 
+export const PageHeader = ({ children, className }: IProps) => {
+  return <div className={`${s.page__header} ${className}`}>{children}</div>;
+};
+
 export const PageContent = ({ children, className }: IProps) => {
-  return <div className="">{children}</div>;
+  return <div className={`${s.page__content} ${className}`}>{children}</div>;
 };

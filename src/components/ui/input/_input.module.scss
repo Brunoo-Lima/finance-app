@@ -1,0 +1,41 @@
+.input__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 100%;
+
+  .label {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-white);
+  }
+
+  .input__field {
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color-60);
+    background-color: var(--color-white);
+
+    padding: 0.6875rem 1rem;
+
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-black-80);
+    outline: none;
+
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: var(--color-black-20);
+    }
+
+    &:focus-visible {
+      border-color: var(--primary-color);
+    }
+  }
+
+  .error__text {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--error);
+  }
+}

@@ -1,0 +1,16 @@
+.page__container {
+  padding: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .page__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .page__content {
+  }
+}
