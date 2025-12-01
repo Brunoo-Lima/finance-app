@@ -1,0 +1,53 @@
+.button {
+  border-radius: 0.625rem;
+  background-color: currentColor;
+  border: 1px solid currentColor;
+
+  width: max-content;
+  height: 40px;
+  padding: 1.3125rem 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+
+  &.default {
+    background-color: var(--primary-color);
+    color: var(--color-black);
+    border-color: var(--primary-color);
+
+    &:hover {
+      background-color: var(--primary-color-80);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+
+  &.cancel {
+    background-color: var(--color-white);
+    border-color: var(--border-color-60);
+    color: var(--color-black-80);
+
+    &:hover {
+      background-color: var(--color-white-80);
+    }
+  }
+
+  &.ghost {
+    background-color: var(--color-light-100);
+    border-color: var(--color-light-100);
+    color: var(--color-white);
+
+    &:hover {
+      background-color: var(--color-light);
+    }
+  }
+}

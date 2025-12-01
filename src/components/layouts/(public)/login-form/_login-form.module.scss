@@ -5,4 +5,48 @@
 
   max-width: 400px;
   width: 100%;
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .forgot__password {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--color-white);
+
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .button__send {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .register {
+    text-align: center;
+
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-gray);
+
+    a {
+      color: var(--primary-color);
+      font-weight: 500;
+
+      transition: all 0.3s ease;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

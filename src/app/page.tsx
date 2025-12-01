@@ -11,15 +11,17 @@ export default function LoginPage() {
   return (
     <section className={s.login__wrapper}>
       <div className={s.login__container}>
-        <div className={s.login__header}>
-          <h1>Bem vindo a plataforma</h1>
-          <p>Faça login para continuar</p>
-        </div>
+        <div className={s.login}>
+          <div className={s.login__header}>
+            <h1>Bem vindo a plataforma</h1>
+            <p>Faça login para continuar</p>
+          </div>
 
-        <LoginForm />
+          <LoginForm />
+        </div>
       </div>
 
-      <div className={s.login__background}>background</div>
+      <div className={s.login__background} />
     </section>
   );
 }
