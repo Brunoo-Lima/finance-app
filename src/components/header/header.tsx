@@ -9,6 +9,8 @@ export const Header = () => {
 
   return (
     <header className={s.header__wrapper}>
+      <strong>Finance app</strong>
+
       <button className={s.btn__logout} type="button">
         <LogOutIcon size={20} color="#ffffff" />
         Sair da conta

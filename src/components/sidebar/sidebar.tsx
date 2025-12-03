@@ -35,13 +35,13 @@ export const Sidebar = () => {
 
   return (
     <aside className={s.sidebar}>
-      <div className={s.sidebar__top}>
-        <strong>Finance app</strong>
-      </div>
-
       <nav className={s.sidebar__items}>
         {items.map((item, index) => (
-          <Link key={index} href={item.url} className={s.nav__item}>
+          <Link
+            key={index}
+            href={item.url}
+            className={`${s.nav__item} ${pathname.includes(item.url) ? s.active : ""}`}
+          >
             {<item.icon />}
             {item.title}
           </Link>
