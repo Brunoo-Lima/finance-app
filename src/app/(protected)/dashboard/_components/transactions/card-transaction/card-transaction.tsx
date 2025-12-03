@@ -3,6 +3,7 @@ import { PixIcon } from "@/components/icons/pix-icon";
 import { formatCurrencyBR } from "@/utils/format-currency";
 import { formatDateTransaction } from "@/utils/format-date";
 import { BarcodeIcon, CreditCardIcon } from "lucide-react";
+import s from "./_card-transaction.module.scss";
 
 interface ICardTransactionProps {
   transaction: ITransaction;
@@ -53,25 +54,17 @@ export const CardTransaction = ({ transaction }: ICardTransactionProps) => {
   };
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <div className="size-10 p-2.5 rounded-md bg-accent flex items-center justify-center">
-          {getIcons()}
-        </div>
+    <div className={s.card__container}>
+      <div className={s.infos}>
+        <div className={s.badge}>{getIcons()}</div>
 
-        <div className="flex flex-col">
-          <p className="font-semibold text-base">{transaction.description}</p>
-          <span className="text-xs text-[#71717A]">
-            {formatDateTransaction(transaction.created_at)}
-          </span>
+        <div className={s.info__data}>
+          <p>{transaction.description}</p>
+          <span>{formatDateTransaction(transaction.created_at)}</span>
         </div>
       </div>
 
-      <p
-        className={
-          transaction.type === "entrada" ? "text-[#5EA500]" : "text-[#E93030]"
-        }
-      >
+      <p className={transaction.type === "entrada" ? s.entry : s.cost}>
         {transaction.type === "entrada" ? "+" : "-"}
         {formatCurrencyBR(transaction.value)}
       </p>

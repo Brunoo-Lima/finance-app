@@ -4,13 +4,15 @@ $primary-color-80: #35530e;
 $second-color: #ffffff1a;
 
 $color-black: #09090b;
+$color-black-100: #0b0b0d;
 $color-black-80: #18181b;
 
 $color-white: #ffffff;
 
 $color-gray: #9f9fa9;
+$color-gray-20: #71717a;
 
-$error: #ff0000;
+$error: #e93030;
 
 :root {
   --primary-color: #{$primary-color};
@@ -19,11 +21,13 @@ $error: #ff0000;
   --second-color: #{$second-color};
 
   --color-black: #{$color-black};
+  --color-black-100: #{$color-black-100};
   --color-black-80: #{$color-black-80};
 
   --color-white: #{$color-white};
 
   --color-gray: #{$color-gray};
+  --color-gray-20: #{$color-gray-20};
 
   --error: #{$error};
 

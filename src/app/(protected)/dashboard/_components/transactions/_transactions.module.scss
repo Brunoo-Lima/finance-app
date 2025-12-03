@@ -1,0 +1,48 @@
+.transactions__wrapper {
+  padding: 1.5rem;
+  background-color: var(--color-black);
+  border-radius: 0.75rem;
+  border: 1px solid var(--second-color);
+
+  .transactions__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--second-color);
+
+    strong {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .link__more {
+      border-radius: 9999px;
+      border: 1px solid var(--second-color);
+      padding: 0.375rem 0.75rem;
+
+      font-size: 0.875rem;
+      font-weight: 500;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: var(--color-black-80);
+      }
+    }
+  }
+
+  .transactions__list {
+    margin-top: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
