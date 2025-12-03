@@ -1,7 +1,19 @@
 .dash__wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  grid-template-columns: 1fr 450px;
+  gap: 1.25rem;
 
   margin-top: 2rem;
+
+  .management {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
 }

@@ -1,0 +1,77 @@
+.card__balance__container {
+  padding: 2rem 1.5rem;
+  border-radius: 1.25rem;
+  border: 1px solid var(--second-color);
+  background-color: var(--color-black-60);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+
+  .balance__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .icon__container {
+        height: 36px;
+        width: 36px;
+        border-radius: 0.5rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        flex-shrink: 0;
+
+        background-color: var(--color-black-100);
+      }
+
+      p {
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+    }
+
+    .value__container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  }
+
+  .btn__add__transaction {
+    height: 34px;
+    width: 100%;
+    max-width: 195px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-white);
+
+    background-color: var(--primary-color-20);
+    border-radius: 6.25rem;
+    border: none;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: var(--primary-color);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}
