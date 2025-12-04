@@ -4,6 +4,7 @@ import { CardBalance } from "./card-balance/card-balance";
 import { Card } from "@/components/ui/card/card";
 import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { CardPieChart } from "./card-pie-chart/card-pie-chart";
+import { CardSpendingCategory } from "./card-spending-category/card-spending-category";
 
 export const DashLayout = () => {
   return (
@@ -61,7 +62,7 @@ export const DashLayout = () => {
               />
             </div>
 
-            <div></div>
+            <CardSpendingCategory />
           </div>
         </div>
       </div>
