@@ -5,6 +5,8 @@ import Link from "next/link";
 import s from "./_transactions.module.scss";
 
 export const Transactions = () => {
+  const filteredList = transactionsList.slice(0, 11);
+
   return (
     <div className={s.transactions__wrapper}>
       <div className={s.transactions__header}>
@@ -16,7 +18,7 @@ export const Transactions = () => {
       </div>
 
       <div className={s.transactions__list}>
-        {transactionsList.map((transaction) => (
+        {filteredList.map((transaction) => (
           <CardTransaction key={transaction.id} transaction={transaction} />
         ))}
       </div>

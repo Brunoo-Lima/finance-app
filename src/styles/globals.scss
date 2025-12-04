@@ -5,3 +5,15 @@ body {
   color: var(--color-white);
   background-color: var(--color-black);
 }
+
+.recharts-surface:focus {
+  outline: none;
+}
+
+.recharts-layer .recharts-pie-sector {
+  outline: none;
+}
+
+.recharts-layer .recharts-active-shape {
+  outline: none;
+}

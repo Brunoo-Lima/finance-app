@@ -1,0 +1,51 @@
+.card__pie__chart_container {
+  border-radius: 1.25rem;
+  border: 1px solid var(--second-color);
+  padding: 1.5rem 2rem;
+
+  min-height: 463px;
+  height: max-content;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  .legend {
+    margin: 0 auto;
+    max-width: 300px;
+    width: 100%;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+
+        p {
+          font-size: 0.875rem;
+          font-weight: 400;
+          color: var(--color-gray);
+
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .dot {
+            height: 16px;
+            width: 16px;
+            border-radius: 4px;
+
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

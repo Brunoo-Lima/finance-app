@@ -3,6 +3,7 @@ import s from "./_dash.module.scss";
 import { CardBalance } from "./card-balance/card-balance";
 import { Card } from "@/components/ui/card/card";
 import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import { CardPieChart } from "./card-pie-chart/card-pie-chart";
 
 export const DashLayout = () => {
   return (
@@ -11,14 +12,14 @@ export const DashLayout = () => {
         <CardBalance />
 
         <div className={s.cards}>
-          <Card
+          {/* <Card
             text="Investido"
             amount={3500}
             backgroundCustom="#ffffff1a"
             icon={<PiggyBankIcon size={16} color="#ffffff" />}
             backgroundIcon="#FFFFFF14"
-          />
-          <Card
+          /> */}
+          {/* <Card
             text="Receita"
             amount={8150}
             icon={<TrendingUpIcon size={16} color="#39BE00" />}
@@ -29,7 +30,39 @@ export const DashLayout = () => {
             amount={2950}
             icon={<TrendingDownIcon size={16} color="#E93030" />}
             backgroundIcon="#F6352E14"
-          />
+          /> */}
+        </div>
+
+        <div className={s.charts__container}>
+          <div className={s.cards__wrapper}>
+            <Card
+              text="Investido"
+              amount={3500}
+              backgroundCustom="#ffffff1a"
+              icon={<PiggyBankIcon size={16} color="#ffffff" />}
+              backgroundIcon="#FFFFFF14"
+            />
+            <CardPieChart />
+          </div>
+
+          <div className={s.cards__wrapper}>
+            <div className={s.cards}>
+              <Card
+                text="Receita"
+                amount={8150}
+                icon={<TrendingUpIcon size={16} color="#39BE00" />}
+                backgroundIcon="#39BE0014"
+              />
+              <Card
+                text="Despesas"
+                amount={2950}
+                icon={<TrendingDownIcon size={16} color="#E93030" />}
+                backgroundIcon="#F6352E14"
+              />
+            </div>
+
+            <div></div>
+          </div>
         </div>
       </div>
 

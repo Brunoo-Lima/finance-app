@@ -10,9 +10,21 @@
     flex-direction: column;
     gap: 1.5rem;
 
-    .cards {
+    .cards__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    .charts__container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 2fr;
       gap: 1.5rem;
     }
   }
