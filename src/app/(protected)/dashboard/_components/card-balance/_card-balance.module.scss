@@ -9,6 +9,11 @@
   align-items: flex-end;
   gap: 1rem;
 
+  @media (max-width: 568px) {
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
   .balance__wrapper {
     display: flex;
     flex-direction: column;
@@ -72,6 +77,10 @@
 
     svg {
       flex-shrink: 0;
+    }
+
+    @media (max-width: 568px) {
+      margin-top: auto;
     }
   }
 }

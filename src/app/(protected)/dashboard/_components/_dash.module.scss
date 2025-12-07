@@ -1,24 +1,49 @@
 .dash__wrapper {
   display: grid;
-  grid-template-columns: 1fr 450px;
+  grid-template-columns: 1fr minmax(350px, 450px);
   gap: 1.25rem;
 
   margin-top: 2rem;
+
+  @media (max-width: 1068px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 568px) {
+    margin-top: 0;
+    gap: 1rem;
+  }
 
   .management {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 
+    @media (max-width: 568px) {
+      gap: 1rem;
+    }
+
     .cards__wrapper {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
 
+      @media (max-width: 568px) {
+        gap: 1rem;
+      }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+
+        @media (max-width: 868px) {
+          grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 568px) {
+          gap: 1rem;
+        }
       }
     }
 
@@ -26,6 +51,14 @@
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 1.5rem;
+
+      @media (max-width: 668px) {
+        grid-template-columns: 1fr;
+      }
+
+      @media (max-width: 568px) {
+        gap: 1rem;
+      }
     }
   }
 }

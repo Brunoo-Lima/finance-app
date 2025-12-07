@@ -6,11 +6,22 @@
   min-height: 463px;
   height: max-content;
 
+  min-width: 350px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 868px) {
+    flex: 1;
+  }
+
+  @media (max-width: 568px) {
+    padding: 1rem;
+    gap: 1rem;
+  }
 
   .legend {
     margin: 0 auto;
@@ -40,7 +51,7 @@
           .dot {
             height: 16px;
             width: 16px;
-            border-radius: 4px;
+            border-radius: 0.25rem;
 
             display: inline-block;
           }

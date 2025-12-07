@@ -18,7 +18,7 @@ export default function PieChartSimple({
 }: PieChartSimpleProps) {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <PieChart>
+      <PieChart style={{ zIndex: "-1" }}>
         <Pie
           data={data}
           cx="50%"

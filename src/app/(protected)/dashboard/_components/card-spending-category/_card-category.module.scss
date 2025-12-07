@@ -10,6 +10,12 @@
   flex: 1;
   min-height: 500px;
 
+  @media (max-width: 568px) {
+    padding: 1rem;
+    height: max-content;
+    min-height: max-content;
+  }
+
   .sub__header {
     border-bottom: 1px solid var(--second-color);
     padding-bottom: 1.5rem;

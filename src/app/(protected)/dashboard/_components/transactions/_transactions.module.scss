@@ -6,6 +6,10 @@
 
   height: max-content;
 
+  @media (max-width: 568px) {
+    padding: 1rem;
+  }
+
   .transactions__header {
     display: flex;
     justify-content: space-between;

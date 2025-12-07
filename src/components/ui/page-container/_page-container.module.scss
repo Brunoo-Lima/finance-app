@@ -5,6 +5,10 @@
   flex-direction: column;
   gap: 1.5rem;
 
+  @media (min-width: 1366px) {
+    padding: 1.5rem 1rem;
+  }
+
   .page__header {
     display: flex;
     justify-content: space-between;

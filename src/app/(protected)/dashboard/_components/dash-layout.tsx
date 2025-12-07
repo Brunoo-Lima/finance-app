@@ -12,28 +12,6 @@ export const DashLayout = () => {
       <div className={s.management}>
         <CardBalance />
 
-        <div className={s.cards}>
-          {/* <Card
-            text="Investido"
-            amount={3500}
-            backgroundCustom="#ffffff1a"
-            icon={<PiggyBankIcon size={16} color="#ffffff" />}
-            backgroundIcon="#FFFFFF14"
-          /> */}
-          {/* <Card
-            text="Receita"
-            amount={8150}
-            icon={<TrendingUpIcon size={16} color="#39BE00" />}
-            backgroundIcon="#39BE0014"
-          />
-          <Card
-            text="Despesas"
-            amount={2950}
-            icon={<TrendingDownIcon size={16} color="#E93030" />}
-            backgroundIcon="#F6352E14"
-          /> */}
-        </div>
-
         <div className={s.charts__container}>
           <div className={s.cards__wrapper}>
             <Card
