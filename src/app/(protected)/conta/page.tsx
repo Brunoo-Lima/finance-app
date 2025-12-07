@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/ui/page-container/page-container";
+import { TitlePage } from "@/components/ui/title-page/title-page";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function AccountPage() {
   return (
     <PageContainer>
-      <h1>Conta</h1>
+      <TitlePage>Conta</TitlePage>
     </PageContainer>
   );
 }
