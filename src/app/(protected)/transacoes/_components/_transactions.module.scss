@@ -1,5 +1,29 @@
 .transactions__wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+
+  .header__transactions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .button__add {
+      font-size: 0.875rem;
+      color: var(--color-white);
+
+      border-radius: 6.25rem;
+      padding: 0.5rem 1rem;
+      height: max-content;
+
+      margin-left: auto;
+
+      svg {
+        color: var(--color-white);
+        flex-shrink: 0;
+        transform: rotate(-90deg);
+      }
+    }
+  }
 }
