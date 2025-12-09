@@ -12,7 +12,6 @@ export const transactionsList = [
     payment: TransactionPayment.CREDIT_CARD,
     amount: 350,
     type: TransactionType.EXPENSE,
-    status: "pago",
     created_at: "02/11/2025",
   },
   {
@@ -22,7 +21,6 @@ export const transactionsList = [
     payment: TransactionPayment.PIX,
     amount: 1800,
     type: TransactionType.EXPENSE,
-    status: "pago",
     created_at: "05/11/2025",
   },
   {
@@ -42,7 +40,6 @@ export const transactionsList = [
     payment: TransactionPayment.DEBIT_CARD,
     amount: 260,
     type: TransactionType.EXPENSE,
-    status: "pago",
     created_at: "12/11/2025",
   },
   {
@@ -52,7 +49,6 @@ export const transactionsList = [
     payment: TransactionPayment.PIX,
     amount: 4500,
     type: TransactionType.DEPOSIT,
-    status: "pago",
     created_at: "01/11/2025",
   },
   {
@@ -62,7 +58,6 @@ export const transactionsList = [
     payment: TransactionPayment.BANK_TRANSFER,
     amount: 120,
     type: TransactionType.DEPOSIT,
-    status: "atrasado",
     created_at: "08/11/2025",
   },
   {
@@ -72,7 +67,6 @@ export const transactionsList = [
     payment: TransactionPayment.BANK_TRANSFER,
     amount: 300,
     type: TransactionType.DEPOSIT,
-    status: "pago",
     created_at: "14/11/2025",
   },
   {
@@ -82,7 +76,6 @@ export const transactionsList = [
     payment: TransactionPayment.CREDIT_CARD,
     amount: 34.9,
     type: TransactionType.EXPENSE,
-    status: "pago",
     created_at: "03/11/2025",
   },
   {
@@ -92,7 +85,6 @@ export const transactionsList = [
     payment: TransactionPayment.CASH,
     amount: 250,
     type: TransactionType.EXPENSE,
-    status: "pendente",
     created_at: "16/11/2025",
   },
   {
@@ -102,7 +94,6 @@ export const transactionsList = [
     payment: TransactionPayment.DEBIT_CARD,
     amount: 499,
     type: TransactionType.INVESTMENT,
-    status: "pago",
     created_at: "11/11/2025",
   },
   {
@@ -111,8 +102,7 @@ export const transactionsList = [
     category: Category.EDUCATION,
     payment: TransactionPayment.PIX,
     amount: 180,
-    type: TransactionType.INVESTMENT,
-    status: "pago",
+    type: TransactionType.DEPOSIT,
     created_at: "13/11/2025",
   },
   {
@@ -122,7 +112,6 @@ export const transactionsList = [
     payment: TransactionPayment.CREDIT_CARD,
     amount: 99,
     type: TransactionType.EXPENSE,
-    status: "pago",
     created_at: "09/11/2025",
   },
 ];

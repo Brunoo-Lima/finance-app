@@ -1,72 +1,53 @@
-import { ITransaction } from "@/@types/ITransaction";
-import { PixIcon } from "@/components/icons/pix-icon";
+import { ITransaction, TransactionType } from "@/@types/ITransaction";
 import { formatCurrencyBR } from "@/utils/format-currency";
 import { formatDateTransaction } from "@/utils/format-date";
-import { BarcodeIcon, CreditCardIcon } from "lucide-react";
 import s from "./_card-transaction.module.scss";
+import { TransactionIcon } from "../../../_constants";
 
 interface ICardTransactionProps {
   transaction: ITransaction;
 }
 
 export const CardTransaction = ({ transaction }: ICardTransactionProps) => {
-  const getIcons = () => {
-    switch (transaction.payment) {
-      case "cartao":
-        return (
-          <CreditCardIcon
-            size={20}
-            color={
-              transaction.type === "entrada"
-                ? "oklch(0.648 0.2 131.684)"
-                : transaction.type === "saida"
-                  ? "#E93030"
-                  : "#B8B8B8"
-            }
-          />
-        );
-      case "pix":
-        return (
-          <PixIcon
-            color={
-              transaction.type === "entrada"
-                ? "oklch(0.648 0.2 131.684)"
-                : transaction.type === "saida"
-                  ? "#E93030"
-                  : "#B8B8B8"
-            }
-          />
-        );
+  const getAmountPrefix = (transaction: ITransaction) => {
+    switch (transaction.type) {
+      case TransactionType.DEPOSIT:
+        return "+";
+      case TransactionType.EXPENSE:
+      case TransactionType.INVESTMENT:
+        return "-";
       default:
-        return (
-          <BarcodeIcon
-            size={20}
-            color={
-              transaction.type === "entrada"
-                ? "oklch(0.648 0.2 131.684)"
-                : transaction.type === "saida"
-                  ? "#E93030"
-                  : "#B8B8B8"
-            }
-          />
-        );
+        return "";
     }
   };
 
   return (
     <div className={s.card__container}>
       <div className={s.infos}>
-        <div className={s.badge}>{getIcons()}</div>
+        <div className={s.badge}>
+          <TransactionIcon
+            payment={transaction.payment}
+            type={transaction.type}
+          />
+        </div>
 
         <div className={s.info__data}>
-          <p>{transaction.description}</p>
+          <p>{transaction.name}</p>
           <span>{formatDateTransaction(transaction.created_at)}</span>
         </div>
       </div>
 
-      <p className={transaction.type === "entrada" ? s.entry : s.cost}>
-        {transaction.type === "entrada" ? "+" : "-"}
-        {formatCurrencyBR(transaction.value)}
+      <p
+        className={
+          transaction.type === TransactionType.DEPOSIT
+            ? s.entry
+            : transaction.type === TransactionType.EXPENSE
+              ? s.expense
+              : s.investment
+        }
+      >
+        {getAmountPrefix(transaction)}
+        {formatCurrencyBR(transaction.amount)}
       </p>
     </div>
   );

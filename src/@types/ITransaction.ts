@@ -33,6 +33,5 @@ export interface ITransaction {
   payment: TransactionPayment;
   amount: number;
   type: TransactionType;
-  status: string;
   created_at: string;
 }
