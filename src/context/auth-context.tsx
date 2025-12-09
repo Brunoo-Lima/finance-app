@@ -32,7 +32,7 @@ interface IAuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<IUser | null>(null);
   const router = useRouter();

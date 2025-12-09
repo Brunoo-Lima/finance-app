@@ -1,9 +1,38 @@
+export enum TransactionType {
+  EXPENSE,
+  INVESTMENT,
+  DEPOSIT,
+}
+
+export enum Category {
+  TRANSPORTATION,
+  ENTERTAINMENT,
+  EDUCATION,
+  HOUSING,
+  UTILITY,
+  HEALTH,
+  SALARY,
+  FOOD,
+  OTHER,
+}
+
+export enum TransactionPayment {
+  CREDIT_CARD,
+  DEBIT_CARD,
+  BANK_TRANSFER,
+  BANK_SLIP,
+  CASH,
+  PIX,
+  OTHER,
+}
+
 export interface ITransaction {
   id: number;
-  description: string;
-  payment: string;
-  value: number;
-  type: string;
+  name: string;
+  category: Category;
+  payment: TransactionPayment;
+  amount: number;
+  type: TransactionType;
   status: string;
   created_at: string;
 }

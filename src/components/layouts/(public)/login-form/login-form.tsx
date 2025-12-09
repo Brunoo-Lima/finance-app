@@ -31,8 +31,6 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (data: ILoginFormSchema) => {
-    console.log(data);
-
     loginService(data.email, data.password, data.remember ?? false);
   };
 

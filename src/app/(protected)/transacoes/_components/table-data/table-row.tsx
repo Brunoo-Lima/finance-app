@@ -1,8 +1,13 @@
-import { ITransaction } from "@/@types/ITransaction";
+import { ITransaction, TransactionType } from "@/@types/ITransaction";
 import { formatCurrencyBR } from "@/utils/format-currency";
 import { PencilIcon, Trash2Icon } from "lucide-react";
 
 import s from "./_table.module.scss";
+import {
+  getCategoryLabel,
+  getPaymentLabel,
+  getTransactionType,
+} from "../../_constants";
 
 interface ITableRowProps {
   item: ITransaction;
@@ -11,11 +16,18 @@ interface ITableRowProps {
 export const TableRow = ({ item }: ITableRowProps) => {
   return (
     <tr>
-      <td>{item.description}</td>
-      <td>{item.type}</td>
-      <td>{item.status}</td>
-      <td>{item.payment}</td>
-      <td>{formatCurrencyBR(item.value)}</td>
+      <td>{item.name}</td>
+      <td>
+        <p
+          className={`${s.payment__status} ${s[TransactionType[item.type].toLowerCase()]}`}
+        >
+          <span className={s.dot} />
+          {getTransactionType(item.type)}
+        </p>
+      </td>
+      <td>{getCategoryLabel(item.category)}</td>
+      <td>{getPaymentLabel(item.payment)}</td>
+      <td>{formatCurrencyBR(item.amount)}</td>
       <td>{item.created_at}</td>
       <td>
         <div className={s.td__actions}>
