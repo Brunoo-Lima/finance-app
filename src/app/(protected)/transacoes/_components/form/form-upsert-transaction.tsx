@@ -10,6 +10,7 @@ import { ModalBackground } from "@/components/ui/modal-background";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button/button";
 import { Dropdown } from "@/components/ui/dropdown/dropdown";
+import { DateInput } from "@/components/ui/date-picker/date-picker";
 
 interface IFormUpsertTransactionProps {
   onClose: () => void;
@@ -112,9 +113,11 @@ export const FormUpsertTransaction = ({
 
             {/* <Controller
               control={control}
-              name="payment"
-              render={({ field }) => <CustomDatePicker {...field} />}
+              name="date"
+              render={({ field }) => <DateInput control={} {...field} />}
             /> */}
+
+            <DateInput control={control} name="date" placeholder="Selecione" />
           </div>
 
           <div className={s.footer__form}>

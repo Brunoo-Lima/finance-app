@@ -4,6 +4,8 @@
     flex-direction: column;
     gap: 1rem;
 
+    min-height: calc(90vh - 2rem);
+
     .form__inputs {
       flex: 1;
 
@@ -19,6 +21,10 @@
       gap: 1rem;
 
       margin-top: auto;
+
+      button {
+        width: 100%;
+      }
     }
   }
 }

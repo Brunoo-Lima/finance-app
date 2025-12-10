@@ -1,6 +1,5 @@
 import { Sidebar } from "@/components/sidebar/sidebar";
 import s from "./_layout.module.scss";
-import { Header } from "@/components/header/header";
 import { ProviderMaster } from "@/components/providers/provider-master";
 
 export default function ProtectedLayout({
@@ -10,8 +9,6 @@ export default function ProtectedLayout({
 }>) {
   return (
     <ProviderMaster>
-      <Header />
-
       <main className={s.main__container}>
         <Sidebar />
 
