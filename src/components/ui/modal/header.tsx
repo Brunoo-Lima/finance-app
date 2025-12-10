@@ -23,7 +23,7 @@ export const Header = ({
         {actions}
 
         <button type="button" className={s.button__close} onClick={onClose}>
-          <XIcon size={24} />
+          <XIcon size={24} color="#ffffff" />
         </button>
       </div>
     </div>

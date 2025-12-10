@@ -1,0 +1,147 @@
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.label {
+  display: block;
+
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+.dropdown__wrapper {
+  position: relative;
+}
+
+.trigger {
+  width: 100%;
+  padding: 0.5rem;
+  text-align: left;
+  background-color: var(--color-black-80);
+  border: 1px solid var(--second-color);
+  border-radius: 0.5rem;
+
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-white);
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  .trigger__text {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-white);
+  }
+
+  .trigger__placeholder {
+    color: var(--color-gray);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5rem;
+
+    transition: transform 0.2s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background-color: var(--color-black-80);
+  border: 1px solid var(--second-color);
+  border-radius: 0.5rem;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+
+  overflow: hidden;
+
+  .content__inner {
+    padding: 0.5rem;
+
+    max-height: 200px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color-10);
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: var(--color-white-80);
+      border-radius: 2px;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+
+      .item {
+        width: 100%;
+        text-align: left;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.375rem;
+        border: none;
+        background-color: transparent;
+
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--color-white);
+
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: var(--color-black);
+        }
+      }
+    }
+
+    .empty__message {
+      text-align: center;
+      padding: 1.5rem 0;
+
+      color: var(--color-gray);
+
+      font-size: 0.875rem;
+      font-weight: 400;
+    }
+  }
+}

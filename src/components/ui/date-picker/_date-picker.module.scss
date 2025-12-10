@@ -1,0 +1,210 @@
+// components/ui/date-picker/date-picker.module.scss
+.container {
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+
+  .required {
+    color: #ef4444;
+    margin-left: 0.25rem;
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  font-size: 0.875rem;
+  color: #111827;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    border-color: #9ca3af;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  &:disabled {
+    background-color: #f9fafb;
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &.error {
+    border-color: #ef4444;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+.calendarButton {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  color: #6b7280;
+  transition: color 0.2s;
+
+  &:hover:not(:disabled) {
+    color: #374151;
+  }
+
+  &:disabled {
+    color: #d1d5db;
+    cursor: not-allowed;
+  }
+}
+
+.calendarDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  margin-top: 0.5rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.2s ease;
+
+  :global {
+    .rdp {
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .rdp-months {
+      justify-content: center;
+    }
+
+    .rdp-month {
+      width: 100%;
+    }
+
+    .rdp-caption_label {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .rdp-nav_button {
+      background: #f3f4f6;
+      border-radius: 4px;
+
+      &:hover {
+        background: #e5e7eb;
+      }
+    }
+  }
+}
+
+.day {
+  width: 36px;
+  height: 36px;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &:hover:not(.rdp-day_selected):not(.rdp-day_disabled) {
+    background-color: #f3f4f6;
+  }
+}
+
+.daySelected {
+  background-color: #3b82f6 !important;
+  color: white !important;
+
+  &:hover {
+    background-color: #2563eb !important;
+  }
+}
+
+.dayToday {
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 0;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 0.75rem;
+}
+
+.todayButton {
+  padding: 0.5rem 1rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #2563eb;
+  }
+}
+
+.clearButton {
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #e5e7eb;
+    color: #374151;
+  }
+}
+
+.errorMessage {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
