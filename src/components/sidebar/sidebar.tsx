@@ -5,7 +5,7 @@ import {
   ArrowLeftRightIcon,
   CircleUserRoundIcon,
   LayoutDashboardIcon,
-  LogOut,
+  LogOutIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -35,6 +35,10 @@ export const Sidebar = () => {
 
   return (
     <aside className={s.sidebar}>
+      <div className={s.sidebar__header}>
+        <p>Finance</p>
+      </div>
+
       <nav className={s.sidebar__items}>
         {items.map((item, index) => (
           <Link
@@ -47,6 +51,17 @@ export const Sidebar = () => {
           </Link>
         ))}
       </nav>
+
+      <div className={s.sidebar__logout}>
+        <button
+          type="button"
+          className={s.button__logout}
+          onClick={handleSignOut}
+        >
+          <LogOutIcon size={20} />
+          Sair
+        </button>
+      </div>
     </aside>
   );
 };
