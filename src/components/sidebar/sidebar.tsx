@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/hooks/use-auth";
 import s from "./_sidebar.module.scss";
 import {
   ArrowLeftRightIcon,
@@ -30,8 +31,7 @@ const items = [
 
 export const Sidebar = () => {
   const pathname = usePathname();
-
-  const handleSignOut = async () => {};
+  const { logout } = useAuth();
 
   return (
     <aside className={s.sidebar}>
@@ -53,11 +53,7 @@ export const Sidebar = () => {
       </nav>
 
       <div className={s.sidebar__logout}>
-        <button
-          type="button"
-          className={s.button__logout}
-          onClick={handleSignOut}
-        >
+        <button type="button" className={s.button__logout} onClick={logout}>
           <LogOutIcon size={20} />
           Sair
         </button>

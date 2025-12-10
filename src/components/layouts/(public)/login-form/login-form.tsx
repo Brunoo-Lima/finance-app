@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button/button";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox/checkbox";
 import { useAuth } from "@/hooks/use-auth";
+import { InputPassword } from "@/components/ui/input/input-password/input-password";
+import Loading from "@/components/ui/loading/loading";
 
 export const LoginForm = () => {
   const { loginService } = useAuth();
@@ -30,8 +32,14 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data: ILoginFormSchema) => {
-    loginService(data.email, data.password, data.remember ?? false);
+  const onSubmit = async (data: ILoginFormSchema) => {
+    console.log(data);
+
+    try {
+      await loginService(data.email, data.password, data.remember || false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -42,7 +50,7 @@ export const LoginForm = () => {
         {...register("email")}
         error={errors.email}
       />
-      <Input
+      <InputPassword
         label="Senha"
         placeholder="Senha"
         {...register("password")}
@@ -64,7 +72,7 @@ export const LoginForm = () => {
       </div>
 
       <Button type="submit" disabled={isSubmitting} className={s.button__send}>
-        Entrar
+        {isSubmitting ? <Loading size={20} /> : "Entrar"}
       </Button>
 
       <p className={s.register}>

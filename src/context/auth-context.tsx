@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     setError(null);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 700));
 
       // if (email !== 'admin' || password !== 'admin') {
       //   throw new Error('Credenciais inválidas');
