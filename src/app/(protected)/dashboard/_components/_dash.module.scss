@@ -3,9 +3,7 @@
   grid-template-columns: 1fr minmax(350px, 450px);
   gap: 1.25rem;
 
-  margin-top: 2rem;
-
-  @media (max-width: 1068px) {
+  @media (max-width: 1330px) {
     grid-template-columns: 1fr;
   }
 
@@ -37,7 +35,7 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
 
-        @media (max-width: 868px) {
+        @media (max-width: 968px) {
           grid-template-columns: 1fr;
         }
 
@@ -52,7 +50,7 @@
       grid-template-columns: 1fr 2fr;
       gap: 1.5rem;
 
-      @media (max-width: 668px) {
+      @media (max-width: 868px) {
         grid-template-columns: 1fr;
       }
 

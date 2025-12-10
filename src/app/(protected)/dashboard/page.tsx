@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { DashLayout } from "./_components/dash-layout";
-import {
-  PageContainer,
-  PageHeader,
-} from "@/components/ui/page-container/page-container";
-import { TitlePage } from "@/components/ui/title-page/title-page";
+import { PageContainer } from "@/components/ui/page-container/page-container";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -14,10 +10,6 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <PageContainer>
-      <PageHeader>
-        <TitlePage>Dashboard</TitlePage>
-      </PageHeader>
-
       <DashLayout />
     </PageContainer>
   );

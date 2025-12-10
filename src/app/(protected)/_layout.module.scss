@@ -4,5 +4,9 @@
   .content {
     margin-left: 180px;
     flex-grow: 1;
+
+    @media (max-width: 968px) {
+      margin-left: 150px;
+    }
   }
 }

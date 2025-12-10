@@ -28,15 +28,15 @@ const PAYMENT_ICON_SIZES: Partial<Record<TransactionPayment, number>> = {
 };
 
 const TRANSACTION_COLORS = {
-  [TransactionType.DEPOSIT]: "oklch(0.648 0.2 131.684)",
-  [TransactionType.EXPENSE]: "#E93030",
-  [TransactionType.INVESTMENT]: "#B8B8B8",
+  [TransactionType.DEPOSIT]: "#60c830",
+  [TransactionType.EXPENSE]: "#e93030",
+  [TransactionType.INVESTMENT]: "#d5d5d5",
 } as const;
 
 export const TransactionIcon = ({ payment, type }: TransactionIconProps) => {
   const IconComponent = PAYMENT_ICONS[payment] || BarcodeIcon;
   const size = PAYMENT_ICON_SIZES[payment] || 20;
-  const color = TRANSACTION_COLORS[type] || "#B8B8B8";
+  const color = TRANSACTION_COLORS[type] || "#d5d5d5";
 
   return <IconComponent size={size} color={color} />;
 };
