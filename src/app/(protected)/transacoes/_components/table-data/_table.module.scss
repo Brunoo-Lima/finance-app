@@ -1,10 +1,7 @@
 .table__wrapper {
   max-width: 100%;
   -webkit-overflow-scrolling: touch;
-
-  @media (max-width: 1268px) {
-    overflow-x: auto;
-  }
+  overflow-x: auto;
 
   .table__data {
     width: 100%;
@@ -13,7 +10,7 @@
     border-radius: 1rem;
     overflow: visible;
 
-    @media (max-width: 1268px) {
+    @media (max-width: 968px) {
       width: 1000px;
     }
 

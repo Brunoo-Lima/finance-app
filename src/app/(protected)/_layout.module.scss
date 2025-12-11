@@ -4,6 +4,7 @@
   .content {
     padding-left: 11.25rem;
     flex-grow: 1;
+    overflow: hidden;
 
     @media (max-width: 968px) {
       padding-left: 9.375rem;
