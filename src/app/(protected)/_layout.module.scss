@@ -2,11 +2,15 @@
   display: flex;
 
   .content {
-    margin-left: 180px;
+    padding-left: 11.25rem;
     flex-grow: 1;
 
     @media (max-width: 968px) {
-      margin-left: 150px;
+      padding-left: 9.375rem;
+    }
+
+    @media (max-width: 568px) {
+      padding-left: 3.75rem;
     }
   }
 }

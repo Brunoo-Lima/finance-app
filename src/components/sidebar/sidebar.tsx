@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const items = [
   {
@@ -32,30 +33,46 @@ const items = [
 export const Sidebar = () => {
   const pathname = usePathname();
   const { logout } = useAuth();
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
     <aside className={s.sidebar}>
       <div className={s.sidebar__header}>
-        <p>Finance</p>
+        <p className={s.logo}>Finance</p>
       </div>
 
       <nav className={s.sidebar__items}>
         {items.map((item, index) => (
-          <Link
-            key={index}
-            href={item.url}
-            className={`${s.nav__item} ${pathname.includes(item.url) ? s.active : ""}`}
-          >
-            {<item.icon />}
-            {item.title}
-          </Link>
+          <div key={index} className={s.nav__item_wrapper}>
+            <Link
+              href={item.url}
+              className={`${s.nav__item} ${pathname.includes(item.url) ? s.active : ""}`}
+              onMouseEnter={() => setHoveredItem(item.title)}
+              onMouseLeave={() => setHoveredItem(null)}
+            >
+              {<item.icon />}
+              <span className={s.nav__text}>{item.title}</span>
+            </Link>
+
+            {hoveredItem === item.title && (
+              <div className={s.tooltip}>{item.title}</div>
+            )}
+          </div>
         ))}
       </nav>
 
       <div className={s.sidebar__logout}>
-        <button type="button" className={s.button__logout} onClick={logout}>
+        <button
+          type="button"
+          className={s.button__logout}
+          onClick={logout}
+          onMouseEnter={() => setHoveredItem("Sair")}
+          onMouseLeave={() => setHoveredItem(null)}
+        >
           <LogOutIcon size={20} />
-          Sair
+          <span className={s.nav__text}>Sair</span>
+
+          {hoveredItem === "Sair" && <div className={s.tooltip}>Sair</div>}
         </button>
       </div>
     </aside>

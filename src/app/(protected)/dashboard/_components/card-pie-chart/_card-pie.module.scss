@@ -14,13 +14,17 @@
   align-items: center;
   gap: 2rem;
 
-  @media (max-width: 868px) {
+  @media (max-width: 968px) {
     flex: 1;
   }
 
   @media (max-width: 568px) {
     padding: 1rem;
     gap: 1rem;
+  }
+
+  @media (max-width: 468px) {
+    min-width: 100%;
   }
 
   .legend {

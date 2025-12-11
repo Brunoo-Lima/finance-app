@@ -18,9 +18,44 @@
   border-top-right-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
 
+  transition: width 0.3s ease;
+
   @media (max-width: 968px) {
     max-width: 150px;
     width: 150px;
+  }
+
+  @media (max-width: 568px) {
+    max-width: 60px;
+    width: 60px;
+    padding: 1rem 0.5rem;
+
+    .logo {
+      display: none;
+    }
+
+    .nav__text {
+      display: none;
+    }
+
+    .sidebar__header {
+      padding-left: 0;
+      text-align: center;
+    }
+
+    .sidebar__items,
+    .sidebar__logout {
+      align-items: center;
+    }
+
+    .nav__item,
+    .button__logout {
+      justify-content: center;
+      padding: 0.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
   }
 
   .sidebar__header {
@@ -36,6 +71,10 @@
     gap: 1rem;
     margin-top: 1rem;
     flex: 1;
+
+    .nav__item_wrapper {
+      position: relative;
+    }
 
     .nav__item {
       display: flex;
@@ -61,7 +100,6 @@
       svg {
         width: 20px;
         height: 20px;
-
         flex-shrink: 0;
       }
     }
@@ -73,7 +111,6 @@
 
     .button__logout {
       width: 100%;
-
       background-color: transparent;
       border: none;
       border-radius: 1.25rem;
@@ -88,6 +125,7 @@
       color: var(--color-white);
 
       transition: all 0.3s ease;
+      cursor: pointer;
 
       &:hover {
         background-color: var(--second-color);
@@ -96,9 +134,38 @@
       svg {
         width: 20px;
         height: 20px;
-
         flex-shrink: 0;
       }
+    }
+  }
+
+  .tooltip {
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+
+    background-color: var(--color-black-200);
+    color: var(--color-white);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 1000;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent var(--color-black-200) transparent transparent;
+    }
+
+    @media (min-width: 569px) {
+      display: none;
     }
   }
 }

@@ -1,4 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import s from "./_pie-chart.module.scss";
 
 interface IData {
   name: string;
@@ -17,7 +18,11 @@ export default function PieChartSimple({
   data,
 }: PieChartSimpleProps) {
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer
+      width="100%"
+      height={350}
+      className={s.chart__pie__responsive}
+    >
       <PieChart style={{ zIndex: "-1" }}>
         <Pie
           data={data}
