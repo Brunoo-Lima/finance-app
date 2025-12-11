@@ -31,7 +31,7 @@ export const TransactionsProvider = ({ children }: ITransactionsProvider) => {
     if (!searchTerm) return transactions;
 
     return transactions.filter((item) =>
-      item.description.toLowerCase().includes(searchTerm.toLowerCase()),
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [transactions, searchTerm]);
 
