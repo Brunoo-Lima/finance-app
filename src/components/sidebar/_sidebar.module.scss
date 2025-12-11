@@ -30,6 +30,8 @@
     width: 60px;
     padding: 1rem 0.5rem;
 
+    min-height: 100dvh;
+
     .logo {
       display: none;
     }
@@ -120,8 +122,6 @@
       align-items: center;
       gap: 0.5rem;
 
-      font-size: 0.875rem;
-      font-weight: 400;
       color: var(--color-white);
 
       transition: all 0.3s ease;
@@ -129,6 +129,21 @@
 
       &:hover {
         background-color: var(--second-color);
+      }
+
+      @media (max-width: 568px) {
+        gap: 0;
+        border-radius: 50%;
+        width: unset;
+      }
+
+      span {
+        font-size: 0.875rem;
+        font-weight: 400;
+
+        @media (max-width: 568px) {
+          display: none;
+        }
       }
 
       svg {
@@ -145,24 +160,14 @@
     top: 50%;
     transform: translateY(-50%);
 
-    background-color: var(--color-black-200);
+    background-color: var(--color-black-100);
+    border: 1px solid var(--second-color);
     color: var(--color-white);
     padding: 0.5rem 0.75rem;
-    border-radius: 0.375rem;
+    border-radius: 0.75rem;
     font-size: 0.75rem;
     white-space: nowrap;
     z-index: 1000;
-
-    &::before {
-      content: '';
-      position: absolute;
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      border-width: 5px;
-      border-style: solid;
-      border-color: transparent var(--color-black-200) transparent transparent;
-    }
 
     @media (min-width: 569px) {
       display: none;

@@ -62,17 +62,9 @@ export const Sidebar = () => {
       </nav>
 
       <div className={s.sidebar__logout}>
-        <button
-          type="button"
-          className={s.button__logout}
-          onClick={logout}
-          onMouseEnter={() => setHoveredItem("Sair")}
-          onMouseLeave={() => setHoveredItem(null)}
-        >
+        <button type="button" className={s.button__logout} onClick={logout}>
           <LogOutIcon size={20} />
           <span className={s.nav__text}>Sair</span>
-
-          {hoveredItem === "Sair" && <div className={s.tooltip}>Sair</div>}
         </button>
       </div>
     </aside>
