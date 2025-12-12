@@ -1,4 +1,10 @@
 import { Controller, useForm } from "react-hook-form";
+import { useTransactions } from "@/hooks/use-transactions";
+import {
+  Category,
+  TransactionPayment,
+  TransactionType,
+} from "@/@types/ITransaction";
 import s from "./_form.module.scss";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -37,8 +43,26 @@ export const FormUpsertTransaction = ({
     mode: "onChange",
   });
 
+  const { addTransaction } = useTransactions();
+
   const onSubmit = (data: ITransactionFormSchema) => {
-    console.log(data);
+    // Map string values to enums
+    const transaction: Omit<
+      import("@/@types/ITransaction").ITransaction,
+      "id"
+    > = {
+      name: data.name,
+      amount: parseFloat(data.amount),
+      type: TransactionType[
+        data.transactionType as keyof typeof TransactionType
+      ],
+      payment:
+        TransactionPayment[data.payment as keyof typeof TransactionPayment],
+      category: Category.OTHER, // ou adicione um campo de categoria no form
+      created_at: data.date,
+    };
+    addTransaction(transaction);
+    onClose();
   };
 
   return (
