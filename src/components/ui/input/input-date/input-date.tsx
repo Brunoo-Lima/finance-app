@@ -4,7 +4,7 @@ import { FieldError } from "react-hook-form";
 
 interface InputDateProps {
   label: string;
-  value: string;
+  value?: string;
   onChange: (value: string) => void;
   onBlur?: () => void;
   error?: FieldError;
