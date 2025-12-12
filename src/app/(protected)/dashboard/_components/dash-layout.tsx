@@ -17,7 +17,7 @@ export const DashLayout = () => {
             <Card
               text="Investido"
               amount={3500}
-              backgroundCustom="#ffffff1a"
+              backgroundCustom="#171717"
               icon={<PiggyBankIcon size={16} color="#ffffff" />}
               backgroundIcon="#FFFFFF14"
             />

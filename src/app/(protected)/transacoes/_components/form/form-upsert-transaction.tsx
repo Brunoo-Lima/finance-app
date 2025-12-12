@@ -10,7 +10,8 @@ import { ModalBackground } from "@/components/ui/modal-background";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button/button";
 import { Dropdown } from "@/components/ui/dropdown/dropdown";
-import { DateInput } from "@/components/ui/date-picker/date-picker";
+
+import { InputDate } from "@/components/ui/input/input-date/input-date";
 
 interface IFormUpsertTransactionProps {
   onClose: () => void;
@@ -26,6 +27,14 @@ export const FormUpsertTransaction = ({
     formState: { errors },
   } = useForm<ITransactionFormSchema>({
     resolver: zodResolver(transactionFormSchema),
+    defaultValues: {
+      name: "",
+      amount: "",
+      transactionType: "DEPOSIT",
+      payment: "CASH",
+      date: "",
+    },
+    mode: "onChange",
   });
 
   const onSubmit = (data: ITransactionFormSchema) => {
@@ -43,11 +52,13 @@ export const FormUpsertTransaction = ({
               label="Título"
               placeholder="Digite o titulo"
               {...register("name")}
+              error={errors.name}
             />
             <Input
               label="Valor"
               placeholder="Digite o valor"
               {...register("amount")}
+              error={errors.amount}
             />
 
             <Controller
@@ -71,6 +82,8 @@ export const FormUpsertTransaction = ({
                       value: "INVESTMENT",
                     },
                   ]}
+                  value={field.value}
+                  onChange={field.onChange}
                   placeholder="Selecione"
                 />
               )}
@@ -106,22 +119,30 @@ export const FormUpsertTransaction = ({
                     },
                     { label: "Outro", value: "OTHER" },
                   ]}
+                  value={field.value}
+                  onChange={field.onChange}
                   placeholder="Selecione"
                 />
               )}
             />
 
-            {/* <Controller
+            <Controller
               control={control}
               name="date"
-              render={({ field }) => <DateInput control={} {...field} />}
-            /> */}
-
-            <DateInput control={control} name="date" placeholder="Selecione" />
+              render={({ field }) => (
+                <InputDate
+                  {...field}
+                  label="Data"
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors?.date}
+                />
+              )}
+            />
           </div>
 
           <div className={s.footer__form}>
-            <Button variant="cancel" type="submit">
+            <Button variant="cancel" type="button" onClick={onClose}>
               Cancelar
             </Button>
 
