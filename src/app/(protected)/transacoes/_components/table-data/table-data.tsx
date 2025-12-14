@@ -29,7 +29,7 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
         </tbody>
       </table>
 
-      {isEmpty && <p>Não há transações</p>}
+      {isEmpty && <p className={s.is__empty}>Não há transações</p>}
     </div>
   );
 };
