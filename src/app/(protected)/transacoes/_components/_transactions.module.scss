@@ -5,8 +5,8 @@
 
   .header__transactions {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-end;
+    justify-content: flex-end;
     gap: 1rem;
 
     .button__add {
@@ -23,6 +23,10 @@
         flex-shrink: 0;
         transform: rotate(-90deg);
       }
+    }
+
+    .dropdown__custom {
+      max-width: 150px;
     }
   }
 }

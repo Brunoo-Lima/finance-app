@@ -1,6 +1,6 @@
 "use client";
 
-import { ITransaction } from "@/@types/ITransaction";
+import { Category, ITransaction, TransactionType } from "@/@types/ITransaction";
 import { usePagination } from "@/hooks/use-pagination";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { createContext, ReactNode, useMemo, useState } from "react";
@@ -14,6 +14,12 @@ interface ITransactionsContextProps {
   page: number;
   totalPages: number;
   searchTerm: string;
+  selectedCategory: Category;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<Category>>;
+  selectedTypeTransaction: TransactionType;
+  setSelectedTypeTransaction: React.Dispatch<
+    React.SetStateAction<TransactionType>
+  >;
   handlePageChange: (page: number) => void;
   addTransaction: (tx: Omit<ITransaction, "id">) => void;
   allTransactions: ITransaction[];
@@ -30,13 +36,25 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     [],
   );
   const itemsPerPage = 7;
+  const [selectedCategory, setSelectedCategory] = useState<Category>(
+    Category.EDUCATION,
+  );
+  const [selectedTypeTransaction, setSelectedTypeTransaction] =
+    useState<TransactionType>(TransactionType.DEPOSIT);
 
   const filtered = useMemo(() => {
     if (!searchTerm) return transactions;
 
-    return transactions.filter((item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+    return transactions.filter((item) => {
+      const matchesName = item.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      const matchesCategory = item.category === selectedCategory;
+      const matchesTypeTransaction = item.type === selectedTypeTransaction;
+
+      return matchesName && matchesCategory && matchesTypeTransaction;
+    });
   }, [transactions, searchTerm]);
 
   const { page, totalPages, handlePageChange, paginatedData } = usePagination(
@@ -58,6 +76,10 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     page,
     totalPages,
     searchTerm,
+    selectedCategory,
+    setSelectedCategory,
+    selectedTypeTransaction,
+    setSelectedTypeTransaction,
     handlePageChange,
     addTransaction,
     allTransactions: transactions,
