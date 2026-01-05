@@ -1,19 +1,16 @@
 import { PageContainer } from "@/components/ui/page-container/page-container";
 import { TitlePage } from "@/components/ui/title-page/title-page";
 import type { Metadata } from "next";
-import { Transactions } from "./_components/transactions";
 
 export const metadata: Metadata = {
-  title: "Transações",
-  description: "Transações",
+  title: "Dividas",
+  description: "Dividas",
 };
 
-export default function TransactionsPage() {
+export default function DebtsPage() {
   return (
     <PageContainer>
-      <TitlePage>Transações</TitlePage>
-
-      <Transactions />
+      <TitlePage>Dividas</TitlePage>
     </PageContainer>
   );
 }
