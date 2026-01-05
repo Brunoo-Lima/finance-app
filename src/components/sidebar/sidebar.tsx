@@ -7,6 +7,10 @@ import {
   CircleUserRoundIcon,
   LayoutDashboardIcon,
   LogOutIcon,
+  ChartLineIcon,
+  TargetIcon,
+  CreditCardIcon,
+  TrendingUpIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,6 +26,26 @@ const items = [
     title: "Transações",
     url: "/transacoes",
     icon: ArrowLeftRightIcon,
+  },
+  {
+    title: "Metas",
+    url: "/metas",
+    icon: TargetIcon,
+  },
+  {
+    title: "Dividas",
+    url: "/dividas",
+    icon: CreditCardIcon,
+  },
+  {
+    title: "Investimentos",
+    url: "/investimentos",
+    icon: TrendingUpIcon,
+  },
+  {
+    title: "Relatórios",
+    url: "/relatorios",
+    icon: ChartLineIcon,
   },
   {
     title: "Conta",
