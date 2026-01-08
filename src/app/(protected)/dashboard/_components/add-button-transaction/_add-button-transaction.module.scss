@@ -1,0 +1,32 @@
+.btn__add__transaction {
+  height: 40px;
+
+  padding: 0.5rem 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-black);
+
+  background-color: var(--primary-color);
+  border-radius: 100px;
+  border: none;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-color-80);
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 568px) {
+    margin-top: auto;
+  }
+}
