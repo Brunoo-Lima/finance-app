@@ -1,0 +1,53 @@
+.card__next__account__container {
+  border-radius: 1.25rem;
+  border: 1px solid var(--second-color);
+  padding: 1.5rem 1.25rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  flex: 1;
+
+  .sub__header {
+    border-bottom: 1px solid var(--second-color);
+    padding-bottom: 1.5rem;
+
+    p {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  .accounts__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    .account {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .text__container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        p {
+          font-size: 1rem;
+          font-weight: 400;
+        }
+
+        small {
+          font-size: 0.75rem;
+          font-weight: 400;
+          color: var(--color-gray-20);
+        }
+      }
+    }
+  }
+}
