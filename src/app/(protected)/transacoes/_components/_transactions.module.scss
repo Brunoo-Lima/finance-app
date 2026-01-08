@@ -5,29 +5,20 @@
 
   .header__transactions {
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
-    width: 100%;
 
-    margin-left: auto;
-
-    .button__add {
-      font-size: 0.875rem;
-      color: var(--color-black);
-
-      border-radius: 6.25rem;
-      padding: 0.5rem 1rem;
-      height: max-content;
-
-      svg {
-        flex-shrink: 0;
-        transform: rotate(-90deg);
-      }
+    @media (max-width: 668px) {
+      flex-wrap: wrap;
     }
 
     .dropdown__custom {
       max-width: 150px;
+
+      @media (max-width: 668px) {
+        margin-left: auto;
+      }
     }
   }
 }

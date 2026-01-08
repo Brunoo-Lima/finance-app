@@ -20,6 +20,7 @@ interface IDropdownProps {
   classNameWrapper?: string;
   classNameTrigger?: string;
   classNameMenu?: string;
+  icon?: React.ReactNode;
 }
 
 export const Dropdown = ({
@@ -31,6 +32,7 @@ export const Dropdown = ({
   classNameWrapper,
   classNameTrigger,
   classNameMenu,
+  icon,
 }: IDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -49,6 +51,8 @@ export const Dropdown = ({
           onClick={() => setIsOpen(!isOpen)}
           className={`${s.trigger} ${classNameTrigger}`}
         >
+          {icon && icon}
+
           <span className={value ? s.trigger__text : s.trigger__placeholder}>
             {selectedLabel || placeholder}
           </span>

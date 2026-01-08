@@ -1,0 +1,26 @@
+.page__header__custom {
+  @media (max-width: 968px) {
+    flex-wrap: wrap;
+    gap: 1.5rem !important;
+  }
+
+  .page__actions__custom {
+    @media (max-width: 468px) {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.cards__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 668px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 568px) {
+    gap: 1rem;
+  }
+}
