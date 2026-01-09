@@ -4,7 +4,7 @@ import s from "./_button.module.scss";
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "outline" | "cancel";
+  variant?: "default" | "outline" | "cancel" | "ghost";
   onClick?: () => void;
   type?: "submit" | "button" | "reset";
 }

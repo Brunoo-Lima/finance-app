@@ -4,7 +4,7 @@ import { FormUpsertTransaction } from "@/app/(protected)/transacoes/_components/
 import { ArrowUpDownIcon } from "lucide-react";
 import { useState } from "react";
 
-import s from "./_add-button-transaction.module.scss";
+import { Button } from "@/components/ui/button/button";
 
 export const AddButtonTransaction = () => {
   const [isOpenFormTransaction, setIsOpenFormTransaction] =
@@ -12,13 +12,9 @@ export const AddButtonTransaction = () => {
 
   return (
     <>
-      <button
-        type="button"
-        className={s.btn__add__transaction}
-        onClick={() => setIsOpenFormTransaction(true)}
-      >
+      <Button variant="default" onClick={() => setIsOpenFormTransaction(true)}>
         Adicionar Transação <ArrowUpDownIcon size={18} />
-      </button>
+      </Button>
 
       {isOpenFormTransaction && (
         <FormUpsertTransaction

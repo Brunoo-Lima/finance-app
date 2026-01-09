@@ -11,6 +11,7 @@ import {
   TargetIcon,
   CreditCardIcon,
   TrendingUpIcon,
+  HandCoinsIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,6 +27,11 @@ const items = [
     title: "Transações",
     url: "/transacoes",
     icon: ArrowLeftRightIcon,
+  },
+  {
+    title: "Orçamentos",
+    url: "/orcamentos",
+    icon: HandCoinsIcon,
   },
   {
     title: "Metas",

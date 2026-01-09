@@ -5,7 +5,7 @@
 
   width: max-content;
   height: 40px;
-  padding: 1.3125rem 1.5rem;
+  padding: 1rem 1.25rem;
 
   display: flex;
   align-items: center;
@@ -33,8 +33,8 @@
 
   &.cancel {
     background-color: var(--color-white);
-    border-color: var(--border-color-60);
-    color: var(--color-black-80);
+    border-color: var(--color-gray-40);
+    color: var(--color-black-100);
 
     &:hover {
       background-color: var(--color-white-80);
@@ -42,12 +42,22 @@
   }
 
   &.ghost {
-    background-color: var(--color-light-100);
-    border-color: var(--color-light-100);
+    background-color: var(--color-gray-60);
+    border-color: var(--color-gray-60);
     color: var(--color-white);
 
     &:hover {
-      background-color: var(--color-light);
+      background-color: var(--color-gray);
+    }
+  }
+
+  &.outline {
+    background-color: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+
+    &:hover {
+      border-color: var(--color-gray-20);
     }
   }
 }

@@ -1,6 +1,6 @@
 import { ITransaction, TransactionType } from "@/@types/ITransaction";
 import { formatCurrencyBR } from "@/utils/format-currency";
-import { PencilIcon, Trash2Icon } from "lucide-react";
+import { SquarePenIcon, Trash2Icon } from "lucide-react";
 
 import s from "./_table.module.scss";
 import {
@@ -32,7 +32,7 @@ export const TableRow = ({ item }: ITableRowProps) => {
       <td>
         <div className={s.td__actions}>
           <button type="button" className={s.button}>
-            <PencilIcon size={20} color="#ffffff1a" />
+            <SquarePenIcon size={20} color="#a7a7a7" />
           </button>
           <button type="button" className={s.button}>
             <Trash2Icon size={20} color="#e93030" />

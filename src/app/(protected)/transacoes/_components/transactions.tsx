@@ -3,13 +3,11 @@
 import { TableData } from "./table-data/table-data";
 
 import s from "./_transactions.module.scss";
-import { Button } from "@/components/ui/button/button";
-import { ArrowLeftRightIcon } from "lucide-react";
+import { FilterIcon } from "lucide-react";
 import { useTransactions } from "@/hooks/use-transactions";
 import { Pagination } from "@/components/ui/pagination/pagination";
-import { useState } from "react";
-import { FormUpsertTransaction } from "./form/form-upsert-transaction";
 import { Dropdown } from "@/components/ui/dropdown/dropdown";
+import { InputSearch } from "@/components/ui/input/input-search/input-search";
 
 export const Transactions = () => {
   const {
@@ -20,59 +18,51 @@ export const Transactions = () => {
     selectedCategory,
     setSelectedCategory,
   } = useTransactions();
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const isEmpty = paginatedData?.length === 0;
 
   return (
-    <>
-      <div className={s.transactions__wrapper}>
-        <div className={s.header__transactions}>
-          <Dropdown
-            classNameWrapper={s.dropdown__custom}
-            label="Tipo da transação"
-            options={[
-              {
-                label: "Deposito",
-                value: "DEPOSIT",
-              },
-              {
-                label: "Despesa",
-                value: "EXPENSE",
-              },
-              {
-                label: "Investimento",
-                value: "INVESTMENT",
-              },
-            ]}
-            value={selectedCategory.toString()}
-            onChange={(e) => setSelectedCategory(e as any)}
-            placeholder="Selecione"
-          />
+    <div className={s.transactions__wrapper}>
+      <div className={s.header__transactions}>
+        <InputSearch placeholder="Pesquisar transação" />
 
-          <Button
-            className={s.button__add}
-            onClick={() => setIsOpenModal(true)}
-          >
-            Adicionar transação <ArrowLeftRightIcon size={20} />
-          </Button>
-        </div>
-
-        <TableData data={paginatedData} isEmpty={isEmpty} />
-
-        {!isEmpty && (
-          <Pagination
-            currentPage={page}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            marginLeft="auto"
-          />
-        )}
+        <Dropdown
+          classNameWrapper={s.dropdown__custom}
+          options={[
+            {
+              label: "Todas",
+              value: "",
+            },
+            {
+              label: "Deposito",
+              value: "DEPOSIT",
+            },
+            {
+              label: "Despesa",
+              value: "EXPENSE",
+            },
+            {
+              label: "Investimento",
+              value: "INVESTMENT",
+            },
+          ]}
+          icon={<FilterIcon size={16} color="#ffffff" />}
+          value={selectedCategory.toString()}
+          onChange={(e) => setSelectedCategory(e as any)}
+          placeholder="Selecione"
+        />
       </div>
 
-      {isOpenModal && (
-        <FormUpsertTransaction onClose={() => setIsOpenModal(false)} />
+      <TableData data={paginatedData} isEmpty={isEmpty} />
+
+      {!isEmpty && paginatedData.length > 7 && (
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          marginLeft="auto"
+        />
       )}
-    </>
+    </div>
   );
 };

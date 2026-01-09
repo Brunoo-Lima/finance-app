@@ -6,6 +6,7 @@ interface ICardProps {
   icon?: ReactNode;
   text?: string;
   amount?: number;
+  percentage?: number;
   backgroundCustom?: string;
   backgroundIcon?: string;
 }
@@ -16,6 +17,7 @@ export const Card = ({
   amount,
   backgroundCustom,
   backgroundIcon,
+  percentage,
 }: ICardProps) => {
   return (
     <div
@@ -23,16 +25,19 @@ export const Card = ({
       style={{ backgroundColor: backgroundCustom }}
     >
       <div className={s.text__container}>
-        <div
-          className={s.icon__container}
-          style={{ backgroundColor: backgroundIcon }}
-        >
-          {icon}
-        </div>
+        {icon && (
+          <div
+            className={s.icon__container}
+            style={{ backgroundColor: backgroundIcon }}
+          >
+            {icon}
+          </div>
+        )}
         <p>{text}</p>
       </div>
 
-      <h3>{formatCurrencyBR(amount as number)}</h3>
+      {amount && <h3>{formatCurrencyBR(amount as number)}</h3>}
+      {percentage && <h3>{percentage}%</h3>}
     </div>
   );
 };
