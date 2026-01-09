@@ -6,6 +6,7 @@ interface IBarProgress2Props {
   percentage: number;
   value?: number;
   valueTotal?: number;
+  barClassName?: string;
 }
 
 export const BarProgress2 = ({
@@ -13,6 +14,7 @@ export const BarProgress2 = ({
   percentage,
   value,
   valueTotal,
+  barClassName,
 }: IBarProgress2Props) => {
   return (
     <div className={s.bar__progress__container}>
@@ -26,7 +28,10 @@ export const BarProgress2 = ({
       </div>
 
       <div className={s.bar__progress}>
-        <div className={s.progress__fill} style={{ width: `${percentage}%` }} />
+        <div
+          className={`${s.progress__fill} ${barClassName}`}
+          style={{ width: `${percentage}%` }}
+        />
       </div>
     </div>
   );
