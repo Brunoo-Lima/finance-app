@@ -28,36 +28,36 @@ const items = [
     url: "/transacoes",
     icon: ArrowLeftRightIcon,
   },
-  {
-    title: "Orçamentos",
-    url: "/orcamentos",
-    icon: HandCoinsIcon,
-  },
-  {
-    title: "Metas",
-    url: "/metas",
-    icon: TargetIcon,
-  },
-  {
-    title: "Dividas",
-    url: "/dividas",
-    icon: CreditCardIcon,
-  },
-  {
-    title: "Investimentos",
-    url: "/investimentos",
-    icon: TrendingUpIcon,
-  },
-  {
-    title: "Relatórios",
-    url: "/relatorios",
-    icon: ChartLineIcon,
-  },
-  {
-    title: "Conta",
-    url: "/conta",
-    icon: CircleUserRoundIcon,
-  },
+  // {
+  //   title: 'Orçamentos',
+  //   url: '/orcamentos',
+  //   icon: HandCoinsIcon,
+  // },
+  // {
+  //   title: 'Metas',
+  //   url: '/metas',
+  //   icon: TargetIcon,
+  // },
+  // {
+  //   title: 'Dividas',
+  //   url: '/dividas',
+  //   icon: CreditCardIcon,
+  // },
+  // {
+  //   title: 'Investimentos',
+  //   url: '/investimentos',
+  //   icon: TrendingUpIcon,
+  // },
+  // {
+  //   title: 'Relatórios',
+  //   url: '/relatorios',
+  //   icon: ChartLineIcon,
+  // },
+  // {
+  //   title: 'Conta',
+  //   url: '/conta',
+  //   icon: CircleUserRoundIcon,
+  // },
 ];
 
 export const Sidebar = () => {
@@ -68,7 +68,8 @@ export const Sidebar = () => {
   return (
     <aside className={s.sidebar}>
       <div className={s.sidebar__header}>
-        <p className={s.logo}>Finance</p>
+        <strong className={s.logo}>MasterCash</strong>
+        <small>v1.0</small>
       </div>
 
       <nav className={s.sidebar__items}>

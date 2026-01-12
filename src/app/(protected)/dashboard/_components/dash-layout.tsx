@@ -36,11 +36,11 @@ export const DashLayout = () => {
         />
       </div>
 
-      <div className={s.cards__resumes}>
+      {/* <div className={s.cards__resumes}>
         <CardNextAccounts />
         <CardGoals />
         <CardBudget />
-      </div>
+      </div> */}
 
       <div className={s.management}>
         <div className={s.charts__container}>
