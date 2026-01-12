@@ -4,14 +4,8 @@ import { useAuth } from "@/hooks/use-auth";
 import s from "./_sidebar.module.scss";
 import {
   ArrowLeftRightIcon,
-  CircleUserRoundIcon,
   LayoutDashboardIcon,
   LogOutIcon,
-  ChartLineIcon,
-  TargetIcon,
-  CreditCardIcon,
-  TrendingUpIcon,
-  HandCoinsIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,36 +22,6 @@ const items = [
     url: "/transacoes",
     icon: ArrowLeftRightIcon,
   },
-  // {
-  //   title: 'Orçamentos',
-  //   url: '/orcamentos',
-  //   icon: HandCoinsIcon,
-  // },
-  // {
-  //   title: 'Metas',
-  //   url: '/metas',
-  //   icon: TargetIcon,
-  // },
-  // {
-  //   title: 'Dividas',
-  //   url: '/dividas',
-  //   icon: CreditCardIcon,
-  // },
-  // {
-  //   title: 'Investimentos',
-  //   url: '/investimentos',
-  //   icon: TrendingUpIcon,
-  // },
-  // {
-  //   title: 'Relatórios',
-  //   url: '/relatorios',
-  //   icon: ChartLineIcon,
-  // },
-  // {
-  //   title: 'Conta',
-  //   url: '/conta',
-  //   icon: CircleUserRoundIcon,
-  // },
 ];
 
 export const Sidebar = () => {
