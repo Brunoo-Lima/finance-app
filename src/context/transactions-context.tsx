@@ -22,6 +22,7 @@ interface ITransactionsContextProps {
   >;
   handlePageChange: (page: number) => void;
   addTransaction: (tx: Omit<ITransaction, "id">) => void;
+  editTransaction: (tx: ITransaction) => void;
   allTransactions: ITransaction[];
 }
 
@@ -71,6 +72,13 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     setTransactions([...transactions, newTx]);
   }
 
+  function editTransaction(tx: ITransaction) {
+    const updatedTransactions = transactions.map((t) =>
+      t.id === tx.id ? tx : t,
+    );
+    setTransactions(updatedTransactions);
+  }
+
   const contextValue = {
     paginatedData,
     page,
@@ -83,6 +91,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     handlePageChange,
     addTransaction,
     allTransactions: transactions,
+    editTransaction,
   };
 
   return (

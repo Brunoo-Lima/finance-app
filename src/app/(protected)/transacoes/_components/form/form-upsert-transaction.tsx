@@ -2,6 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTransactions } from "@/hooks/use-transactions";
 import {
   Category,
+  ITransaction,
   TransactionPayment,
   TransactionType,
 } from "@/@types/ITransaction";
@@ -21,10 +22,12 @@ import { InputDate } from "@/components/ui/input/input-date/input-date";
 
 interface IFormUpsertTransactionProps {
   onClose: () => void;
+  transaction: ITransaction | null;
 }
 
 export const FormUpsertTransaction = ({
   onClose,
+  transaction,
 }: IFormUpsertTransactionProps) => {
   const {
     register,
@@ -34,41 +37,64 @@ export const FormUpsertTransaction = ({
   } = useForm<ITransactionFormSchema>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
-      name: "",
-      amount: "",
-      transactionType: "DEPOSIT",
-      payment: "CASH",
-      date: "",
+      name: transaction ? transaction.name : "",
+      amount: transaction ? transaction.amount.toString() : "",
+      category: transaction ? String(transaction.category) : ("OTHER" as any),
+      transactionType: transaction
+        ? String(transaction.type)
+        : ("DEPOSIT" as any),
+      payment: transaction ? String(transaction.payment) : ("CASH" as any),
+
+      date: transaction ? transaction.created_at : "",
     },
     mode: "onChange",
   });
 
-  const { addTransaction } = useTransactions();
+  const { addTransaction, editTransaction } = useTransactions();
 
   const onSubmit = (data: ITransactionFormSchema) => {
-    // Map string values to enums
-    const transaction: Omit<
-      import("@/@types/ITransaction").ITransaction,
-      "id"
-    > = {
-      name: data.name,
-      amount: parseFloat(data.amount),
-      type: TransactionType[
-        data.transactionType as keyof typeof TransactionType
-      ],
-      payment:
-        TransactionPayment[data.payment as keyof typeof TransactionPayment],
-      category: Category.OTHER, // ou adicione um campo de categoria no form
-      created_at: data.date,
-    };
-    addTransaction(transaction);
+    if (transaction) {
+      const newTransaction: ITransaction = {
+        ...transaction,
+        name: data.name,
+        amount: parseFloat(data.amount),
+        type: TransactionType[
+          data.transactionType as keyof typeof TransactionType
+        ],
+        category: Category[data.category as keyof typeof Category],
+        payment:
+          TransactionPayment[data.payment as keyof typeof TransactionPayment],
+        created_at: data.date,
+      };
+      editTransaction(newTransaction);
+    } else {
+      const transaction: Omit<
+        import("@/@types/ITransaction").ITransaction,
+        "id"
+      > = {
+        name: data.name,
+        amount: parseFloat(data.amount),
+        type: TransactionType[
+          data.transactionType as keyof typeof TransactionType
+        ],
+        category: Category[data.category as keyof typeof Category],
+        payment:
+          TransactionPayment[data.payment as keyof typeof TransactionPayment],
+        created_at: data.date,
+      };
+      addTransaction(transaction);
+    }
+
     onClose();
   };
 
   return (
     <ModalBackground>
       <Modal.Root className={s.modal__root__custom} onClose={onClose}>
-        <Modal.Header title="Transação" onClose={onClose} />
+        <Modal.Header
+          title={transaction ? "Editar transação" : "Nova transação"}
+          onClose={onClose}
+        />
 
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <div className={s.form__inputs}>
@@ -87,6 +113,58 @@ export const FormUpsertTransaction = ({
 
             <Controller
               control={control}
+              name="category"
+              render={({ field }) => (
+                <Dropdown
+                  label="Categoria"
+                  {...field}
+                  options={[
+                    {
+                      label: "Transporte",
+                      value: "TRANSPORTATION",
+                    },
+                    {
+                      label: "Entretenimento",
+                      value: "ENTERTAINMENT",
+                    },
+                    {
+                      label: "Educação",
+                      value: "EDUCATION",
+                    },
+                    {
+                      label: "Moradia",
+                      value: "HOUSING",
+                    },
+                    {
+                      label: "Utilidades",
+                      value: "UTILITY",
+                    },
+                    {
+                      label: "Saúde",
+                      value: "HEALTH",
+                    },
+                    {
+                      label: "Alimentação",
+                      value: "FOOD",
+                    },
+                    {
+                      label: "Salário",
+                      value: "SALARY",
+                    },
+                    {
+                      label: "Outro",
+                      value: "OTHER",
+                    },
+                  ]}
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder="Selecione"
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
               name="transactionType"
               render={({ field }) => (
                 <Dropdown
@@ -94,7 +172,7 @@ export const FormUpsertTransaction = ({
                   {...field}
                   options={[
                     {
-                      label: "Deposito",
+                      label: "Depósito",
                       value: "DEPOSIT",
                     },
                     {
