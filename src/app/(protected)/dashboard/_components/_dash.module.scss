@@ -21,12 +21,6 @@
     }
   }
 
-  .cards__resumes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-
   .management {
     display: grid;
     grid-template-columns: 2fr minmax(300px, 400px);
