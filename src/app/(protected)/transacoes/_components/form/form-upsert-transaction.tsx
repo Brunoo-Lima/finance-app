@@ -22,7 +22,7 @@ import { InputDate } from "@/components/ui/input/input-date/input-date";
 
 interface IFormUpsertTransactionProps {
   onClose: () => void;
-  transaction: ITransaction | null;
+  transaction?: ITransaction | null;
 }
 
 export const FormUpsertTransaction = ({
