@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { TableData } from "./table-data/table-data";
+import { TableData } from './table-data/table-data';
 
-import s from "./_transactions.module.scss";
-import { FilterIcon } from "lucide-react";
-import { useTransactions } from "@/hooks/use-transactions";
-import { Pagination } from "@/components/ui/pagination/pagination";
-import { Dropdown } from "@/components/ui/dropdown/dropdown";
-import { InputSearch } from "@/components/ui/input/input-search/input-search";
+import s from './_transactions.module.scss';
+import { FilterIcon } from 'lucide-react';
+import { useTransactions } from '@/hooks/use-transactions';
+import { Pagination } from '@/components/ui/pagination/pagination';
+import { Dropdown } from '@/components/ui/dropdown/dropdown';
+import { InputSearch } from '@/components/ui/input/input-search/input-search';
 
 export const Transactions = () => {
   const {
@@ -30,20 +30,20 @@ export const Transactions = () => {
           classNameWrapper={s.dropdown__custom}
           options={[
             {
-              label: "Todas",
-              value: "",
+              label: 'Todas',
+              value: '',
             },
             {
-              label: "Deposito",
-              value: "DEPOSIT",
+              label: 'Deposito',
+              value: 'DEPOSIT',
             },
             {
-              label: "Despesa",
-              value: "EXPENSE",
+              label: 'Despesa',
+              value: 'EXPENSE',
             },
             {
-              label: "Investimento",
-              value: "INVESTMENT",
+              label: 'Investimento',
+              value: 'INVESTMENT',
             },
           ]}
           icon={<FilterIcon size={16} color="#ffffff" />}

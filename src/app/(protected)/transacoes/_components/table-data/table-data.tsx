@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { ITransaction } from "@/@types/ITransaction";
-import { TableRow } from "./table-row";
-import s from "./_table.module.scss";
-import { useState } from "react";
-import { FormUpsertTransaction } from "../form/form-upsert-transaction";
+import { ITransaction } from '@/@types/ITransaction';
+import { TableRow } from './table-row';
+import s from './_table.module.scss';
+import { useState } from 'react';
+import { FormUpsertTransaction } from '../form/form-upsert-transaction';
 
 interface ITableDataProps {
   data: ITransaction[];

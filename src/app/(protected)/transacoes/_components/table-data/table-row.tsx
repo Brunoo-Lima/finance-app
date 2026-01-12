@@ -1,14 +1,14 @@
-import { ITransaction } from "@/@types/ITransaction";
-import { formatCurrencyBR } from "@/utils/format-currency";
-import { SquarePenIcon, Trash2Icon } from "lucide-react";
+import { ITransaction } from '@/@types/ITransaction';
+import { formatCurrencyBR } from '@/utils/format-currency';
+import { SquarePenIcon, Trash2Icon } from 'lucide-react';
 
-import s from "./_table.module.scss";
+import s from './_table.module.scss';
 import {
   getCategoryLabel,
   getPaymentLabel,
   getTransactionType,
   getTransactionTypeClass,
-} from "../../_constants";
+} from '../../_constants';
 
 interface ITableRowProps {
   item: ITransaction;
