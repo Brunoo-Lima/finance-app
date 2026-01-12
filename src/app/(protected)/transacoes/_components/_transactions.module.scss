@@ -20,5 +20,17 @@
         margin-left: auto;
       }
     }
+
+    .filters__container {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      @media (max-width: 668px) {
+        margin-left: auto;
+      }
+    }
   }
 }
