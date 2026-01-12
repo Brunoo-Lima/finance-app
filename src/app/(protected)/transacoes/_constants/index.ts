@@ -10,7 +10,16 @@ export const getTransactionType = (type: TransactionType): string => {
     [TransactionType.INVESTMENT]: "Investimento",
     [TransactionType.DEPOSIT]: "Depósito",
   };
-  return labels[type];
+  return labels[type] || type;
+};
+
+export const getTransactionTypeClass = (type: TransactionType): string => {
+  const classMap: Record<TransactionType, string> = {
+    [TransactionType.EXPENSE]: "expense",
+    [TransactionType.INVESTMENT]: "investment",
+    [TransactionType.DEPOSIT]: "deposit",
+  };
+  return classMap[type] || "";
 };
 
 export const getCategoryLabel = (category: Category): string => {
@@ -25,7 +34,7 @@ export const getCategoryLabel = (category: Category): string => {
     [Category.FOOD]: "Alimentação",
     [Category.OTHER]: "Outro",
   };
-  return labels[category];
+  return labels[category] || category;
 };
 
 export function getPaymentLabel(payment: TransactionPayment): string {
@@ -38,5 +47,5 @@ export function getPaymentLabel(payment: TransactionPayment): string {
     [TransactionPayment.PIX]: "Pix",
     [TransactionPayment.OTHER]: "Outro",
   };
-  return labels[payment];
+  return labels[payment] || payment;
 }

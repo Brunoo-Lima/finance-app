@@ -30,7 +30,7 @@
 
     border-bottom: 1px solid var(--second-color);
 
-    padding: 1rem 0;
+    padding: 1.5rem 0;
 
     h2 {
       font-size: 1.5rem;
@@ -76,7 +76,7 @@
   }
 
   .modal__content {
-    padding: 1rem 0;
+    padding: 1.5rem 0 1rem 0;
 
     &::-webkit-scrollbar {
       width: 0;
@@ -92,7 +92,7 @@
   }
 
   .modal__footer {
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     border-top: 1px solid var(--second-color);
 
     display: flex;

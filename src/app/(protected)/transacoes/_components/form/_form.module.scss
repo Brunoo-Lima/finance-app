@@ -1,12 +1,11 @@
 .modal__root__custom {
   padding: 0 2rem !important;
 
-  position: relative;
-
   .form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-top: 1rem;
 
     .form__inputs {
       flex: 1;
@@ -31,6 +30,8 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+
+      padding-bottom: 1rem;
 
       position: absolute;
       bottom: 1rem;
