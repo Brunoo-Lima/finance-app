@@ -1,0 +1,41 @@
+.button__filter {
+  background-color: var(--color-black-100);
+  border: 1px solid var(--second-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  height: 40px;
+
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-white);
+
+  position: relative;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  .quantity {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background-color: var(--primary-color);
+    color: var(--color-black-100);
+  }
+}

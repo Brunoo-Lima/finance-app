@@ -1,6 +1,6 @@
-import React, { forwardRef } from "react";
-import s from "./_input-search.module.scss";
-import { SearchIcon } from "lucide-react";
+import React, { forwardRef } from 'react';
+import s from './_input-search.module.scss';
+import { SearchIcon } from 'lucide-react';
 
 interface InputSearchProps extends React.InputHTMLAttributes<HTMLInputElement> {
   containerClassName?: string;
@@ -9,12 +9,12 @@ interface InputSearchProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
   ({ containerClassName, className, ...props }, ref) => {
     return (
-      <div className={`${s.container__input} ${containerClassName ?? ""}`}>
+      <div className={`${s.container__input} ${containerClassName ?? ''}`}>
         <SearchIcon size={20} color="#a7a7a7" className={s.icon} />
         <input
           ref={ref}
           type="search"
-          className={`${s.input__field} ${className ?? ""}`}
+          className={`${s.input__field} ${className ?? ''}`}
           {...props}
         />
       </div>
@@ -22,4 +22,4 @@ export const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
   },
 );
 
-InputSearch.displayName = "InputSearch";
+InputSearch.displayName = 'InputSearch';

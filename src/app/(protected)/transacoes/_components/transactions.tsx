@@ -8,6 +8,7 @@ import { useTransactions } from '@/hooks/use-transactions';
 import { Pagination } from '@/components/ui/pagination/pagination';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 import { InputSearch } from '@/components/ui/input/input-search/input-search';
+import { Filters } from './filters/filters';
 
 export const Transactions = () => {
   const {
@@ -15,8 +16,10 @@ export const Transactions = () => {
     handlePageChange,
     totalPages,
     page,
-    selectedCategory,
-    setSelectedCategory,
+    selectedTypeTransaction,
+    setSelectedTypeTransaction,
+    searchTerm,
+    handleSearch,
   } = useTransactions();
 
   const isEmpty = paginatedData?.length === 0;
@@ -24,33 +27,41 @@ export const Transactions = () => {
   return (
     <div className={s.transactions__wrapper}>
       <div className={s.header__transactions}>
-        <InputSearch placeholder="Pesquisar transação" />
-
-        <Dropdown
-          classNameWrapper={s.dropdown__custom}
-          options={[
-            {
-              label: 'Todas',
-              value: '',
-            },
-            {
-              label: 'Deposito',
-              value: 'DEPOSIT',
-            },
-            {
-              label: 'Despesa',
-              value: 'EXPENSE',
-            },
-            {
-              label: 'Investimento',
-              value: 'INVESTMENT',
-            },
-          ]}
-          icon={<FilterIcon size={16} color="#ffffff" />}
-          value={selectedCategory.toString()}
-          onChange={(e) => setSelectedCategory(e as any)}
-          placeholder="Selecione"
+        <InputSearch
+          placeholder="Pesquisar transação"
+          value={searchTerm}
+          onChange={(e) => handleSearch(e.target.value)}
         />
+
+        <div className={s.filters__container}>
+          <Dropdown
+            classNameWrapper={s.dropdown__custom}
+            options={[
+              {
+                label: 'Todas',
+                value: '',
+              },
+              {
+                label: 'Depósito',
+                value: 'DEPOSIT',
+              },
+              {
+                label: 'Despesa',
+                value: 'EXPENSE',
+              },
+              {
+                label: 'Investimento',
+                value: 'INVESTMENT',
+              },
+            ]}
+            icon={<FilterIcon size={16} color="#ffffff" />}
+            value={selectedTypeTransaction}
+            onChange={(e) => setSelectedTypeTransaction(e as any)}
+            placeholder="Selecione"
+          />
+
+          <Filters />
+        </div>
       </div>
 
       <TableData data={paginatedData} isEmpty={isEmpty} />
