@@ -46,7 +46,6 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     'transactions',
     [],
   );
-  const itemsPerPage = 7;
   const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
   const [selectedTypeTransaction, setSelectedTypeTransaction] = useState<
     TransactionType | ''
@@ -54,6 +53,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
   const [selectedMethodPayment, setSelectedMethodPayment] = useState<
     TransactionPayment | ''
   >('');
+  const itemsPerPage = 7;
 
   const filtered = useMemo(() => {
     return transactions.filter((item) => {

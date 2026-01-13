@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/page-container/page-container';
 import type { Metadata } from 'next';
 import { Transactions } from './_components/transactions';
-import { AddButtonTransaction } from '../dashboard/_components/add-button-transaction/add-button-transaction';
+import { AddButtonTransaction } from './_components/add-button-transaction/add-button-transaction';
 import { Button } from '@/components/ui/button/button';
 import {
   DownloadIcon,

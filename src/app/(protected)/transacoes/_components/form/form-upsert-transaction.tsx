@@ -1,32 +1,34 @@
-import { Controller, useForm } from "react-hook-form";
-import { useTransactions } from "@/hooks/use-transactions";
+import { Controller, useForm } from 'react-hook-form';
+import { useTransactions } from '@/hooks/use-transactions';
 import {
   Category,
   ITransaction,
   TransactionPayment,
   TransactionType,
-} from "@/@types/ITransaction";
-import s from "./_form.module.scss";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/@types/ITransaction';
+import s from './_form.module.scss';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   ITransactionFormSchema,
   transactionFormSchema,
-} from "@/validations/transaction-form-schema";
-import { Input } from "@/components/ui/input/input";
-import { ModalBackground } from "@/components/ui/modal-background";
-import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button/button";
-import { Dropdown } from "@/components/ui/dropdown/dropdown";
+} from '@/validations/transaction-form-schema';
+import { Input } from '@/components/ui/input/input';
+import { ModalBackground } from '@/components/ui/modal-background';
+import { Modal } from '@/components/ui/modal';
+import { Button } from '@/components/ui/button/button';
+import { Dropdown } from '@/components/ui/dropdown/dropdown';
 
-import { InputDate } from "@/components/ui/input/input-date/input-date";
+import { InputDate } from '@/components/ui/input/input-date/input-date';
 
 interface IFormUpsertTransactionProps {
   onClose: () => void;
+  onSave: () => void;
   transaction?: ITransaction | null;
 }
 
 export const FormUpsertTransaction = ({
   onClose,
+  onSave,
   transaction,
 }: IFormUpsertTransactionProps) => {
   const {
@@ -37,17 +39,17 @@ export const FormUpsertTransaction = ({
   } = useForm<ITransactionFormSchema>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
-      name: transaction ? transaction.name : "",
-      amount: transaction ? transaction.amount.toString() : "",
-      category: transaction ? String(transaction.category) : ("OTHER" as any),
+      name: transaction ? transaction.name : '',
+      amount: transaction ? transaction.amount.toString() : '',
+      category: transaction ? String(transaction.category) : ('OTHER' as any),
       transactionType: transaction
         ? String(transaction.type)
-        : ("DEPOSIT" as any),
-      payment: transaction ? String(transaction.payment) : ("CASH" as any),
+        : ('DEPOSIT' as any),
+      payment: transaction ? String(transaction.payment) : ('CASH' as any),
 
-      date: transaction ? transaction.created_at : "",
+      date: transaction ? transaction.created_at : '',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const { addTransaction, editTransaction } = useTransactions();
@@ -69,8 +71,8 @@ export const FormUpsertTransaction = ({
       editTransaction(newTransaction);
     } else {
       const transaction: Omit<
-        import("@/@types/ITransaction").ITransaction,
-        "id"
+        import('@/@types/ITransaction').ITransaction,
+        'id'
       > = {
         name: data.name,
         amount: parseFloat(data.amount),
@@ -85,14 +87,14 @@ export const FormUpsertTransaction = ({
       addTransaction(transaction);
     }
 
-    onClose();
+    onSave();
   };
 
   return (
     <ModalBackground>
       <Modal.Root className={s.modal__root__custom} onClose={onClose}>
         <Modal.Header
-          title={transaction ? "Editar transação" : "Nova transação"}
+          title={transaction ? 'Editar transação' : 'Nova transação'}
           onClose={onClose}
         />
 
@@ -101,13 +103,13 @@ export const FormUpsertTransaction = ({
             <Input
               label="Título"
               placeholder="Digite o titulo"
-              {...register("name")}
+              {...register('name')}
               error={errors.name}
             />
             <Input
               label="Valor"
               placeholder="Digite o valor"
-              {...register("amount")}
+              {...register('amount')}
               error={errors.amount}
             />
 
@@ -120,40 +122,40 @@ export const FormUpsertTransaction = ({
                   {...field}
                   options={[
                     {
-                      label: "Transporte",
-                      value: "TRANSPORTATION",
+                      label: 'Transporte',
+                      value: 'TRANSPORTATION',
                     },
                     {
-                      label: "Entretenimento",
-                      value: "ENTERTAINMENT",
+                      label: 'Entretenimento',
+                      value: 'ENTERTAINMENT',
                     },
                     {
-                      label: "Educação",
-                      value: "EDUCATION",
+                      label: 'Educação',
+                      value: 'EDUCATION',
                     },
                     {
-                      label: "Moradia",
-                      value: "HOUSING",
+                      label: 'Moradia',
+                      value: 'HOUSING',
                     },
                     {
-                      label: "Utilidades",
-                      value: "UTILITY",
+                      label: 'Utilidades',
+                      value: 'UTILITY',
                     },
                     {
-                      label: "Saúde",
-                      value: "HEALTH",
+                      label: 'Saúde',
+                      value: 'HEALTH',
                     },
                     {
-                      label: "Alimentação",
-                      value: "FOOD",
+                      label: 'Alimentação',
+                      value: 'FOOD',
                     },
                     {
-                      label: "Salário",
-                      value: "SALARY",
+                      label: 'Salário',
+                      value: 'SALARY',
                     },
                     {
-                      label: "Outro",
-                      value: "OTHER",
+                      label: 'Outro',
+                      value: 'OTHER',
                     },
                   ]}
                   value={field.value}
@@ -172,16 +174,16 @@ export const FormUpsertTransaction = ({
                   {...field}
                   options={[
                     {
-                      label: "Depósito",
-                      value: "DEPOSIT",
+                      label: 'Depósito',
+                      value: 'DEPOSIT',
                     },
                     {
-                      label: "Despesa",
-                      value: "EXPENSE",
+                      label: 'Despesa',
+                      value: 'EXPENSE',
                     },
                     {
-                      label: "Investimento",
-                      value: "INVESTMENT",
+                      label: 'Investimento',
+                      value: 'INVESTMENT',
                     },
                   ]}
                   value={field.value}
@@ -200,26 +202,26 @@ export const FormUpsertTransaction = ({
                   {...field}
                   options={[
                     {
-                      label: "Dinheiro",
-                      value: "CASH",
+                      label: 'Dinheiro',
+                      value: 'CASH',
                     },
                     {
-                      label: "Cartão de Crédito",
-                      value: "CREDIT_CARD",
+                      label: 'Cartão de Crédito',
+                      value: 'CREDIT_CARD',
                     },
                     {
-                      label: "Cartão de Débito",
-                      value: "DEBIT_CARD",
+                      label: 'Cartão de Débito',
+                      value: 'DEBIT_CARD',
                     },
                     {
-                      label: "Transferência bancária",
-                      value: "BANK_TRANSFER",
+                      label: 'Transferência bancária',
+                      value: 'BANK_TRANSFER',
                     },
                     {
-                      label: "Comprovante bancário",
-                      value: "BANK_SLIP",
+                      label: 'Comprovante bancário',
+                      value: 'BANK_SLIP',
                     },
-                    { label: "Outro", value: "OTHER" },
+                    { label: 'Outro', value: 'OTHER' },
                   ]}
                   value={field.value}
                   onChange={field.onChange}

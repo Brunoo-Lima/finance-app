@@ -47,7 +47,7 @@ export const Filters = () => {
       >
         <FilterIcon size={16} color="#ffffff" />
         Filtros
-        {quantity > 0 && <span className={s.quantity}>{quantity}</span>}
+        {quantity > 0 && <span className={s.quantity}></span>}
       </button>
 
       {isOpenModalFilter && (

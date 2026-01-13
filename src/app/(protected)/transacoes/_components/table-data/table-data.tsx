@@ -7,6 +7,10 @@ import { useState } from 'react';
 import { FormUpsertTransaction } from '../form/form-upsert-transaction';
 import { DialogDelete } from './dialog-delete/dialog-delete';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
+import { useModalState } from '@/hooks/use-modal-state';
+
+export type IModalType = 'edit' | 'delete';
+export type IActionType = 'edit' | 'delete';
 
 interface ITableDataProps {
   data: ITransaction[];
@@ -14,27 +18,40 @@ interface ITableDataProps {
 }
 
 export const TableData = ({ data, isEmpty }: ITableDataProps) => {
-  const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
-  const [isOpenModalDelete, setIsOpenModalDelete] = useState<boolean>(false);
-  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const {
+    showSuccess,
+    setShowSuccess,
+    activeModal,
+    setActiveModal,
+    pendingAction,
+    setPendingAction,
+  } = useModalState<IModalType, IActionType>();
+
   const [selectedTransaction, setSelectedTransaction] =
     useState<ITransaction | null>(null);
   const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
 
   const handleEditTransaction = (transaction: ITransaction) => {
-    setIsOpenModalEdit(true);
+    setActiveModal('edit');
+    setPendingAction('edit');
     setSelectedTransaction(transaction);
   };
 
   const handleConfirmDelete = (id: number) => {
-    setIsOpenModalDelete(true);
     setSelectedDeleteId(id);
+    setActiveModal('delete');
+    setPendingAction('delete');
   };
 
   const handleDelete = () => {
-    setIsOpenModalDelete(false);
+    setActiveModal(null);
     setSelectedDeleteId(null);
     setShowSuccess(true);
+  };
+
+  const handleSave = () => {
+    setShowSuccess(true);
+    setActiveModal(null);
   };
 
   return (
@@ -67,17 +84,18 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
         {isEmpty && <p className={s.is__empty}>Não há transações</p>}
       </div>
 
-      {isOpenModalEdit && (
+      {activeModal === 'edit' && (
         <FormUpsertTransaction
           transaction={selectedTransaction}
-          onClose={() => setIsOpenModalEdit(false)}
+          onClose={() => setActiveModal(null)}
+          onSave={handleSave}
         />
       )}
 
-      {isOpenModalDelete && (
+      {activeModal === 'delete' && (
         <DialogDelete
           onConfirm={handleDelete}
-          onClose={() => setIsOpenModalDelete(false)}
+          onClose={() => setActiveModal(null)}
         />
       )}
 
@@ -85,10 +103,13 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
         <DialogSuccess
           title="Sucesso!"
           textButton="Continuar"
-          description="Transação excluída com sucesso."
+          description={
+            pendingAction === 'edit'
+              ? 'Transação editada com sucesso.'
+              : 'Transação excluída com sucesso.'
+          }
           onConfirm={() => {
             setShowSuccess(false);
-            setIsOpenModalDelete(false);
           }}
         />
       )}
