@@ -3,6 +3,7 @@ import s from './_modal-filter.module.scss';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 import { XIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button/button';
+import { Modal } from '@/components/ui/modal';
 
 interface IModalFilterProps {
   selectedCategory: Category | '';
@@ -26,7 +27,7 @@ export const ModalFilter = ({
   onConfirm,
 }: IModalFilterProps) => {
   return (
-    <div className={s.modal__filter__container}>
+    <Modal.Root onClose={onClose} className={s.modal__filter__container}>
       <div className={s.modal__filter__header}>
         <strong>Filtros</strong>
         <button type="button" onClick={onClose}>
@@ -105,6 +106,6 @@ export const ModalFilter = ({
           Filtrar
         </Button>
       </div>
-    </div>
+    </Modal.Root>
   );
 };

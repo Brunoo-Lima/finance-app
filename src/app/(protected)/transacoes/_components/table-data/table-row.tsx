@@ -13,9 +13,10 @@ import {
 interface ITableRowProps {
   item: ITransaction;
   onEdit: () => void;
+  onDelete: () => void;
 }
 
-export const TableRow = ({ item, onEdit }: ITableRowProps) => {
+export const TableRow = ({ item, onEdit, onDelete }: ITableRowProps) => {
   return (
     <tr>
       <td>{item.name}</td>
@@ -42,7 +43,7 @@ export const TableRow = ({ item, onEdit }: ITableRowProps) => {
           <button type="button" className={s.button} onClick={onEdit}>
             <SquarePenIcon size={20} color="#a7a7a7" />
           </button>
-          <button type="button" className={s.button}>
+          <button type="button" className={s.button} onClick={onDelete}>
             <Trash2Icon size={20} color="#e93030" />
           </button>
         </div>

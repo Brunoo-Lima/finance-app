@@ -5,19 +5,24 @@ import {
   PageHeader,
   PageHeaderContent,
   PageTitle,
-} from "@/components/ui/page-container/page-container";
-import type { Metadata } from "next";
-import { Transactions } from "./_components/transactions";
-import { AddButtonTransaction } from "../dashboard/_components/add-button-transaction/add-button-transaction";
-import { Button } from "@/components/ui/button/button";
-import { DownloadIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+} from '@/components/ui/page-container/page-container';
+import type { Metadata } from 'next';
+import { Transactions } from './_components/transactions';
+import { AddButtonTransaction } from '../dashboard/_components/add-button-transaction/add-button-transaction';
+import { Button } from '@/components/ui/button/button';
+import {
+  DownloadIcon,
+  PiggyBankIcon,
+  TrendingDownIcon,
+  TrendingUpIcon,
+} from 'lucide-react';
 
-import s from "./_page.module.scss";
-import { Card } from "@/components/ui/card/card";
+import s from './_page.module.scss';
+import { Card } from '@/components/ui/card/card';
 
 export const metadata: Metadata = {
-  title: "Transações",
-  description: "Transações",
+  title: 'Transações',
+  description: 'Transações',
 };
 
 export default function TransactionsPage() {
@@ -41,6 +46,12 @@ export default function TransactionsPage() {
       </PageHeader>
 
       <div className={s.cards__wrapper}>
+        <Card
+          text="Investido"
+          amount={3500}
+          icon={<PiggyBankIcon size={16} color="#ffffff" />}
+          backgroundIcon="#FFFFFF14"
+        />
         <Card
           text="Receita"
           amount={8150}

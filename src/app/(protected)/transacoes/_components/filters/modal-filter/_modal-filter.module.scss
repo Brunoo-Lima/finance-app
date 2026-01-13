@@ -4,7 +4,8 @@
   right: 0;
 
   width: 400px;
-  height: max-content;
+  height: max-content !important;
+  min-height: max-content !important;
 
   padding: 1rem;
   border-radius: 0.5rem;
