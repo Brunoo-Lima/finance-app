@@ -8,7 +8,7 @@ import {
   PageHeaderContent,
   PageTitle,
 } from '@/components/ui/page-container/page-container';
-import { AddButtonTransaction } from '../transacoes/_components/add-button-transaction/add-button-transaction';
+import { AddButtonTransaction } from '../transacoes/_components/actions-header/add-button-transaction';
 
 export const metadata: Metadata = {
   title: 'Dashboard',

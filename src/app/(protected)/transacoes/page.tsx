@@ -8,17 +8,11 @@ import {
 } from '@/components/ui/page-container/page-container';
 import type { Metadata } from 'next';
 import { Transactions } from './_components/transactions';
-import { AddButtonTransaction } from './_components/add-button-transaction/add-button-transaction';
-import { Button } from '@/components/ui/button/button';
-import {
-  DownloadIcon,
-  PiggyBankIcon,
-  TrendingDownIcon,
-  TrendingUpIcon,
-} from 'lucide-react';
+import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from 'lucide-react';
 
 import s from './_page.module.scss';
 import { Card } from '@/components/ui/card/card';
+import { ActionsHeader } from './_components/actions-header/actions-header';
 
 export const metadata: Metadata = {
   title: 'Transações',
@@ -37,11 +31,7 @@ export default function TransactionsPage() {
         </PageHeaderContent>
 
         <PageActions className={s.page__actions__custom}>
-          <Button variant="cancel">
-            <DownloadIcon size={16} />
-            Exportar
-          </Button>
-          <AddButtonTransaction />
+          <ActionsHeader />
         </PageActions>
       </PageHeader>
 
