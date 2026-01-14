@@ -7,6 +7,7 @@ import {
   getTransactionType,
 } from '../../_constants';
 import { formatCurrencyBR } from '@/utils/format-currency';
+import { formatDate } from 'date-fns';
 
 interface IAddButtonExportProps {
   data: any[];
@@ -38,7 +39,10 @@ export const AddButtonExport = ({
       const workbook = XLSX.utils.book_new();
 
       XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
-      XLSX.writeFile(workbook, `${fileName}.xlsx`);
+      XLSX.writeFile(
+        workbook,
+        `${`${fileName} - ${formatDate(new Date(), 'dd/MM/yyyy')}`}.xlsx`,
+      );
     } catch (error) {
       console.error('Erro ao exportar para Excel:', error);
     }

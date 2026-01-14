@@ -1,64 +1,81 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
-import s from "./_card-pie.module.scss";
+import s from './_card-pie.module.scss';
+import { useTransactions } from '@/hooks/use-transactions';
 
 const PieChartCustom = dynamic(
-  () => import("@/components/ui/charts/pie-chart/pie-chart-custom"),
+  () => import('@/components/ui/charts/pie-chart/pie-chart-custom'),
   { ssr: false },
 );
 
 export const CardPieChart = () => {
+  const { allTransactions, investmentBalance, revenueBalance, expenseBalance } =
+    useTransactions();
+
+  const total = revenueBalance + expenseBalance + investmentBalance;
+
+  const revenuePercentage =
+    total > 0 ? Math.round((revenueBalance / total) * 100) : 0;
+  const expensePercentage =
+    total > 0 ? Math.round((expenseBalance / total) * 100) : 0;
+  const investmentPercentage =
+    total > 0 ? Math.round((investmentBalance / total) * 100) : 0;
+
   const data = [
     {
-      name: "Ganhos",
-      value: 60,
-      fill: "#39be00",
+      name: 'Ganhos',
+      value: revenuePercentage,
+      fill: '#39be00',
     },
 
     {
-      name: "Gastos",
-      value: 40,
-      fill: "#EF4444",
+      name: 'Gastos',
+      value: expensePercentage,
+      fill: '#EF4444',
     },
     {
-      name: "Investimentos",
-      value: 60,
-      fill: "#ffffff",
+      name: 'Investimentos',
+      value: investmentPercentage,
+      fill: '#ffffff',
     },
   ];
 
   return (
     <div className={s.card__pie__chart_container}>
-      <PieChartCustom data={data} />
+      {allTransactions.length > 0 ? (
+        <PieChartCustom data={data} />
+      ) : (
+        <span>Não há dados</span>
+      )}
 
       <div className={s.legend}>
         <ul>
           <li>
             <p>
-              <span className={s.dot} style={{ background: "#39be00" }} />{" "}
+              <span className={s.dot} style={{ background: '#39be00' }} />{' '}
               Ganhos
             </p>
 
-            <b>60%</b>
+            <b>{revenuePercentage}%</b>
           </li>
           <li>
             <p>
-              {" "}
-              <span className={s.dot} style={{ background: "#EF4444" }} />{" "}
+              {' '}
+              <span className={s.dot} style={{ background: '#EF4444' }} />{' '}
               Gastos
             </p>
 
-            <b>22%</b>
+            <b>{expensePercentage}%</b>
           </li>
           <li>
             <p>
-              <span className={s.dot} style={{ background: "#ffffff" }} />{" "}
+              <span className={s.dot} style={{ background: '#ffffff' }} />{' '}
               Investimentos
             </p>
 
-            <b>18%</b>
+            <b>{investmentPercentage}%</b>
           </li>
         </ul>
       </div>

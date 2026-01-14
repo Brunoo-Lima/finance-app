@@ -34,6 +34,9 @@ interface ITransactionsContextProps {
   addTransaction: (tx: Omit<ITransaction, 'id'>) => void;
   editTransaction: (tx: ITransaction) => void;
   allTransactions: ITransaction[];
+  investmentBalance: number;
+  expenseBalance: number;
+  revenueBalance: number;
 }
 
 interface ITransactionsProvider {
@@ -85,6 +88,21 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     itemsPerPage,
   );
 
+  const investmentBalance = transactions.reduce(
+    (acc, item) => (item.type === 'INVESTMENT' ? acc + item.amount : acc),
+    0,
+  );
+
+  const revenueBalance = transactions.reduce(
+    (acc, item) => (item.type === 'DEPOSIT' ? acc + item.amount : acc),
+    0,
+  );
+
+  const expenseBalance = transactions.reduce(
+    (acc, item) => (item.type === 'EXPENSE' ? acc + item.amount : acc),
+    0,
+  );
+
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     handlePageChange(1);
@@ -120,6 +138,9 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     addTransaction,
     allTransactions: transactions,
     editTransaction,
+    investmentBalance,
+    expenseBalance,
+    revenueBalance,
     handlePageChange,
     handleSearch,
   };

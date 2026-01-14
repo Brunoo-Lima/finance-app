@@ -5,11 +5,11 @@ import { AddButtonExport } from './add-button-export';
 import { AddButtonTransaction } from './add-button-transaction';
 
 export const ActionsHeader = () => {
-  const { paginatedData } = useTransactions();
+  const { allTransactions } = useTransactions();
 
   return (
     <>
-      <AddButtonExport data={paginatedData} />
+      <AddButtonExport data={allTransactions} />
       <AddButtonTransaction />
     </>
   );

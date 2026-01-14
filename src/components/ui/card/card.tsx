@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import s from "./_card.module.scss";
-import { formatCurrencyBR } from "@/utils/format-currency";
+import { ReactNode } from 'react';
+import s from './_card.module.scss';
+import { formatCurrencyBR } from '@/utils/format-currency';
 
 interface ICardProps {
   icon?: ReactNode;
@@ -36,7 +36,9 @@ export const Card = ({
         <p>{text}</p>
       </div>
 
-      {amount && <h3>{formatCurrencyBR(amount as number)}</h3>}
+      {amount !== undefined && (
+        <h3>{amount === 0 ? 'R$ 0,00' : formatCurrencyBR(amount)}</h3>
+      )}
       {percentage && <h3>{percentage}%</h3>}
     </div>
   );
