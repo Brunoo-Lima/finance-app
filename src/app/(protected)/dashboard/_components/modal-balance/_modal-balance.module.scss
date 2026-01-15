@@ -25,6 +25,18 @@
       font-weight: 400;
       color: var(--color-gray-20);
     }
+
+    .input__container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .error {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--error);
+      }
+    }
   }
 
   .modal__footer {

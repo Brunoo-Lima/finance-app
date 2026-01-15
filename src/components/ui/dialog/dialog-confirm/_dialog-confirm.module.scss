@@ -1,21 +1,7 @@
+@use '../../../../styles/utils/mixins' as mix;
+
 .dialog {
-  max-width: 500px !important;
-  width: 100%;
-  height: max-content !important;
-  min-height: max-content !important;
-
-  padding: 1rem 1.5rem;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  border-radius: 0.75rem;
-  background-color: var(--color-black-100);
-
-  @media (max-width: 568px) {
-    max-width: calc(100% - 2rem) !important;
-  }
+  @include mix.dialog__base;
 
   .content {
     display: flex;
