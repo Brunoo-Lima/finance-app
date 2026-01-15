@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { DashLayout } from "./_components/dash-layout";
+import type { Metadata } from 'next';
+import { DashLayout } from './_components/dash-layout';
 import {
   PageActions,
   PageContainer,
@@ -7,12 +7,12 @@ import {
   PageHeader,
   PageHeaderContent,
   PageTitle,
-} from "@/components/ui/page-container/page-container";
-import { AddButtonTransaction } from "./_components/add-button-transaction/add-button-transaction";
+} from '@/components/ui/page-container/page-container';
+import { AddButtonTransaction } from '../transacoes/_components/actions-header/add-button-transaction';
 
 export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Dashboard para sua conta.",
+  title: 'Dashboard',
+  description: 'Dashboard para sua conta.',
 };
 
 export default function DashboardPage() {

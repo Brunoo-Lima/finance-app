@@ -34,6 +34,11 @@ interface ITransactionsContextProps {
   addTransaction: (tx: Omit<ITransaction, 'id'>) => void;
   editTransaction: (tx: ITransaction) => void;
   allTransactions: ITransaction[];
+  investmentBalance: number;
+  expenseBalance: number;
+  revenueBalance: number;
+  totalsByCategory: Record<string, { total: number; types: Set<string> }>;
+  grandTotal: number;
 }
 
 interface ITransactionsProvider {
@@ -46,7 +51,6 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     'transactions',
     [],
   );
-  const itemsPerPage = 7;
   const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
   const [selectedTypeTransaction, setSelectedTypeTransaction] = useState<
     TransactionType | ''
@@ -54,6 +58,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
   const [selectedMethodPayment, setSelectedMethodPayment] = useState<
     TransactionPayment | ''
   >('');
+  const itemsPerPage = 7;
 
   const filtered = useMemo(() => {
     return transactions.filter((item) => {
@@ -83,6 +88,45 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
   const { page, totalPages, handlePageChange, paginatedData } = usePagination(
     filtered,
     itemsPerPage,
+  );
+
+  const investmentBalance = transactions.reduce(
+    (acc, item) => (item.type === 'INVESTMENT' ? acc + item.amount : acc),
+    0,
+  );
+
+  const revenueBalance = transactions.reduce(
+    (acc, item) => (item.type === 'DEPOSIT' ? acc + item.amount : acc),
+    0,
+  );
+
+  const expenseBalance = transactions.reduce(
+    (acc, item) => (item.type === 'EXPENSE' ? acc + item.amount : acc),
+    0,
+  );
+
+  const totalsByCategory = transactions.reduce(
+    (acc, transaction) => {
+      const { category, type, amount } = transaction;
+
+      if (!acc[category]) {
+        acc[category] = {
+          total: 0,
+          types: new Set<string>(),
+        };
+      }
+
+      acc[category].total += amount;
+      acc[category].types.add(type);
+
+      return acc;
+    },
+    {} as Record<string, { total: number; types: Set<string> }>,
+  );
+
+  const grandTotal = Object.values(totalsByCategory).reduce(
+    (acc, item) => acc + item.total,
+    0,
   );
 
   const handleSearch = (term: string) => {
@@ -120,6 +164,11 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     addTransaction,
     allTransactions: transactions,
     editTransaction,
+    investmentBalance,
+    expenseBalance,
+    revenueBalance,
+    totalsByCategory,
+    grandTotal,
     handlePageChange,
     handleSearch,
   };
