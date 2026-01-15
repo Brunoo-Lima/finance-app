@@ -8,7 +8,7 @@ import {
 } from '@/@types/ITransaction';
 import { usePagination } from '@/hooks/use-pagination';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { createContext, ReactNode, useMemo, useState } from 'react';
+import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
 
 export const TransactionsContext = createContext<
   ITransactionsContextProps | undefined
@@ -19,6 +19,7 @@ interface ITransactionsContextProps {
   page: number;
   totalPages: number;
   searchTerm: string;
+  balance: number;
   selectedCategory: Category | '';
   setSelectedCategory: React.Dispatch<React.SetStateAction<Category | ''>>;
   selectedTypeTransaction: TransactionType | '';
@@ -29,16 +30,18 @@ interface ITransactionsContextProps {
   setSelectedMethodPayment: React.Dispatch<
     React.SetStateAction<TransactionPayment | ''>
   >;
-  handlePageChange: (page: number) => void;
-  handleSearch: (term: string) => void;
-  addTransaction: (tx: Omit<ITransaction, 'id'>) => void;
-  editTransaction: (tx: ITransaction) => void;
-  allTransactions: ITransaction[];
   investmentBalance: number;
   expenseBalance: number;
   revenueBalance: number;
   totalsByCategory: Record<string, { total: number; types: Set<string> }>;
   grandTotal: number;
+  allTransactions: ITransaction[];
+
+  handlePageChange: (page: number) => void;
+  handleSearch: (term: string) => void;
+  handleAddBalance: (value: number) => void;
+  addTransaction: (transaction: Omit<ITransaction, 'id'>) => void;
+  editTransaction: (transaction: ITransaction) => void;
 }
 
 interface ITransactionsProvider {
@@ -47,6 +50,7 @@ interface ITransactionsProvider {
 
 export function TransactionsProvider({ children }: ITransactionsProvider) {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [balance, setBalance] = useState<number>(0);
   const [transactions, setTransactions] = useLocalStorage<ITransaction[]>(
     'transactions',
     [],
@@ -129,25 +133,54 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     0,
   );
 
+  useEffect(() => {
+    const balanceStored = localStorage.getItem('balance');
+    if (balanceStored) {
+      setBalance(parseFloat(balanceStored));
+    }
+  }, [setBalance]);
+
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     handlePageChange(1);
   };
 
-  function addTransaction(tx: Omit<ITransaction, 'id'>) {
+  const handleAddBalance = (value: number) => {
+    setBalance(value);
+    localStorage.setItem('balance', value.toString());
+  };
+
+  function addTransaction(transaction: Omit<ITransaction, 'id'>) {
     const newId =
       transactions.length > 0
         ? Math.max(...transactions.map((t) => t.id)) + 1
         : 1;
-    const newTx = { ...tx, id: newId };
+    const newTx = { ...transaction, id: newId };
+
     setTransactions([...transactions, newTx]);
+
+    if (transaction.type === 'DEPOSIT') {
+      setBalance(balance + transaction.amount);
+    } else if (transaction.type === 'EXPENSE') {
+      setBalance(balance - transaction.amount);
+    } else if (transaction.type === 'INVESTMENT') {
+      setBalance(balance - transaction.amount);
+    }
   }
 
-  function editTransaction(tx: ITransaction) {
+  function editTransaction(transaction: ITransaction) {
     const updatedTransactions = transactions.map((t) =>
-      t.id === tx.id ? tx : t,
+      t.id === transaction.id ? transaction : t,
     );
     setTransactions(updatedTransactions);
+
+    if (transaction.type === 'DEPOSIT') {
+      setBalance(balance + transaction.amount);
+    } else if (transaction.type === 'EXPENSE') {
+      setBalance(balance - transaction.amount);
+    } else if (transaction.type === 'INVESTMENT') {
+      setBalance(balance - transaction.amount);
+    }
   }
 
   const contextValue = {
@@ -155,6 +188,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     page,
     totalPages,
     searchTerm,
+    balance,
     selectedCategory,
     setSelectedCategory,
     selectedTypeTransaction,
@@ -171,6 +205,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     grandTotal,
     handlePageChange,
     handleSearch,
+    handleAddBalance,
   };
 
   return (
