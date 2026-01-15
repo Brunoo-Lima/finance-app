@@ -150,22 +150,30 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     localStorage.setItem('balance', value.toString());
   };
 
+  function calculateBalance(transactions: ITransaction[]): number {
+    return transactions.reduce((total, transaction) => {
+      if (transaction.type === 'DEPOSIT') return total + transaction.amount;
+      if (transaction.type === 'EXPENSE') return total - transaction.amount;
+      if (transaction.type === 'INVESTMENT') return total - transaction.amount;
+      return total;
+    }, 0);
+  }
+
   function addTransaction(transaction: Omit<ITransaction, 'id'>) {
     const newId =
       transactions.length > 0
         ? Math.max(...transactions.map((t) => t.id)) + 1
         : 1;
-    const newTx = { ...transaction, id: newId };
+    const newTransaction = { ...transaction, id: newId };
 
-    setTransactions([...transactions, newTx]);
+    const updatedTransactions = [...transactions, newTransaction];
+    setTransactions(updatedTransactions);
 
-    if (transaction.type === 'DEPOSIT') {
-      setBalance(balance + transaction.amount);
-    } else if (transaction.type === 'EXPENSE') {
-      setBalance(balance - transaction.amount);
-    } else if (transaction.type === 'INVESTMENT') {
-      setBalance(balance - transaction.amount);
-    }
+    localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+
+    const newBalance = calculateBalance(updatedTransactions);
+    setBalance(newBalance);
+    localStorage.setItem('balance', newBalance.toString());
   }
 
   function editTransaction(transaction: ITransaction) {
@@ -174,13 +182,11 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     );
     setTransactions(updatedTransactions);
 
-    if (transaction.type === 'DEPOSIT') {
-      setBalance(balance + transaction.amount);
-    } else if (transaction.type === 'EXPENSE') {
-      setBalance(balance - transaction.amount);
-    } else if (transaction.type === 'INVESTMENT') {
-      setBalance(balance - transaction.amount);
-    }
+    localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+
+    const newBalance = calculateBalance(updatedTransactions);
+    setBalance(newBalance);
+    localStorage.setItem('balance', newBalance.toString());
   }
 
   const contextValue = {
