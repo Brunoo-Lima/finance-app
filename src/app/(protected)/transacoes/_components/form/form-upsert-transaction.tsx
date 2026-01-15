@@ -154,6 +154,14 @@ export const FormUpsertTransaction = ({
                       value: 'SALARY',
                     },
                     {
+                      label: 'Carro',
+                      value: 'CAR',
+                    },
+                    {
+                      label: 'Trabalho',
+                      value: 'WORK',
+                    },
+                    {
                       label: 'Outro',
                       value: 'OTHER',
                     },
@@ -204,6 +212,10 @@ export const FormUpsertTransaction = ({
                     {
                       label: 'Dinheiro',
                       value: 'CASH',
+                    },
+                    {
+                      label: 'Pix',
+                      value: 'PIX',
                     },
                     {
                       label: 'Cartão de Crédito',
