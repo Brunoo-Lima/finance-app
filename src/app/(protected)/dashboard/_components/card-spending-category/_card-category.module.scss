@@ -10,6 +10,10 @@
   flex: 1;
   min-height: 500px;
 
+  &.card__empty {
+    min-height: max-content;
+  }
+
   @media (max-width: 568px) {
     padding: 1rem;
     height: max-content;

@@ -9,8 +9,12 @@ import { Category } from '@/@types/ITransaction';
 export const CardSpendingCategory = () => {
   const { totalsByCategory, grandTotal } = useTransactions();
 
+  const isEmpty = Object.entries(totalsByCategory).length === 0;
+
   return (
-    <div className={s.card__spending__category__container}>
+    <div
+      className={`${s.card__spending__category__container} ${isEmpty && s.card__empty}`}
+    >
       <div className={s.sub__header}>
         <p>Gastos por categoria</p>
       </div>
@@ -28,6 +32,12 @@ export const CardSpendingCategory = () => {
             />
           );
         })}
+
+        {isEmpty && (
+          <span className={s.transactions__empty}>
+            Nenhuma transação encontrada
+          </span>
+        )}
       </div>
     </div>
   );

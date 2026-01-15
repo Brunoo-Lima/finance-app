@@ -42,13 +42,13 @@ export const CardPieChart = () => {
     },
   ];
 
+  const isEmpty = allTransactions.length === 0;
+
   return (
-    <div className={s.card__pie__chart_container}>
-      {allTransactions.length > 0 ? (
-        <PieChartCustom data={data} />
-      ) : (
-        <span>Não há dados</span>
-      )}
+    <div
+      className={`${s.card__pie__chart_container} ${isEmpty && s.card__empty}`}
+    >
+      {!isEmpty ? <PieChartCustom data={data} /> : <span>Não há dados</span>}
 
       <div className={s.legend}>
         <ul>

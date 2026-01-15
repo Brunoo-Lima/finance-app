@@ -14,6 +14,10 @@
   align-items: center;
   gap: 2rem;
 
+  &.card__empty {
+    min-height: max-content;
+  }
+
   @media (max-width: 968px) {
     flex: 1;
   }
