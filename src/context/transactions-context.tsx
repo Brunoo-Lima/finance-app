@@ -37,6 +37,8 @@ interface ITransactionsContextProps {
   investmentBalance: number;
   expenseBalance: number;
   revenueBalance: number;
+  totalsByCategory: Record<string, { total: number; types: Set<string> }>;
+  grandTotal: number;
 }
 
 interface ITransactionsProvider {
@@ -103,6 +105,30 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     0,
   );
 
+  const totalsByCategory = transactions.reduce(
+    (acc, transaction) => {
+      const { category, type, amount } = transaction;
+
+      if (!acc[category]) {
+        acc[category] = {
+          total: 0,
+          types: new Set<string>(),
+        };
+      }
+
+      acc[category].total += amount;
+      acc[category].types.add(type);
+
+      return acc;
+    },
+    {} as Record<string, { total: number; types: Set<string> }>,
+  );
+
+  const grandTotal = Object.values(totalsByCategory).reduce(
+    (acc, item) => acc + item.total,
+    0,
+  );
+
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     handlePageChange(1);
@@ -141,6 +167,8 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     investmentBalance,
     expenseBalance,
     revenueBalance,
+    totalsByCategory,
+    grandTotal,
     handlePageChange,
     handleSearch,
   };
