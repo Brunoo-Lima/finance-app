@@ -2,7 +2,7 @@
 
 import { EyeIcon, EyeOffIcon, PlusIcon, WalletIcon } from 'lucide-react';
 import s from './_card-balance.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModalBalance } from '../modal-balance/modal-balance';
 import { useModalState } from '@/hooks/use-modal-state';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
@@ -13,6 +13,7 @@ import { formatCurrencyBR } from '@/utils/format-currency';
 export const CardBalance = () => {
   const { balance, handleAddBalance } = useTransactions();
   const [tempBalance, setTempBalance] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isVisibleBalance, setIsVisibleBalance] = useState<boolean>(false);
   const {
     showSuccess,
@@ -23,7 +24,18 @@ export const CardBalance = () => {
     showConfirm,
   } = useModalState<string, string>();
 
+  useEffect(() => {
+    if (tempBalance !== null) {
+      setError(null);
+    }
+  }, [tempBalance]);
+
   const handleOpenDialogConfirm = (value: number) => {
+    if (value <= 0) {
+      setError('O valor deve ser maior que zero.');
+      return;
+    }
+
     setTempBalance(value);
     setShowConfirm(true);
     setActiveModal(null);
@@ -35,6 +47,7 @@ export const CardBalance = () => {
     }
     setShowConfirm(false);
     setShowSuccess(true);
+    setTempBalance(null);
   };
 
   return (
@@ -84,8 +97,13 @@ export const CardBalance = () => {
       {activeModal === 'wallet' && (
         <ModalBalance
           tempBalance={tempBalance}
+          error={error}
           setTempBalance={setTempBalance}
-          onClose={() => setActiveModal(null)}
+          onClose={() => {
+            setActiveModal(null);
+            setError(null);
+            setTempBalance(null);
+          }}
           onConfirm={handleOpenDialogConfirm}
         />
       )}
@@ -108,6 +126,8 @@ export const CardBalance = () => {
           textButtonConfirm="Confirmar"
           onCancel={() => {
             setShowConfirm(false);
+            setError(null);
+            setTempBalance(null);
           }}
           onConfirm={handleConfirmBalance}
         />

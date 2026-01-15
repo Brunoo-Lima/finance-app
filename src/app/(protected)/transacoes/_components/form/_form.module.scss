@@ -1,6 +1,10 @@
 .modal__root__custom {
   padding: 0 2rem !important;
 
+  @media (max-width: 568px) {
+    min-height: 100dvh !important;
+  }
+
   .form {
     display: flex;
     flex-direction: column;
@@ -16,14 +20,14 @@
 
       height: 100%;
 
-      @media (max-width: 1366px) {
-        max-height: 400px;
-        overflow-y: auto;
+      // @media (max-width: 1366px) {
+      //   max-height: 400px;
+      //   overflow-y: auto;
 
-        &::-webkit-scrollbar {
-          display: none;
-        }
-      }
+      //   &::-webkit-scrollbar {
+      //     display: none;
+      //   }
+      // }
     }
 
     .footer__form {

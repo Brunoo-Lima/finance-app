@@ -9,6 +9,7 @@ interface IModalBalanceProps {
   onConfirm: (value: number) => void;
   tempBalance: number | null;
   setTempBalance: React.Dispatch<React.SetStateAction<number | null>>;
+  error?: string | null;
 }
 
 export const ModalBalance = ({
@@ -16,6 +17,7 @@ export const ModalBalance = ({
   onConfirm,
   tempBalance,
   setTempBalance,
+  error,
 }: IModalBalanceProps) => {
   return (
     <ModalBackground>
@@ -29,13 +31,17 @@ export const ModalBalance = ({
           <Modal.Content className={s.modal__content}>
             <p>Digite o valor para adicionar ao seu saldo.</p>
 
-            <Input
-              type="number"
-              placeholder="R$ 0,00"
-              label="Valor"
-              value={tempBalance?.toString()}
-              onChange={(e) => setTempBalance(parseFloat(e.target.value))}
-            />
+            <div className={s.input__container}>
+              <Input
+                type="number"
+                placeholder="R$ 0,00"
+                label="Valor"
+                value={tempBalance?.toString()}
+                onChange={(e) => setTempBalance(parseFloat(e.target.value))}
+              />
+
+              {error && <small className={s.error}>{error}</small>}
+            </div>
           </Modal.Content>
 
           <Modal.Footer className={s.modal__footer}>

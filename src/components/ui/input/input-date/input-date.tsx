@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import s from "./_input.module.scss";
-import { FieldError } from "react-hook-form";
+import React, { useState, useEffect } from 'react';
+import s from './_input.module.scss';
+import { FieldError } from 'react-hook-form';
+import { isValidDate } from '@/utils/format-date';
 
 interface InputDateProps {
   label: string;
@@ -17,12 +18,12 @@ export const InputDate: React.FC<InputDateProps> = ({
   onChange,
   onBlur,
   error,
-  placeholder = "DD/MM/AAAA",
+  placeholder = 'DD/MM/AAAA',
 }) => {
-  const [displayValue, setDisplayValue] = useState("");
+  const [displayValue, setDisplayValue] = useState('');
 
   const formatDate = (input: string): string => {
-    const numbers = input.replace(/\D/g, "");
+    const numbers = input.replace(/\D/g, '');
 
     const limited = numbers.slice(0, 8);
 
@@ -44,6 +45,11 @@ export const InputDate: React.FC<InputDateProps> = ({
   };
 
   const handleBlur = () => {
+    if (displayValue.length === 10) {
+      if (!isValidDate(displayValue)) {
+        onChange('');
+      }
+    }
     onBlur?.();
   };
 
@@ -52,11 +58,11 @@ export const InputDate: React.FC<InputDateProps> = ({
       if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
         setDisplayValue(value);
       } else {
-        const formatted = formatDate(value.replace(/\D/g, ""));
+        const formatted = formatDate(value.replace(/\D/g, ''));
         setDisplayValue(formatted);
       }
     } else {
-      setDisplayValue("");
+      setDisplayValue('');
     }
   }, [value]);
 
@@ -71,7 +77,7 @@ export const InputDate: React.FC<InputDateProps> = ({
         onBlur={handleBlur}
         placeholder={placeholder}
         maxLength={10}
-        className={`${s.input__field} ${error ? s.error : ""}`}
+        className={`${s.input__field} ${error ? s.error : ''}`}
         aria-invalid={!!error}
       />
 
