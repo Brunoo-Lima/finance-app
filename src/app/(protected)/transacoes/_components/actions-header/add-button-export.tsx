@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button/button';
 import { DownloadIcon } from 'lucide-react';
-import * as XLSX from 'xlsx';
 import {
   getCategoryLabel,
   getPaymentLabel,
@@ -8,6 +7,7 @@ import {
 } from '../../_constants';
 import { formatCurrencyBR } from '@/utils/format-currency';
 import { formatDate } from 'date-fns';
+import { useCallback, useState } from 'react';
 
 interface IAddButtonExportProps {
   data: any[];
@@ -22,10 +22,16 @@ export const AddButtonExport = ({
   sheetName = 'Transações',
   disabled = false,
 }: IAddButtonExportProps) => {
-  const exportToExcel = () => {
-    if (!data || data.length === 0) return;
+  const [isExporting, setIsExporting] = useState<boolean>(false);
+
+  const exportToExcel = useCallback(async () => {
+    if (isExporting || !data?.length) return;
+
+    setIsExporting(true);
 
     try {
+      const XLSX = await import('xlsx');
+
       const formattedData = data.map((item) => ({
         Nome: item.name,
         Tipo: getTransactionType(item.type),
@@ -45,15 +51,17 @@ export const AddButtonExport = ({
       );
     } catch (error) {
       console.error('Erro ao exportar para Excel:', error);
+    } finally {
+      setIsExporting(false);
     }
-  };
+  }, [data, fileName, sheetName, isExporting]);
 
   return (
     <>
       <Button
         variant="cancel"
         onClick={exportToExcel}
-        disabled={disabled || !data || data.length === 0}
+        disabled={disabled || !data?.length || isExporting}
       >
         <DownloadIcon size={16} />
         Exportar
