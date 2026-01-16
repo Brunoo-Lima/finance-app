@@ -3,6 +3,7 @@ import s from './page.module.scss';
 import Link from 'next/link';
 import { ChevronLeftIcon } from 'lucide-react';
 import { ForgotPasswordForm } from '@/components/layouts/(public)/forgot-password-form/forgot-password-form';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Esqueci minha senha',
@@ -26,6 +27,11 @@ export default function ForgotPasswordPage() {
         </p>
 
         <ForgotPasswordForm />
+
+        <div className={s.logo__name}>
+          <Image src="/logo/logo.svg" alt="logo" height={24} width={24} />
+          <span>MasterCash</span>
+        </div>
       </div>
     </section>
   );

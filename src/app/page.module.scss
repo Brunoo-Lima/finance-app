@@ -36,6 +36,21 @@
         gap: 1rem;
         max-width: 100%;
 
+        .logo__name {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+
+          img {
+            flex-shrink: 0;
+          }
+
+          span {
+            font-size: 2rem;
+            font-weight: 700;
+          }
+        }
+
         h1 {
           font-size: 2rem;
           font-weight: 700;

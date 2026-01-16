@@ -3,6 +3,7 @@ import s from './page.module.scss';
 import Link from 'next/link';
 import { ChevronLeftIcon } from 'lucide-react';
 import { NewPasswordForm } from '@/components/layouts/(public)/new-password-form/new-password-form';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Nova senha',
@@ -23,6 +24,11 @@ export default function NewPasswordPage() {
         <p>Insira a nova senha.</p>
 
         <NewPasswordForm />
+
+        <div className={s.logo__name}>
+          <Image src="/logo/logo.svg" alt="logo" height={24} width={24} />
+          <span>MasterCash</span>
+        </div>
       </div>
     </section>
   );

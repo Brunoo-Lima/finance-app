@@ -67,5 +67,21 @@
       font-weight: 400;
       color: var(--color-gray-40);
     }
+
+    .logo__name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      img {
+        flex-shrink: 0;
+      }
+
+      span {
+        font-size: 0.875rem;
+        font-weight: 700;
+      }
+    }
   }
 }
