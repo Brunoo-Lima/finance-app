@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { ChevronLeftIcon } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Login',
-  description: 'Login para sua conta.',
+  title: 'Criar conta',
+  description: 'Criar conta',
 };
 
 export default function RegisterPage() {

@@ -1,0 +1,27 @@
+import type { Metadata } from 'next';
+import s from './page.module.scss';
+import Link from 'next/link';
+import { ChevronLeftIcon } from 'lucide-react';
+import { ForgotPasswordForm } from '@/components/layouts/(public)/forgot-password-form/forgot-password-form';
+
+export const metadata: Metadata = {
+  title: 'Esqueci minha senha',
+  description: 'Esqueci minha senha.',
+};
+
+export default function ForgotPasswordPage() {
+  return (
+    <section className={s.forgot__password__wrapper}>
+      <div className={s.forgot__password__container}>
+        <div className={s.forgot__password__header}>
+          <Link href={'/'}>
+            <ChevronLeftIcon size={24} color="currentColor" />
+          </Link>
+          <h1>Esqueci minha senha</h1>
+        </div>
+
+        <ForgotPasswordForm />
+      </div>
+    </section>
+  );
+}
