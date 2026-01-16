@@ -3,6 +3,7 @@ import s from './page.module.scss';
 import { RegisterForm } from '@/components/layouts/(public)/register-form/register-form';
 import Link from 'next/link';
 import { ChevronLeftIcon } from 'lucide-react';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Criar conta',
@@ -21,6 +22,11 @@ export default function RegisterPage() {
         </div>
 
         <RegisterForm />
+
+        <div className={s.logo__name}>
+          <Image src="/logo/logo.svg" alt="logo" height={24} width={24} />
+          <span>MasterCash</span>
+        </div>
       </div>
     </section>
   );
