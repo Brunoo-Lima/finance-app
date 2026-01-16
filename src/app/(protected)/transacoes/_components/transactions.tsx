@@ -1,7 +1,5 @@
 'use client';
 
-import { TableData } from './table-data/table-data';
-
 import s from './_transactions.module.scss';
 import { FilterIcon } from 'lucide-react';
 import { useTransactions } from '@/hooks/use-transactions';
@@ -9,6 +7,16 @@ import { Pagination } from '@/components/ui/pagination/pagination';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 import { InputSearch } from '@/components/ui/input/input-search/input-search';
 import { Filters } from './filters/filters';
+import dynamic from 'next/dynamic';
+import Loading from '@/components/ui/loading/loading';
+
+const TableData = dynamic(
+  () => import('./table-data/table-data').then((mod) => mod.TableData),
+  {
+    ssr: false,
+    loading: () => <Loading />,
+  },
+);
 
 export const Transactions = () => {
   const {

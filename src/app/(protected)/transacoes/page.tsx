@@ -12,6 +12,7 @@ import { Transactions } from './_components/transactions';
 import s from './_page.module.scss';
 import { ActionsHeader } from './_components/actions-header/actions-header';
 import { StatsCards } from './_components/stats-cards/stats-cards';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Transações',
@@ -38,7 +39,9 @@ export default function TransactionsPage() {
         <StatsCards />
       </div>
 
-      <Transactions />
+      <Suspense fallback={<div className={s.loading}>Carregando...</div>}>
+        <Transactions />
+      </Suspense>
     </PageContainer>
   );
 }
