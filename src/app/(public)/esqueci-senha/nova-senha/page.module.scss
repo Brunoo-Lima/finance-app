@@ -1,4 +1,4 @@
-.forgot__password__wrapper {
+.new__password__wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,7 +6,7 @@
   min-height: 100vh;
   max-width: 100%;
 
-  .forgot__password__container {
+  .new__password__container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -22,7 +22,7 @@
       max-width: calc(100% - 2rem);
     }
 
-    .forgot__password__header {
+    .new__password__header {
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -61,11 +61,11 @@
         }
       }
     }
+  }
 
-    p {
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--color-gray-40);
-    }
+  p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-gray-40);
   }
 }

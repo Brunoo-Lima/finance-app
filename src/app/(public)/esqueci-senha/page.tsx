@@ -20,6 +20,11 @@ export default function ForgotPasswordPage() {
           <h1>Esqueci minha senha</h1>
         </div>
 
+        <p>
+          Insira o seu e-mail para enviarmos as instruções para redefinir sua
+          senha.
+        </p>
+
         <ForgotPasswordForm />
       </div>
     </section>
