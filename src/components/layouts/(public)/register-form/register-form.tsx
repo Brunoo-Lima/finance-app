@@ -14,9 +14,11 @@ import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
 import { DialogConfirm } from '@/components/ui/dialog/dialog-confirm';
 import { useRouter } from 'next/navigation';
 import { InputPassword } from '@/components/ui/input/input-password/input-password';
+import { useAuth } from '@/hooks/use-auth';
 
 export const RegisterForm = () => {
   const router = useRouter();
+  const { register: registerService } = useAuth();
   const { showSuccess, setShowSuccess, showConfirm, setShowConfirm } =
     useModalState();
   const {
@@ -37,6 +39,8 @@ export const RegisterForm = () => {
     console.log(data);
 
     try {
+      registerService(data.name, data.email, data.password);
+
       setShowSuccess(true);
     } catch (error) {
       console.log(error);
@@ -64,6 +68,7 @@ export const RegisterForm = () => {
         <InputPassword
           label="Senha"
           placeholder="Digite a senha"
+          maxLength={6}
           {...register('password')}
           error={errors.password}
         />
@@ -71,6 +76,7 @@ export const RegisterForm = () => {
         <InputPassword
           label="Confirmação de senha"
           placeholder="Digite a confirmação de senha"
+          maxLength={6}
           {...register('confirmPassword')}
           error={errors.confirmPassword}
         />

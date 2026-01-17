@@ -9,6 +9,7 @@ import {
   PageTitle,
 } from '@/components/ui/page-container/page-container';
 import { AddButtonTransaction } from '../transacoes/_components/actions-header/add-button-transaction';
+import { Username } from '@/components/ui/username/username';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <PageContainer>
+      <Username />
+
       <PageHeader>
         <PageHeaderContent>
           <PageTitle>Dashboard</PageTitle>
