@@ -47,6 +47,7 @@ export const NewPasswordForm = () => {
         <InputPassword
           label="Senha"
           placeholder="Digite a senha"
+          maxLength={6}
           {...register('password')}
           error={errors.password}
         />
@@ -54,6 +55,7 @@ export const NewPasswordForm = () => {
         <InputPassword
           label="Confirmação de senha"
           placeholder="Digite a confirmação de senha"
+          maxLength={6}
           {...register('confirmPassword')}
           error={errors.confirmPassword}
         />

@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { Input } from "@/components/ui/input/input";
+import { Input } from '@/components/ui/input/input';
 import {
   ILoginFormSchema,
   loginFormSchema,
-} from "@/validations/login-form-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+} from '@/validations/login-form-schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
 
-import s from "./_login-form.module.scss";
-import { Button } from "@/components/ui/button/button";
-import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox/checkbox";
-import { useAuth } from "@/hooks/use-auth";
-import { InputPassword } from "@/components/ui/input/input-password/input-password";
-import Loading from "@/components/ui/loading/loading";
+import s from './_login-form.module.scss';
+import { Button } from '@/components/ui/button/button';
+import Link from 'next/link';
+import { Checkbox } from '@/components/ui/checkbox/checkbox';
+import { useAuth } from '@/hooks/use-auth';
+import { InputPassword } from '@/components/ui/input/input-password/input-password';
+import Loading from '@/components/ui/loading/loading';
 
 export const LoginForm = () => {
   const { loginService } = useAuth();
@@ -26,8 +26,8 @@ export const LoginForm = () => {
   } = useForm<ILoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       remember: false,
     },
   });
@@ -47,13 +47,14 @@ export const LoginForm = () => {
       <Input
         label="E-mail"
         placeholder="Email"
-        {...register("email")}
+        {...register('email')}
         error={errors.email}
       />
       <InputPassword
         label="Senha"
         placeholder="Senha"
-        {...register("password")}
+        maxLength={6}
+        {...register('password')}
         error={errors.password}
       />
 
@@ -72,7 +73,7 @@ export const LoginForm = () => {
       </div>
 
       <Button type="submit" disabled={isSubmitting} className={s.button__send}>
-        {isSubmitting ? <Loading size={20} /> : "Entrar"}
+        {isSubmitting ? <Loading size={20} /> : 'Entrar'}
       </Button>
 
       <p className={s.register}>
