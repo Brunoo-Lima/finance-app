@@ -12,19 +12,19 @@ export const StatsCards = () => {
     <>
       <Card
         text="Investido"
-        amount={investmentBalance}
+        amount={investmentBalance || 0}
         icon={<PiggyBankIcon size={16} color="#ffffff" />}
         backgroundIcon="#FFFFFF14"
       />
       <Card
         text="Receita"
-        amount={revenueBalance}
+        amount={revenueBalance || 0}
         icon={<TrendingUpIcon size={16} color="#39BE00" />}
         backgroundIcon="#39BE0014"
       />
       <Card
         text="Despesas"
-        amount={expenseBalance}
+        amount={expenseBalance || 0}
         icon={<TrendingDownIcon size={16} color="#E93030" />}
         backgroundIcon="#F6352E14"
       />

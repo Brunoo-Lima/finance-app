@@ -4,7 +4,7 @@ import { LoginForm } from '@/components/layouts/(public)/login-form/login-form';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Login',
+  title: 'Login | MasterCash',
   description: 'Login para sua conta.',
 };
 

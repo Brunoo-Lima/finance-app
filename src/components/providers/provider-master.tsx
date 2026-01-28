@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import { TransactionsProvider } from "@/context/transactions-context";
-import { AuthValidator } from "./auth-validator";
+import { AuthProvider } from '@/context/auth-context';
+import { TransactionsProvider } from '@/context/transactions-context';
+// import { AuthValidator } from "./auth-validator";
 
 export const ProviderMaster = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AuthValidator>
+    <AuthProvider>
       <TransactionsProvider>{children}</TransactionsProvider>
-    </AuthValidator>
+    </AuthProvider>
   );
 };
