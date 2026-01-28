@@ -15,6 +15,7 @@ import { Checkbox } from '@/components/ui/checkbox/checkbox';
 import { useAuth } from '@/hooks/use-auth';
 import { InputPassword } from '@/components/ui/input/input-password/input-password';
 import Loading from '@/components/ui/loading/loading';
+import { toast } from 'sonner';
 
 export const LoginForm = () => {
   const { loginService } = useAuth();
@@ -33,12 +34,11 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (data: ILoginFormSchema) => {
-    console.log(data);
-
     try {
       await loginService(data.email, data.password, data.remember || false);
     } catch (error) {
       console.log(error);
+      toast.error('Credenciais inválidas');
     }
   };
 

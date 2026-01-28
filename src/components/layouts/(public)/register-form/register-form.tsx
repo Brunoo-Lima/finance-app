@@ -15,6 +15,7 @@ import { DialogConfirm } from '@/components/ui/dialog/dialog-confirm';
 import { useRouter } from 'next/navigation';
 import { InputPassword } from '@/components/ui/input/input-password/input-password';
 import { useAuth } from '@/hooks/use-auth';
+import { toast } from 'sonner';
 
 export const RegisterForm = () => {
   const router = useRouter();
@@ -36,14 +37,14 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = async (data: IRegisterFormSchema) => {
-    console.log(data);
-
     try {
-      registerService(data.name, data.email, data.password);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await registerService(data.name, data.email, data.password);
 
       setShowSuccess(true);
     } catch (error) {
       console.log(error);
+      toast.error('Erro ao criar conta.');
     }
   };
 
