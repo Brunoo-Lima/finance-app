@@ -9,6 +9,7 @@ import { InputSearch } from '@/components/ui/input/input-search/input-search';
 import { Filters } from './filters/filters';
 import dynamic from 'next/dynamic';
 import Loading from '@/components/ui/loading/loading';
+import Link from 'next/link';
 
 const TableData = dynamic(
   () => import('./table-data/table-data').then((mod) => mod.TableData),
@@ -71,6 +72,8 @@ export const Transactions = () => {
           <Filters />
         </div>
       </div>
+
+      <Link href="/dashboard">Ir para dashboard</Link>
 
       <TableData data={paginatedData} isEmpty={isEmpty} />
 
