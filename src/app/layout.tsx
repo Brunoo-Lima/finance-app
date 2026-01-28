@@ -1,12 +1,13 @@
-import { Mulish } from "next/font/google";
-import "../styles/globals.scss";
-import { ProviderGlobal } from "@/components/providers/provider-global";
+import { Mulish } from 'next/font/google';
+import '../styles/globals.scss';
+import { ProviderGlobal } from '@/components/providers/provider-global';
+import { Toaster } from 'sonner';
 
 const font__primary = Mulish({
-  variable: "--font-primary",
-  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
-  subsets: ["latin"],
+  variable: '--font-primary',
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+  subsets: ['latin'],
 });
 
 export default function RootLayout({
@@ -20,6 +21,7 @@ export default function RootLayout({
         className={`${font__primary.className} ${font__primary.variable} antialiased`}
       >
         <ProviderGlobal>{children}</ProviderGlobal>
+        <Toaster richColors theme="dark" />
       </body>
     </html>
   );
