@@ -6,6 +6,7 @@ import {
   ArrowLeftRightIcon,
   LayoutDashboardIcon,
   LogOutIcon,
+  TargetIcon,
   UserIcon,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -23,6 +24,11 @@ const items = [
     title: 'Transações',
     url: '/transacoes',
     icon: ArrowLeftRightIcon,
+  },
+  {
+    title: 'Metas',
+    url: '/metas',
+    icon: TargetIcon,
   },
   {
     title: 'Conta',

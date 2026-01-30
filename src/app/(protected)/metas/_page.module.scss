@@ -1,0 +1,12 @@
+.page__header__custom {
+  @media (max-width: 968px) {
+    flex-wrap: wrap;
+    gap: 1.5rem !important;
+  }
+
+  .page__actions__custom {
+    @media (max-width: 468px) {
+      flex-wrap: wrap;
+    }
+  }
+}

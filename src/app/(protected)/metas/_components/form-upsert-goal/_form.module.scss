@@ -1,10 +1,5 @@
-.modal__root__custom {
-  padding: 0 2rem !important;
+.modal__root {
   height: 100vh;
-
-  @media (max-width: 568px) {
-    min-height: 100dvh !important;
-  }
 
   .form {
     display: flex;
@@ -20,9 +15,13 @@
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
+
+      overflow-y: auto;
     }
 
     .modal__footer {
+      margin-top: auto;
+
       button {
         width: 100%;
       }
