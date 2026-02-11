@@ -1,8 +1,8 @@
-import { formatCurrencyBR } from "@/utils/format-currency";
-import s from "./_bar-progress.module.scss";
+import { formatCurrencyBR } from '@/utils/format-currency';
+import s from './_bar-progress.module.scss';
 
 interface IBarProgressProps {
-  title: string;
+  title?: string;
   percentage: number;
   value?: number;
 }

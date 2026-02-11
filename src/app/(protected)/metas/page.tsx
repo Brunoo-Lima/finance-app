@@ -9,6 +9,8 @@ import {
 import s from './_page.module.scss';
 import type { Metadata } from 'next';
 import { AddButtonGoal } from './_components/add-button-goal';
+import { StatsCards } from './_components/stats-cards';
+import { Goals } from './_components/goals/goals';
 
 export const metadata: Metadata = {
   title: 'Metas Financeiras | MasterCash',
@@ -30,6 +32,12 @@ export default function GoalsPage() {
           <AddButtonGoal />
         </PageActions>
       </PageHeader>
+
+      <div className={s.stats__wrapper}>
+        <StatsCards />
+      </div>
+
+      <Goals />
     </PageContainer>
   );
 }

@@ -53,7 +53,7 @@ export const Sidebar = () => {
           loading="lazy"
         />
         <strong className={s.logo}>MasterCash</strong>
-        <small>v1.0</small>
+        <small>v2.0</small>
       </div>
 
       <nav className={s.sidebar__items}>
