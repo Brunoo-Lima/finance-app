@@ -15,6 +15,7 @@ import { Dropdown } from '@/components/ui/dropdown/dropdown';
 import { InputDate } from '@/components/ui/input/input-date/input-date';
 import { InputValue } from '@/components/ui/input/input-value/input-value';
 import { categoryListSelect } from '@/utils/category-list';
+import { useGoals } from '@/hooks/use-goals';
 
 interface IFormUpsertGoalProps {
   selected: IGoal | null;
@@ -47,9 +48,31 @@ export const FormUpsertGoal = ({
     mode: 'onChange',
   });
 
+  const { addGoals, editGoal } = useGoals();
+
   const onSubmit: SubmitHandler<IGoalFormSchema> = async (data) => {
     try {
-      console.log(data);
+      if (selected) {
+        const goalData = {
+          ...data,
+          valueTotal: Number(data.valueTotal),
+          valueAchieved: Number(data.valueAchieved),
+          contributionMonthly: Number(data.contributionMonthly),
+          id: selected.id,
+        };
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await editGoal(goalData);
+      } else {
+        const newGoal = {
+          ...data,
+          valueTotal: Number(data.valueTotal),
+          valueAchieved: Number(data.valueAchieved),
+          contributionMonthly: Number(data.contributionMonthly),
+        };
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await addGoals(newGoal);
+      }
 
       onSave();
     } catch (error) {
@@ -123,7 +146,7 @@ export const FormUpsertGoal = ({
               render={({ field }) => (
                 <InputDate
                   {...field}
-                  label="Data"
+                  label="Data final"
                   value={field.value}
                   onChange={field.onChange}
                   error={errors?.dateFinal}

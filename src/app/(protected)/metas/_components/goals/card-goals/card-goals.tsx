@@ -3,7 +3,7 @@
 import { BarProgress } from '@/components/ui/bar-progress/bar-progress';
 import { TargetIcon } from '@phosphor-icons/react/dist/ssr';
 import s from './_card-goals.module.scss';
-import { IGoal } from '@/@types/IGoal';
+import { IGoal, IGoalData } from '@/@types/IGoal';
 import { formatCurrencyBR } from '@/utils/format-currency';
 import {
   CalendarIcon,
@@ -14,11 +14,13 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { useGoals } from '@/hooks/use-goals';
+import { getCategoryLabel } from '@/app/(protected)/transacoes/_constants';
+import { Category } from '@/@types/ITransaction';
 
 interface ICardGoalsProps {
   goal: IGoal;
   percentage: number;
-  onEdit: (id: number) => void;
+  onEdit: (goal: IGoalData) => void;
   onDelete: (id: number) => void;
   onComplete: (id: number) => void;
 }
@@ -50,7 +52,7 @@ export const CardGoals = ({
           <div className={s.column1__bottom}>
             <div className={s.category__container}>
               <TargetIcon size={16} />
-              <small>{goal.category}</small>
+              <small>{getCategoryLabel(goal.category as Category)}</small>
             </div>
             <div className={s.date__container}>
               <CalendarIcon size={16} color="#d5d5d5" />
@@ -110,13 +112,13 @@ export const CardGoals = ({
         </button>
       )}
 
-      <div className={s.card__attention}>
+      {/* <div className={s.card__attention}>
         <TriangleAlertIcon size={20} color="#ff8d28" />
         <span>
           Considere aumentar sua contribuição mensal para atingir a meta no
           prazo.
         </span>
-      </div>
+      </div> */}
 
       {goal.status !== 'finalizada' ? (
         <div className={s.card__buttons}>
@@ -128,7 +130,7 @@ export const CardGoals = ({
             <CircleCheckBigIcon size={16} color="#ffffff" />
             <p>Finalizar</p>
           </button>
-          <button type="button" onClick={() => onEdit(goal.id)}>
+          <button type="button" onClick={() => onEdit(goal)}>
             <SquarePenIcon size={16} color="#a7a7a7" />
             <p>Editar</p>
           </button>

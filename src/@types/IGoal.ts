@@ -10,3 +10,13 @@ export interface IGoal {
   dateFinal: string;
   status: string;
 }
+
+export interface IGoalData {
+  id: number;
+  name: string;
+  category: string;
+  contributionMonthly: number;
+  valueAchieved: number;
+  valueTotal: number;
+  dateFinal: string;
+}

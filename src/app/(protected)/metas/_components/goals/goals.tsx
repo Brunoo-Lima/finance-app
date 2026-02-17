@@ -2,8 +2,6 @@
 
 import s from './_goals.module.scss';
 import { BarProgress } from '@/components/ui/bar-progress/bar-progress';
-import { goalsList } from '@/mocks/goals-list';
-import { useState } from 'react';
 import { CardGoals } from './card-goals/card-goals';
 import { useModalState } from '@/hooks/use-modal-state';
 import { useGoals } from '@/hooks/use-goals';
@@ -12,13 +10,24 @@ import { FormUpsertGoal } from '../form-upsert-goal/form-upsert-goal';
 import { DialogDelete } from './dialogs/dialog-delete';
 import { successMessage } from '../_constants';
 import { DialogComplete } from './dialogs/dialog-complete';
+import { formatCurrencyBR } from '@/utils/format-currency';
+import { IGoalData } from '@/@types/IGoal';
 
 export type IModalType = 'update' | 'delete' | 'complete';
 export type IActionType = 'update' | 'delete' | 'complete';
 
 export const Goals = () => {
-  const [goals, setGoals] = useState(goalsList);
-  const { selectedGoal, setSelectedGoalId } = useGoals();
+  const {
+    selectedGoal,
+    setSelectedGoal,
+    setSelectedGoalId,
+    allGoals,
+    totalAchieved,
+    totalOverall,
+    deleteGoal,
+    selectedGoalId,
+    completeGoal,
+  } = useGoals();
   const {
     activeModal,
     setActiveModal,
@@ -28,8 +37,8 @@ export const Goals = () => {
     pendingAction,
   } = useModalState<IModalType, IActionType>();
 
-  const handleEditGoal = (id: number) => {
-    setSelectedGoalId(id);
+  const handleEditGoal = (goal: IGoalData) => {
+    setSelectedGoal(goal as any);
     handleOpenActiveSheet('update', 'update');
   };
 
@@ -49,14 +58,21 @@ export const Goals = () => {
   };
 
   const handleDelete = () => {
+    deleteGoal(selectedGoalId as number);
     setActiveModal(null);
     setShowSuccess(true);
   };
 
   const handleComplete = () => {
+    if (selectedGoalId) {
+      completeGoal(selectedGoalId);
+    }
+
     setActiveModal(null);
     setShowSuccess(true);
   };
+
+  const isEmptyListGoals = allGoals.length === 0;
 
   return (
     <>
@@ -65,8 +81,10 @@ export const Goals = () => {
           <strong>Progresso Geral</strong>
 
           <BarProgress
-            title={'R$ 500 de R$ 1.000'}
-            percentage={50}
+            title={`${formatCurrencyBR(totalAchieved)} de ${formatCurrencyBR(
+              totalOverall,
+            )}`}
+            percentage={Math.round((totalAchieved / totalOverall) * 100) || 0}
             backgroundProgress="#60c830"
           />
         </div>
@@ -74,7 +92,7 @@ export const Goals = () => {
         <div className={s.goals__list}>
           <h2>Metas</h2>
 
-          {goals.map((goal) => {
+          {allGoals.map((goal) => {
             const percentage =
               Math.round((goal.valueAchieved / goal.valueTotal) * 100) || 0;
 
@@ -89,6 +107,12 @@ export const Goals = () => {
               />
             );
           })}
+
+          {isEmptyListGoals && (
+            <p style={{ color: '#d5d5d5' }}>
+              Você ainda não possui metas cadastradas.
+            </p>
+          )}
         </div>
       </div>
 
