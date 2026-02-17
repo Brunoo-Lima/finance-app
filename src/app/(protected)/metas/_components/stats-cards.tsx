@@ -7,7 +7,6 @@ import {
   TargetIcon,
   TrendingUpIcon,
 } from 'lucide-react';
-import s from './_stats.module.scss';
 import { useGoals } from '@/hooks/use-goals';
 
 export const StatsCards = () => {

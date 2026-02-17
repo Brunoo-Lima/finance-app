@@ -2,7 +2,7 @@
 
 import { usePagination } from '@/hooks/use-pagination';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useMemo, useState } from 'react';
 import { IGoal, IGoalData } from '@/@types/IGoal';
 
 export const GoalsContext = createContext<IGoalsContextProps | undefined>(
@@ -45,17 +45,20 @@ export function GoalsProvider({ children }: IGoalsProviderProps) {
     itemsPerPage,
   );
 
-  const totalContributionMonthly = goals.reduce(
-    (acc, item) => item.contributionMonthly + acc,
-    0,
+  const totalContributionMonthly = useMemo(
+    () => goals.reduce((acc, item) => item.contributionMonthly + acc, 0),
+    [goals],
   );
 
-  const totalAchieved = goals.reduce(
-    (acc, item) => item.valueAchieved + acc,
-    0,
+  const totalAchieved = useMemo(
+    () => goals.reduce((acc, goal) => acc + goal.valueAchieved, 0),
+    [goals],
   );
 
-  const totalOverall = goals.reduce((acc, item) => item.valueTotal + acc, 0);
+  const totalOverall = useMemo(
+    () => goals.reduce((acc, goal) => acc + goal.valueTotal, 0),
+    [goals],
+  );
 
   function addGoals(goal: Omit<IGoalData, 'id'>) {
     const newId =

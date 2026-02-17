@@ -5,13 +5,39 @@ import { BarProgress } from '@/components/ui/bar-progress/bar-progress';
 import { CardGoals } from './card-goals/card-goals';
 import { useModalState } from '@/hooks/use-modal-state';
 import { useGoals } from '@/hooks/use-goals';
-import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
-import { FormUpsertGoal } from '../form-upsert-goal/form-upsert-goal';
-import { DialogDelete } from './dialogs/dialog-delete';
 import { successMessage } from '../_constants';
-import { DialogComplete } from './dialogs/dialog-complete';
 import { formatCurrencyBR } from '@/utils/format-currency';
 import { IGoalData } from '@/@types/IGoal';
+import dynamic from 'next/dynamic';
+import { memo, useMemo } from 'react';
+
+const FormUpsertGoal = dynamic(
+  () =>
+    import('../form-upsert-goal/form-upsert-goal').then(
+      (mod) => mod.FormUpsertGoal,
+    ),
+  { loading: () => null },
+);
+
+const DialogDelete = dynamic(
+  () => import('./dialogs/dialog-delete').then((mod) => mod.DialogDelete),
+  { loading: () => null },
+);
+
+const DialogComplete = dynamic(
+  () => import('./dialogs/dialog-complete').then((mod) => mod.DialogComplete),
+  { loading: () => null },
+);
+
+const DialogSuccess = dynamic(
+  () =>
+    import('@/components/ui/dialog/dialog-success').then(
+      (mod) => mod.DialogSuccess,
+    ),
+  { loading: () => null },
+);
+
+const MemoizedBarProgress = memo(BarProgress);
 
 export type IModalType = 'update' | 'delete' | 'complete';
 export type IActionType = 'update' | 'delete' | 'complete';
@@ -36,6 +62,11 @@ export const Goals = () => {
     handleOpenActiveSheet,
     pendingAction,
   } = useModalState<IModalType, IActionType>();
+
+  const overallPercentage = useMemo(
+    () => Math.round((totalAchieved / totalOverall) * 100) || 0,
+    [totalAchieved, totalOverall],
+  );
 
   const handleEditGoal = (goal: IGoalData) => {
     setSelectedGoal(goal as any);
@@ -80,11 +111,11 @@ export const Goals = () => {
         <div className={s.card__custom__container}>
           <strong>Progresso Geral</strong>
 
-          <BarProgress
+          <MemoizedBarProgress
             title={`${formatCurrencyBR(totalAchieved)} de ${formatCurrencyBR(
               totalOverall,
             )}`}
-            percentage={Math.round((totalAchieved / totalOverall) * 100) || 0}
+            percentage={overallPercentage}
             backgroundProgress="#60c830"
           />
         </div>
