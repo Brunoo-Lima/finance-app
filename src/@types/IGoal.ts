@@ -8,4 +8,5 @@ export interface IGoal {
   valueTotal: number;
   remainingPeriod: number;
   dateFinal: string;
+  status: string;
 }

@@ -9,6 +9,7 @@ export const goalsList = [
     valueTotal: 10000,
     remainingPeriod: 12,
     dateFinal: '31/02/2026',
+    status: 'andamento',
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const goalsList = [
     valueTotal: 15000,
     remainingPeriod: 12,
     dateFinal: '31/02/2026',
+    status: 'finalizada',
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ export const goalsList = [
     valueTotal: 10000,
     remainingPeriod: 12,
     dateFinal: '31/02/2026',
+    status: 'andamento',
   },
   {
     id: 4,
@@ -42,5 +45,6 @@ export const goalsList = [
     valueTotal: 20000,
     remainingPeriod: 12,
     dateFinal: '31/02/2026',
+    status: 'finalizada',
   },
 ];

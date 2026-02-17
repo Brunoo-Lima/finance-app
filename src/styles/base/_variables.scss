@@ -26,7 +26,7 @@ $error-hover: #ff3838cb;
 $success: #10b981;
 // $success-80: #16a34a;
 // $success-60: #34c759;
-// $success-20: #10b98133;
+$success-hover: #10b98133;
 
 :root {
   --primary-color: #{$primary-color};
@@ -53,5 +53,7 @@ $success: #10b981;
   --error: #{$error};
   --error-80: #{$error-80};
   --error-hover: #{$error-hover};
+
   --success: #{$success};
+  --success-hover: #{$success-hover};
 }

@@ -118,28 +118,32 @@ export const CardGoals = ({
         </span>
       </div>
 
-      <div className={s.card__buttons}>
-        <button
-          type="button"
-          className={s.button__finish}
-          onClick={() => onComplete(goal.id)}
-        >
-          <CircleCheckBigIcon size={16} color="#ffffff" />
-          <p>Finalizar</p>
-        </button>
-        <button type="button" onClick={() => onEdit(goal.id)}>
-          <SquarePenIcon size={16} color="#a7a7a7" />
-          <p>Editar</p>
-        </button>
-        <button
-          type="button"
-          className={s.button__delete}
-          onClick={() => onDelete(goal.id)}
-        >
-          <Trash2Icon size={16} color="#ffffff" />
-          <p>Deletar</p>
-        </button>
-      </div>
+      {goal.status !== 'finalizada' ? (
+        <div className={s.card__buttons}>
+          <button
+            type="button"
+            className={s.button__finish}
+            onClick={() => onComplete(goal.id)}
+          >
+            <CircleCheckBigIcon size={16} color="#ffffff" />
+            <p>Finalizar</p>
+          </button>
+          <button type="button" onClick={() => onEdit(goal.id)}>
+            <SquarePenIcon size={16} color="#a7a7a7" />
+            <p>Editar</p>
+          </button>
+          <button
+            type="button"
+            className={s.button__delete}
+            onClick={() => onDelete(goal.id)}
+          >
+            <Trash2Icon size={16} color="#ffffff" />
+            <p>Deletar</p>
+          </button>
+        </div>
+      ) : (
+        <span className={s.finished}>Finalizada</span>
+      )}
     </div>
   );
 };
