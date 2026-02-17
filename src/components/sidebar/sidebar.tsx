@@ -6,6 +6,7 @@ import {
   ArrowLeftRightIcon,
   LayoutDashboardIcon,
   LogOutIcon,
+  TargetIcon,
   UserIcon,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -23,6 +24,11 @@ const items = [
     title: 'Transações',
     url: '/transacoes',
     icon: ArrowLeftRightIcon,
+  },
+  {
+    title: 'Metas',
+    url: '/metas',
+    icon: TargetIcon,
   },
   {
     title: 'Conta',
@@ -47,7 +53,7 @@ export const Sidebar = () => {
           loading="lazy"
         />
         <strong className={s.logo}>MasterCash</strong>
-        <small>v1.0</small>
+        <small>v2.0</small>
       </div>
 
       <nav className={s.sidebar__items}>

@@ -99,7 +99,7 @@ export const FormUpsertTransaction = ({
         />
 
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-          <div className={s.form__inputs}>
+          <Modal.Content className={s.modal__content}>
             <Input
               label="Título"
               placeholder="Digite o titulo"
@@ -255,9 +255,9 @@ export const FormUpsertTransaction = ({
                 />
               )}
             />
-          </div>
+          </Modal.Content>
 
-          <div className={s.footer__form}>
+          <Modal.Footer className={s.modal__footer}>
             <Button variant="cancel" type="button" onClick={onClose}>
               Cancelar
             </Button>
@@ -265,7 +265,7 @@ export const FormUpsertTransaction = ({
             <Button variant="default" type="submit">
               Salvar
             </Button>
-          </div>
+          </Modal.Footer>
         </form>
       </Modal.Root>
     </ModalBackground>

@@ -59,10 +59,16 @@
           .button {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
 
             border: none;
-            background-color: transparent;
+            background-color: var(--color-black-80);
+
+            width: max-content;
+            height: 32px;
+
+            padding: 0.25rem;
+            border-radius: 0.25rem;
 
             svg {
               flex-shrink: 0;

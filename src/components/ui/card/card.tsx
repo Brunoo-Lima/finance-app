@@ -9,6 +9,8 @@ interface ICardProps {
   percentage?: number;
   backgroundCustom?: string;
   backgroundIcon?: string;
+  value?: number;
+  classNameContainer?: string;
 }
 
 export const Card = ({
@@ -18,10 +20,12 @@ export const Card = ({
   backgroundCustom,
   backgroundIcon,
   percentage,
+  value,
+  classNameContainer,
 }: ICardProps) => {
   return (
     <div
-      className={`${s.card__container}`}
+      className={`${s.card__container} ${classNameContainer}`}
       style={{ backgroundColor: backgroundCustom }}
     >
       <div className={s.text__container}>
@@ -36,6 +40,7 @@ export const Card = ({
         <p>{text}</p>
       </div>
 
+      {value && <h3>{value}</h3>}
       {amount !== undefined && (
         <h3>{amount === 0 ? 'R$ 0,00' : formatCurrencyBR(amount)}</h3>
       )}

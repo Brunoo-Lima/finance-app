@@ -6,7 +6,7 @@ import s from './_dialog-success.module.scss';
 interface IDialogSuccessProps {
   title?: string;
   description: string;
-  textButton: string;
+  textButton?: string;
   onConfirm: () => void;
 }
 
@@ -22,7 +22,7 @@ export const DialogSuccess = ({
         <Modal.Content className={s.content}>
           <CheckIcon className={s.icon} size={32} color="#ffffff" />
 
-          <strong>{title}</strong>
+          <strong>{title || 'Sucesso!'}</strong>
           <p>{description}</p>
 
           <button
@@ -30,7 +30,7 @@ export const DialogSuccess = ({
             type="button"
             onClick={onConfirm}
           >
-            {textButton}
+            {textButton || 'Continuar'}
           </button>
         </Modal.Content>
       </Modal.Root>
