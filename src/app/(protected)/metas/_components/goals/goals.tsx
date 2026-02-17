@@ -9,8 +9,13 @@ import { useModalState } from '@/hooks/use-modal-state';
 import { useGoals } from '@/hooks/use-goals';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
 import { FormUpsertGoal } from '../form-upsert-goal/form-upsert-goal';
+import { DialogDelete } from './dialogs/dialog-delete';
+import { successMessage } from '../_constants';
+import { DialogComplete } from './dialogs/dialog-complete';
 
-export type IModalType = 'update';
+export type IModalType = 'update' | 'delete' | 'complete';
+export type IActionType = 'update' | 'delete' | 'complete';
+
 export const Goals = () => {
   const [goals, setGoals] = useState(goalsList);
   const { selectedGoal, setSelectedGoalId } = useGoals();
@@ -19,19 +24,38 @@ export const Goals = () => {
     setActiveModal,
     showSuccess,
     setShowSuccess,
-    showConfirm,
-    setShowConfirm,
     handleOpenActiveSheet,
-  } = useModalState<IModalType, string>();
+    pendingAction,
+  } = useModalState<IModalType, IActionType>();
 
   const handleEditGoal = (id: number) => {
     setSelectedGoalId(id);
-    setActiveModal('update');
+    handleOpenActiveSheet('update', 'update');
   };
 
   const handleSave = () => {
     setShowSuccess(true);
     setActiveModal(null);
+  };
+
+  const handleOpenConfirmDialogDelete = (id: number) => {
+    setSelectedGoalId(id);
+    handleOpenActiveSheet('delete', 'delete');
+  };
+
+  const handleOpenConfirmDialogComplete = (id: number) => {
+    setSelectedGoalId(id);
+    handleOpenActiveSheet('complete', 'complete');
+  };
+
+  const handleDelete = () => {
+    setActiveModal(null);
+    setShowSuccess(true);
+  };
+
+  const handleComplete = () => {
+    setActiveModal(null);
+    setShowSuccess(true);
   };
 
   return (
@@ -60,6 +84,8 @@ export const Goals = () => {
                 goal={goal}
                 percentage={percentage}
                 onEdit={handleEditGoal}
+                onDelete={handleOpenConfirmDialogDelete}
+                onComplete={handleOpenConfirmDialogComplete}
               />
             );
           })}
@@ -75,9 +101,23 @@ export const Goals = () => {
         />
       )}
 
+      {activeModal === 'delete' && (
+        <DialogDelete
+          onConfirm={handleDelete}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
+
+      {activeModal === 'complete' && (
+        <DialogComplete
+          onConfirm={handleComplete}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
+
       {showSuccess && (
         <DialogSuccess
-          description="Meta cadastrada com sucesso!"
+          description={successMessage[pendingAction as IActionType]}
           onConfirm={() => {
             setShowSuccess(false);
           }}

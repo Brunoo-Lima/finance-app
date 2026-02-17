@@ -19,8 +19,16 @@ interface ICardGoalsProps {
   goal: IGoal;
   percentage: number;
   onEdit: (id: number) => void;
+  onDelete: (id: number) => void;
+  onComplete: (id: number) => void;
 }
-export const CardGoals = ({ goal, percentage, onEdit }: ICardGoalsProps) => {
+export const CardGoals = ({
+  goal,
+  percentage,
+  onEdit,
+  onDelete,
+  onComplete,
+}: ICardGoalsProps) => {
   const [isSeeMoreInfoDetails, setIsSeeMoreInfoDetails] =
     useState<boolean>(false);
   const { selectedGoalId, setSelectedGoalId } = useGoals();
@@ -111,7 +119,11 @@ export const CardGoals = ({ goal, percentage, onEdit }: ICardGoalsProps) => {
       </div>
 
       <div className={s.card__buttons}>
-        <button type="button" className={s.button__finish}>
+        <button
+          type="button"
+          className={s.button__finish}
+          onClick={() => onComplete(goal.id)}
+        >
           <CircleCheckBigIcon size={16} color="#ffffff" />
           <p>Finalizar</p>
         </button>
@@ -119,7 +131,11 @@ export const CardGoals = ({ goal, percentage, onEdit }: ICardGoalsProps) => {
           <SquarePenIcon size={16} color="#a7a7a7" />
           <p>Editar</p>
         </button>
-        <button type="button" className={s.button__delete}>
+        <button
+          type="button"
+          className={s.button__delete}
+          onClick={() => onDelete(goal.id)}
+        >
           <Trash2Icon size={16} color="#ffffff" />
           <p>Deletar</p>
         </button>
