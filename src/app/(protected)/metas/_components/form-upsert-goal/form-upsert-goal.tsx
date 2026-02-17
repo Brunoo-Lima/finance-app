@@ -14,6 +14,8 @@ import { toast } from 'sonner';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 import { InputDate } from '@/components/ui/input/input-date/input-date';
 import { InputValue } from '@/components/ui/input/input-value/input-value';
+import { categoryListSelect } from '@/utils/category-list';
+
 interface IFormUpsertGoalProps {
   selected: IGoal | null;
   mode?: 'create' | 'update';
@@ -35,12 +37,12 @@ export const FormUpsertGoal = ({
   } = useForm<IGoalFormSchema>({
     resolver: zodResolver(goalFormSchema),
     defaultValues: {
-      title: selected?.title ?? '',
-      amountTarget: selected?.amountTarget ?? 0,
-      amountSaved: selected?.amountSaved ?? undefined,
-      termDate: selected?.termDate ?? '',
-      category: selected ? String(selected.category) : 'OTHER',
-      contributionMonthly: selected?.contributionMonthly ?? undefined,
+      name: selected?.name ?? '',
+      category: selected ? selected.category : '',
+      contributionMonthly: selected?.contributionMonthly ?? 0,
+      valueAchieved: selected?.valueAchieved ?? 0,
+      valueTotal: selected?.valueTotal ?? 0,
+      dateFinal: selected?.dateFinal ?? '',
     },
     mode: 'onChange',
   });
@@ -69,34 +71,34 @@ export const FormUpsertGoal = ({
             <Input
               label="Nome da meta"
               placeholder="Digite o nome da meta"
-              {...register('title')}
-              error={errors?.title}
+              {...register('name')}
+              error={errors?.name}
             />
 
             <Controller
               control={control}
-              name="amountTarget"
+              name="valueTotal"
               render={({ field }) => (
                 <InputValue
                   {...field}
                   label="Valor alvo"
                   value={field.value}
                   onChange={field.onChange}
-                  error={errors?.amountTarget}
+                  error={errors?.valueTotal}
                 />
               )}
             />
 
             <Controller
               control={control}
-              name="amountSaved"
+              name="valueAchieved"
               render={({ field }) => (
                 <InputValue
                   {...field}
                   label="Valor já economizado"
                   value={field.value}
                   onChange={field.onChange}
-                  error={errors?.amountSaved}
+                  error={errors?.valueAchieved}
                 />
               )}
             />
@@ -117,14 +119,14 @@ export const FormUpsertGoal = ({
 
             <Controller
               control={control}
-              name="termDate"
+              name="dateFinal"
               render={({ field }) => (
                 <InputDate
                   {...field}
                   label="Data"
                   value={field.value}
                   onChange={field.onChange}
-                  error={errors?.termDate}
+                  error={errors?.dateFinal}
                 />
               )}
             />
@@ -136,52 +138,7 @@ export const FormUpsertGoal = ({
                 <Dropdown
                   label="Categoria"
                   {...field}
-                  options={[
-                    {
-                      label: 'Transporte',
-                      value: 'TRANSPORTATION',
-                    },
-                    {
-                      label: 'Entretenimento',
-                      value: 'ENTERTAINMENT',
-                    },
-                    {
-                      label: 'Educação',
-                      value: 'EDUCATION',
-                    },
-                    {
-                      label: 'Moradia',
-                      value: 'HOUSING',
-                    },
-                    {
-                      label: 'Utilidades',
-                      value: 'UTILITY',
-                    },
-                    {
-                      label: 'Saúde',
-                      value: 'HEALTH',
-                    },
-                    {
-                      label: 'Alimentação',
-                      value: 'FOOD',
-                    },
-                    {
-                      label: 'Salário',
-                      value: 'SALARY',
-                    },
-                    {
-                      label: 'Carro',
-                      value: 'CAR',
-                    },
-                    {
-                      label: 'Trabalho',
-                      value: 'WORK',
-                    },
-                    {
-                      label: 'Outro',
-                      value: 'OTHER',
-                    },
-                  ]}
+                  options={categoryListSelect}
                   value={field.value}
                   onChange={field.onChange}
                   placeholder="Selecione"

@@ -16,6 +16,8 @@ interface IGoalsContextProps {
   // balance: number;
   selectedGoal: IGoal | null;
   setSelectedGoal: React.Dispatch<React.SetStateAction<IGoal | null>>;
+  selectedGoalId: number | null;
+  setSelectedGoalId: React.Dispatch<React.SetStateAction<number | null>>;
 
   // investmentBalance: number;
   // expenseBalance: number;
@@ -37,6 +39,7 @@ interface IGoalsProviderProps {
 export function GoalsProvider({ children }: IGoalsProviderProps) {
   const [goals, setGoals] = useLocalStorage<IGoal[]>('goals', []);
   const [selectedGoal, setSelectedGoal] = useState<IGoal | null>(null);
+  const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
   const itemsPerPage = 7;
 
   const { page, totalPages, handlePageChange, paginatedData } = usePagination(
@@ -131,6 +134,8 @@ export function GoalsProvider({ children }: IGoalsProviderProps) {
     totalPages,
     selectedGoal,
     setSelectedGoal,
+    selectedGoalId,
+    setSelectedGoalId,
     allGoals: goals,
     handlePageChange,
   };

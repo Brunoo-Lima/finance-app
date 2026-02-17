@@ -13,15 +13,17 @@ import {
   TriangleAlertIcon,
 } from 'lucide-react';
 import { useState } from 'react';
+import { useGoals } from '@/hooks/use-goals';
 
 interface ICardGoalsProps {
   goal: IGoal;
   percentage: number;
+  onEdit: (id: number) => void;
 }
-export const CardGoals = ({ goal, percentage }: ICardGoalsProps) => {
+export const CardGoals = ({ goal, percentage, onEdit }: ICardGoalsProps) => {
   const [isSeeMoreInfoDetails, setIsSeeMoreInfoDetails] =
     useState<boolean>(false);
-  const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
+  const { selectedGoalId, setSelectedGoalId } = useGoals();
 
   const handleExpandedInfo = (id: number) => {
     setIsSeeMoreInfoDetails(!isSeeMoreInfoDetails);
@@ -113,7 +115,7 @@ export const CardGoals = ({ goal, percentage }: ICardGoalsProps) => {
           <CircleCheckBigIcon size={16} color="#ffffff" />
           <p>Finalizar</p>
         </button>
-        <button type="button">
+        <button type="button" onClick={() => onEdit(goal.id)}>
           <SquarePenIcon size={16} color="#a7a7a7" />
           <p>Editar</p>
         </button>
