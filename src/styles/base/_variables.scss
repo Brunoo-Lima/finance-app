@@ -20,6 +20,13 @@ $color-gray-40: #a7a7a7;
 $color-gray-20: #d5d5d5;
 
 $error: #e93030;
+$error-80: #ff3838;
+$error-hover: #ff3838cb;
+
+$success: #10b981;
+// $success-80: #16a34a;
+// $success-60: #34c759;
+// $success-20: #10b98133;
 
 :root {
   --primary-color: #{$primary-color};
@@ -44,4 +51,7 @@ $error: #e93030;
   --color-gray-20: #{$color-gray-20};
 
   --error: #{$error};
+  --error-80: #{$error-80};
+  --error-hover: #{$error-hover};
+  --success: #{$success};
 }

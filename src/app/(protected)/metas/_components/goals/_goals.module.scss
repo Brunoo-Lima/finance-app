@@ -18,28 +18,13 @@
       font-weight: 500;
       color: var(--color-white);
     }
+  }
 
-    .progress__wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
+  .goals__list {
+    margin-top: 2rem;
 
-      p {
-        font-size: 0.875rem;
-        font-weight: 400;
-        color: var(--color-white);
-
-        span {
-          font-weight: 700;
-        }
-      }
-
-      span {
-        font-size: 0.875rem;
-        font-weight: 700;
-        color: var(--color-white);
-      }
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 }

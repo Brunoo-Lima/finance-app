@@ -1,0 +1,258 @@
+.card__custom__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  padding: 1.5rem;
+  border: 1px solid var(--second-color);
+  border-radius: 1.25rem;
+  background-color: var(--color-black-100);
+
+  strong {
+    font-size: 1.25rem !important;
+    font-weight: 500;
+    color: var(--color-white);
+  }
+
+  .card__custom__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 468px) {
+      flex-wrap: wrap;
+    }
+
+    .column1 {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+
+      .column1__bottom {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        small {
+          font-size: 0.75rem;
+          font-weight: 400;
+          color: var(--color-white);
+        }
+
+        .category__container,
+        .date__container {
+          display: flex;
+          align-items: center;
+          gap: 0.3125rem;
+        }
+
+        .date__container {
+          .date {
+            color: var(--color-gray-20);
+          }
+        }
+      }
+    }
+
+    .column2 {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      @media (max-width: 468px) {
+        align-items: center;
+        flex-direction: row;
+      }
+
+      .value {
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--color-white);
+      }
+
+      span {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--color-gray-20);
+      }
+    }
+  }
+
+  .progress__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    p {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--color-white);
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    span {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--color-white);
+    }
+  }
+
+  .card__infos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    background-color: var(--second-color);
+    border-radius: 0.75rem;
+    padding: 1rem;
+
+    @media (max-width: 668px) {
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 568px) {
+      grid-template-columns: 1fr;
+
+      &.active {
+        display: block;
+      }
+
+      &.closed {
+        display: none;
+      }
+    }
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      border-right: 1px solid var(--color-gray-60);
+
+      @media (max-width: 568px) {
+        border-right: none;
+        border-bottom: 1px solid var(--color-gray-60);
+        padding-bottom: 0.5rem;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+
+      small {
+        font-size: 0.75rem;
+        font-weight: 400;
+      }
+
+      span {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--color-white);
+      }
+
+      .monthly__contribution {
+        color: var(--success);
+      }
+
+      .remaining__period,
+      .remaining__amount {
+        color: var(--error-80);
+      }
+    }
+  }
+
+  .button__see__more {
+    display: none;
+
+    background-color: transparent;
+    border: none;
+
+    width: max-content;
+
+    color: var(--primary-color);
+    text-decoration: underline;
+
+    @media (max-width: 568px) {
+      display: block;
+    }
+  }
+
+  .card__attention {
+    padding: 0.5rem;
+    background-color: #ff38384d;
+    border-radius: 0.75rem;
+
+    border: 1px solid var(--error-80);
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--color-white);
+    }
+  }
+
+  .card__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      border: none;
+      background-color: var(--color-black-60);
+
+      width: max-content;
+      height: 32px;
+
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+
+      transition: opacity 0.3s ease;
+
+      svg {
+        flex-shrink: 0;
+      }
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      p {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--color-white);
+
+        @media (max-width: 568px) {
+          display: none;
+        }
+      }
+    }
+
+    .button__delete {
+      background-color: var(--error-80);
+    }
+
+    .button__finish {
+      background-color: var(--success);
+    }
+  }
+}

@@ -1,10 +1,11 @@
-import { Category } from './ITransaction';
-
 export interface IGoal {
-  title: string;
-  amountTarget: number;
-  amountSaved: number;
+  id: number;
+  name: string;
+  category: string;
   contributionMonthly: number;
-  category: Category;
-  termDate: string;
+  remainingAmount: number;
+  valueAchieved: number;
+  valueTotal: number;
+  remainingPeriod: number;
+  dateFinal: string;
 }
