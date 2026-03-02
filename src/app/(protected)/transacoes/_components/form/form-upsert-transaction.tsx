@@ -12,13 +12,19 @@ import {
   ITransactionFormSchema,
   transactionFormSchema,
 } from '@/validations/transaction-form-schema';
-import { Input } from '@/components/ui/input/input';
+import * as Input from '@/components/ui/input/input';
 import { ModalBackground } from '@/components/ui/modal-background';
 import { Modal } from '@/components/ui/modal';
 import { Button } from '@/components/ui/button/button';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 
 import { InputDate } from '@/components/ui/input/input-date/input-date';
+import {
+  formatCurrencyBR,
+  formatCurrencyInput,
+  parseCurrency,
+} from '@/utils/format-currency';
+import { useEffect } from 'react';
 
 interface IFormUpsertTransactionProps {
   onClose: () => void;
@@ -36,11 +42,14 @@ export const FormUpsertTransaction = ({
     control,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
+    watch,
   } = useForm<ITransactionFormSchema>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
       name: transaction ? transaction.name : '',
-      amount: transaction ? transaction.amount.toString() : '',
+      amount: transaction ? formatCurrencyBR(transaction.amount) : '',
       category: transaction ? String(transaction.category) : ('OTHER' as any),
       transactionType: transaction
         ? String(transaction.type)
@@ -54,12 +63,38 @@ export const FormUpsertTransaction = ({
 
   const { addTransaction, editTransaction } = useTransactions();
 
+  const amountWatch = watch('amount');
+
+  const isValidSubmit = () => {
+    let isValid = true;
+
+    if (!transaction) {
+      if (!amountWatch || parseCurrency(amountWatch) === 0) {
+        setError('amount', {
+          message: 'O valor deve ser maior que zero',
+        });
+        isValid = false;
+      } else {
+        clearErrors('amount');
+      }
+    }
+
+    return isValid;
+  };
+
+  const handleInputValueNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCurrencyInput(e.target.value);
+    e.target.value = formatted;
+  };
+
   const onSubmit = (data: ITransactionFormSchema) => {
+    if (!isValidSubmit()) return;
+
     if (transaction) {
       const newTransaction: ITransaction = {
         ...transaction,
         name: data.name,
-        amount: parseFloat(data.amount),
+        amount: parseCurrency(data.amount),
         type: TransactionType[
           data.transactionType as keyof typeof TransactionType
         ],
@@ -75,7 +110,7 @@ export const FormUpsertTransaction = ({
         'id'
       > = {
         name: data.name,
-        amount: parseFloat(data.amount),
+        amount: parseCurrency(data.amount),
         type: TransactionType[
           data.transactionType as keyof typeof TransactionType
         ],
@@ -100,18 +135,25 @@ export const FormUpsertTransaction = ({
 
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <Modal.Content className={s.modal__content}>
-            <Input
-              label="Título"
-              placeholder="Digite o titulo"
-              {...register('name')}
-              error={errors.name}
-            />
-            <Input
-              label="Valor"
-              placeholder="Digite o valor"
-              {...register('amount')}
-              error={errors.amount}
-            />
+            <Input.Root>
+              <Input.Label>Título</Input.Label>
+              <Input.FormField
+                placeholder="Digite o titulo"
+                {...register('name')}
+              />
+              <Input.ErrorMessage message={errors.name?.message} />
+            </Input.Root>
+
+            <Input.Root>
+              <Input.Label>Valor</Input.Label>
+              <Input.FormField
+                placeholder="Digite o Digite o valor"
+                {...register('amount', {
+                  onChange: handleInputValueNumber,
+                })}
+              />
+              <Input.ErrorMessage message={errors.amount?.message} />
+            </Input.Root>
 
             <Controller
               control={control}

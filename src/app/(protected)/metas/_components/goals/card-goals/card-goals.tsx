@@ -10,7 +10,6 @@ import {
   CircleCheckBigIcon,
   SquarePenIcon,
   Trash2Icon,
-  TriangleAlertIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useGoals } from '@/hooks/use-goals';

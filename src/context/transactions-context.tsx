@@ -146,8 +146,11 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
   };
 
   const handleAddBalance = (value: number) => {
-    setBalance(value);
-    localStorage.setItem('balance', value.toString());
+    setBalance((prev) => {
+      const newBalance = prev + value;
+      localStorage.setItem('balance', newBalance.toString());
+      return newBalance;
+    });
   };
 
   function calculateBalance(transactions: ITransaction[]): number {

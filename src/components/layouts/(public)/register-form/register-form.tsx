@@ -7,7 +7,7 @@ import {
   registerFormSchema,
 } from '@/validations/register-form-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '@/components/ui/input/input';
+import * as Input from '@/components/ui/input/input';
 import { Button } from '@/components/ui/button/button';
 import { useModalState } from '@/hooks/use-modal-state';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
@@ -51,20 +51,21 @@ export const RegisterForm = () => {
   return (
     <>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          label="Nome"
-          placeholder="Digite o nome"
-          {...register('name')}
-          error={errors.name}
-        />
+        <Input.Root>
+          <Input.Label>Nome</Input.Label>
+          <Input.FormField placeholder="Digite o nome" {...register('name')} />
+          <Input.ErrorMessage message={errors.name?.message} />
+        </Input.Root>
 
-        <Input
-          label="E-mail"
-          type="email"
-          placeholder="Digite o email"
-          {...register('email')}
-          error={errors.email}
-        />
+        <Input.Root>
+          <Input.Label>E-mail</Input.Label>
+          <Input.FormField
+            type="email"
+            placeholder="Digite o email"
+            {...register('email')}
+          />
+          <Input.ErrorMessage message={errors.email?.message} />
+        </Input.Root>
 
         <InputPassword
           label="Senha"
