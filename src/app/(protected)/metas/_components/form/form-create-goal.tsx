@@ -11,11 +11,11 @@ import {
 } from '@/validations/goal-form-schema';
 import { toast } from 'sonner';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
-import { InputDate } from '@/components/ui/input/input-date/input-date';
 import { categoryListSelect } from '@/utils/category-list';
 import { useGoals } from '@/hooks/use-goals';
 import { formatCurrencyInput, parseCurrency } from '@/utils/format-currency';
 import { useEffect } from 'react';
+import { formatDateInput, isValidDateInput } from '@/utils/format-date';
 
 interface IFormCreateGoalProps {
   onClose: () => void;
@@ -48,6 +48,8 @@ export const FormCreateGoal = ({ onClose, onSave }: IFormCreateGoalProps) => {
 
   const valueTotalWatch = watch('valueTotal');
   const contributionMonthlyWatch = watch('contributionMonthly');
+  const dateFinalWatch = watch('dateFinal');
+  const isDateValid = isValidDateInput(dateFinalWatch);
 
   useEffect(() => {
     clearErrors('valueTotal');
@@ -172,19 +174,23 @@ export const FormCreateGoal = ({ onClose, onSave }: IFormCreateGoalProps) => {
               />
             </Input.Root>
 
-            <Controller
-              control={control}
-              name="dateFinal"
-              render={({ field }) => (
-                <InputDate
-                  {...field}
-                  label="Data final"
-                  value={field.value}
-                  onChange={field.onChange}
-                  error={errors?.dateFinal}
-                />
+            <Input.Root>
+              <Input.Label>Data final</Input.Label>
+              <Input.FormField
+                type="text"
+                placeholder="dd/mm/aaaa"
+                {...register('dateFinal', {
+                  onChange: (e) => {
+                    e.target.value = formatDateInput(e.target.value);
+                  },
+                })}
+              />
+              <Input.ErrorMessage message={errors.dateFinal?.message} />
+
+              {isDateValid === false && (
+                <Input.ErrorMessage message="Data inválida" />
               )}
-            />
+            </Input.Root>
 
             <Controller
               control={control}

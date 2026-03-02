@@ -18,13 +18,16 @@ import { Modal } from '@/components/ui/modal';
 import { Button } from '@/components/ui/button/button';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 
-import { InputDate } from '@/components/ui/input/input-date/input-date';
 import {
   formatCurrencyBR,
   formatCurrencyInput,
   parseCurrency,
 } from '@/utils/format-currency';
-import { useEffect } from 'react';
+import {
+  formatDate,
+  formatDateInput,
+  isValidDateInput,
+} from '@/utils/format-date';
 
 interface IFormUpsertTransactionProps {
   onClose: () => void;
@@ -64,6 +67,8 @@ export const FormUpsertTransaction = ({
   const { addTransaction, editTransaction } = useTransactions();
 
   const amountWatch = watch('amount');
+  const dateWatch = watch('date');
+  const isDateValid = isValidDateInput(dateWatch);
 
   const isValidSubmit = () => {
     let isValid = true;
@@ -147,7 +152,7 @@ export const FormUpsertTransaction = ({
             <Input.Root>
               <Input.Label>Valor</Input.Label>
               <Input.FormField
-                placeholder="Digite o Digite o valor"
+                placeholder="Digite o valor"
                 {...register('amount', {
                   onChange: handleInputValueNumber,
                 })}
@@ -284,19 +289,23 @@ export const FormUpsertTransaction = ({
               )}
             />
 
-            <Controller
-              control={control}
-              name="date"
-              render={({ field }) => (
-                <InputDate
-                  {...field}
-                  label="Data"
-                  value={field.value}
-                  onChange={field.onChange}
-                  error={errors?.date}
-                />
+            <Input.Root>
+              <Input.Label>Data de validade</Input.Label>
+              <Input.FormField
+                type="text"
+                placeholder="dd/mm/aaaa"
+                {...register('date', {
+                  onChange: (e) => {
+                    e.target.value = formatDateInput(e.target.value);
+                  },
+                })}
+              />
+              <Input.ErrorMessage message={errors.date?.message} />
+
+              {isDateValid === false && (
+                <Input.ErrorMessage message="Data inválida" />
               )}
-            />
+            </Input.Root>
           </Modal.Content>
 
           <Modal.Footer className={s.modal__footer}>
