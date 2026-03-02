@@ -31,7 +31,6 @@ export const AddButtonTransaction = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
           textButton="Continuar"
           description="Transação cadastrada com sucesso!"
           onConfirm={() => {

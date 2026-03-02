@@ -64,7 +64,6 @@ export const ForgotPasswordForm = () => {
       {showConfirm && (
         <DialogConfirm
           information={errors.root?.message || ''}
-          title="Atenção!"
           textButtonConfirm="Tentar novamente"
           onCancel={() => {
             setShowConfirm(false);
@@ -77,8 +76,6 @@ export const ForgotPasswordForm = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description="Enviamos um e-mail com as instruções para recuperação de senha."
           onConfirm={() => {
             setShowSuccess(false);

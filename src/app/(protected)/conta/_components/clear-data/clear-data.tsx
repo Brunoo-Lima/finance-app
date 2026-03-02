@@ -59,8 +59,6 @@ export const ClearData = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description={
             pendingAction === 'delete-account'
               ? 'Conta excluída com sucesso!'
@@ -74,13 +72,11 @@ export const ClearData = () => {
 
       {showConfirm && (
         <DialogConfirm
-          title="Atenção!"
           information={
             pendingAction === 'delete-account'
               ? 'Tem certeza que deseja excluir sua conta? Sua conta será excluída permanentemente.'
               : 'Tem certeza que deseja limpar seus dados? Os seus dados serão excluídos permanentemente.'
           }
-          textButtonConfirm="Continuar"
           onCancel={() => {
             setShowConfirm(false);
           }}

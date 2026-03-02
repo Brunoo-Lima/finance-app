@@ -96,7 +96,6 @@ export const RegisterForm = () => {
       {showConfirm && (
         <DialogConfirm
           information={errors.root?.message || ''}
-          title="Atenção!"
           textButtonConfirm="Tentar novamente"
           onCancel={() => {
             setShowConfirm(false);
@@ -109,8 +108,6 @@ export const RegisterForm = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description="Conta criada com sucesso!"
           onConfirm={() => {
             setShowSuccess(false);

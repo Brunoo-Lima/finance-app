@@ -101,8 +101,6 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description={
             pendingAction === 'edit'
               ? 'Transação editada com sucesso.'

@@ -85,8 +85,6 @@ export const AccountForm = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description="Conta atualizada com sucesso!"
           onConfirm={() => {
             setShowSuccess(false);
