@@ -9,6 +9,8 @@ import {
 import { usePagination } from '@/hooks/use-pagination';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
+import { endOfMonth, startOfMonth } from 'date-fns';
+import { useDashboard } from '@/hooks/use-dashboard';
 
 export const TransactionsContext = createContext<
   ITransactionsContextProps | undefined
@@ -26,10 +28,12 @@ interface ITransactionsContextProps {
   setSelectedTypeTransaction: React.Dispatch<
     React.SetStateAction<TransactionType | ''>
   >;
+  selectedTransactionId: number | null;
   selectedMethodPayment: TransactionPayment | '';
   setSelectedMethodPayment: React.Dispatch<
     React.SetStateAction<TransactionPayment | ''>
   >;
+
   investmentBalance: number;
   expenseBalance: number;
   revenueBalance: number;
@@ -42,6 +46,8 @@ interface ITransactionsContextProps {
   handleAddBalance: (value: number) => void;
   addTransaction: (transaction: Omit<ITransaction, 'id'>) => void;
   editTransaction: (transaction: ITransaction) => void;
+  handleDeleteTransaction: (id: number) => void;
+  handleSelectedTransactionId: (id: number) => void;
 }
 
 interface ITransactionsProvider {
@@ -59,10 +65,14 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
   const [selectedTypeTransaction, setSelectedTypeTransaction] = useState<
     TransactionType | ''
   >('');
+  const [selectedTransactionId, setSelectedTransactionId] = useState<
+    number | null
+  >(null);
   const [selectedMethodPayment, setSelectedMethodPayment] = useState<
     TransactionPayment | ''
   >('');
   const itemsPerPage = 7;
+  const { from, to } = useDashboard();
 
   const filtered = useMemo(() => {
     return transactions.filter((item) => {
@@ -79,7 +89,17 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
       const matchesPayment =
         !selectedMethodPayment || item.payment === selectedMethodPayment;
 
-      return matchesSearch && matchesCategory && matchesType && matchesPayment;
+      const itemDate = new Date(item.created_at);
+      const matchesDate =
+        itemDate >= startOfMonth(from) && itemDate <= endOfMonth(to);
+
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesType &&
+        matchesPayment &&
+        matchesDate
+      );
     });
   }, [
     searchTerm,
@@ -87,6 +107,8 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     selectedCategory,
     selectedTypeTransaction,
     selectedMethodPayment,
+    from,
+    to,
   ]);
 
   const { page, totalPages, handlePageChange, paginatedData } = usePagination(
@@ -94,38 +116,47 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     itemsPerPage,
   );
 
-  const investmentBalance = transactions.reduce(
-    (acc, item) => (item.type === 'INVESTMENT' ? acc + item.amount : acc),
-    0,
+  const investmentBalance = useMemo(
+    () =>
+      filtered.reduce(
+        (acc, item) => (item.type === 'INVESTMENT' ? acc + item.amount : acc),
+        0,
+      ),
+    [filtered],
   );
 
-  const revenueBalance = transactions.reduce(
-    (acc, item) => (item.type === 'DEPOSIT' ? acc + item.amount : acc),
-    0,
+  const revenueBalance = useMemo(
+    () =>
+      filtered.reduce(
+        (acc, item) => (item.type === 'DEPOSIT' ? acc + item.amount : acc),
+        0,
+      ),
+    [filtered],
   );
 
-  const expenseBalance = transactions.reduce(
-    (acc, item) => (item.type === 'EXPENSE' ? acc + item.amount : acc),
-    0,
+  const expenseBalance = useMemo(
+    () =>
+      filtered.reduce(
+        (acc, item) => (item.type === 'EXPENSE' ? acc + item.amount : acc),
+        0,
+      ),
+    [filtered],
   );
 
-  const totalsByCategory = transactions.reduce(
-    (acc, transaction) => {
-      const { category, type, amount } = transaction;
-
-      if (!acc[category]) {
-        acc[category] = {
-          total: 0,
-          types: new Set<string>(),
-        };
-      }
-
-      acc[category].total += amount;
-      acc[category].types.add(type);
-
-      return acc;
-    },
-    {} as Record<string, { total: number; types: Set<string> }>,
+  const totalsByCategory = useMemo(
+    () =>
+      filtered.reduce(
+        (acc, transaction) => {
+          const { category, type, amount } = transaction;
+          if (!acc[category])
+            acc[category] = { total: 0, types: new Set<string>() };
+          acc[category].total += amount;
+          acc[category].types.add(type);
+          return acc;
+        },
+        {} as Record<string, { total: number; types: Set<string> }>,
+      ),
+    [filtered],
   );
 
   const grandTotal = Object.values(totalsByCategory).reduce(
@@ -192,6 +223,17 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     localStorage.setItem('balance', newBalance.toString());
   }
 
+  const handleSelectedTransactionId = (id: number) => {
+    setSelectedTransactionId(id);
+  };
+
+  const handleDeleteTransaction = (id: number) => {
+    const updatedTransactions = transactions.filter((t) => t.id !== id);
+
+    setTransactions(updatedTransactions);
+    localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+  };
+
   const contextValue = {
     paginatedData,
     page,
@@ -202,6 +244,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     setSelectedCategory,
     selectedTypeTransaction,
     setSelectedTypeTransaction,
+    selectedTransactionId,
     selectedMethodPayment,
     setSelectedMethodPayment,
     addTransaction,
@@ -215,6 +258,8 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     handlePageChange,
     handleSearch,
     handleAddBalance,
+    handleDeleteTransaction,
+    handleSelectedTransactionId,
   };
 
   return (

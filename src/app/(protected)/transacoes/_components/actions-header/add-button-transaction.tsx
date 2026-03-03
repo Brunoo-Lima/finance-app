@@ -1,11 +1,11 @@
 'use client';
 
-import { FormUpsertTransaction } from '@/app/(protected)/transacoes/_components/form/form-upsert-transaction';
 import { ArrowUpDownIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button/button';
 import { useModalState } from '@/hooks/use-modal-state';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
+import { FormCreateTransaction } from '../form/form-create-transaction';
 
 export const AddButtonTransaction = () => {
   const { showSuccess, setShowSuccess, activeModal, setActiveModal } =
@@ -23,7 +23,7 @@ export const AddButtonTransaction = () => {
       </Button>
 
       {activeModal === 'create' && (
-        <FormUpsertTransaction
+        <FormCreateTransaction
           onClose={() => setActiveModal(null)}
           onSave={handleSave}
         />

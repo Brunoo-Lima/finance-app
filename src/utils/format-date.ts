@@ -37,3 +37,9 @@ export const formatDateInput = (value: string) => {
   }
   return formatted;
 };
+
+export const parseDateInput = (value: string) => {
+  if (value.length < 10) return null;
+  const [day, month, year] = value.split('/').map(Number);
+  return new Date(year, month - 1, day);
+};

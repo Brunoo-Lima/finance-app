@@ -2,7 +2,7 @@ import { ITransaction, TransactionType } from '@/@types/ITransaction';
 import { formatCurrencyBR } from '@/utils/format-currency';
 import s from './_card-transaction.module.scss';
 import { TransactionIcon } from '../../../_constants';
-import { formatDate } from '@/utils/format-date';
+import { format } from 'date-fns';
 
 interface ICardTransactionProps {
   transaction: ITransaction;
@@ -33,7 +33,7 @@ export const CardTransaction = ({ transaction }: ICardTransactionProps) => {
 
         <div className={s.info__data}>
           <p>{transaction.name}</p>
-          <span>{formatDate(transaction.created_at)}</span>
+          <span>{format(transaction.created_at, 'dd/MM/yyyy')}</span>
         </div>
       </div>
 

@@ -2,7 +2,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTransactions } from '@/hooks/use-transactions';
 import {
   Category,
-  ITransaction,
   TransactionPayment,
   TransactionType,
 } from '@/@types/ITransaction';
@@ -18,28 +17,23 @@ import { Modal } from '@/components/ui/modal';
 import { Button } from '@/components/ui/button/button';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 
+import { formatCurrencyInput, parseCurrency } from '@/utils/format-currency';
 import {
-  formatCurrencyBR,
-  formatCurrencyInput,
-  parseCurrency,
-} from '@/utils/format-currency';
-import {
-  formatDate,
   formatDateInput,
   isValidDateInput,
+  parseDateInput,
 } from '@/utils/format-date';
+import { toast } from 'sonner';
 
-interface IFormUpsertTransactionProps {
+interface IFormCreateTransactionProps {
   onClose: () => void;
   onSave: () => void;
-  transaction?: ITransaction | null;
 }
 
-export const FormUpsertTransaction = ({
+export const FormCreateTransaction = ({
   onClose,
   onSave,
-  transaction,
-}: IFormUpsertTransactionProps) => {
+}: IFormCreateTransactionProps) => {
   const {
     register,
     control,
@@ -51,20 +45,17 @@ export const FormUpsertTransaction = ({
   } = useForm<ITransactionFormSchema>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
-      name: transaction ? transaction.name : '',
-      amount: transaction ? formatCurrencyBR(transaction.amount) : '',
-      category: transaction ? String(transaction.category) : ('OTHER' as any),
-      transactionType: transaction
-        ? String(transaction.type)
-        : ('DEPOSIT' as any),
-      payment: transaction ? String(transaction.payment) : ('CASH' as any),
-
-      date: transaction ? transaction.created_at : '',
+      name: '',
+      amount: '',
+      category: 'EDUCATION',
+      transactionType: 'DEPOSIT',
+      payment: 'BANK_SLIP',
+      date: '',
     },
     mode: 'onChange',
   });
 
-  const { addTransaction, editTransaction } = useTransactions();
+  const { addTransaction } = useTransactions();
 
   const amountWatch = watch('amount');
   const dateWatch = watch('date');
@@ -73,15 +64,13 @@ export const FormUpsertTransaction = ({
   const isValidSubmit = () => {
     let isValid = true;
 
-    if (!transaction) {
-      if (!amountWatch || parseCurrency(amountWatch) === 0) {
-        setError('amount', {
-          message: 'O valor deve ser maior que zero',
-        });
-        isValid = false;
-      } else {
-        clearErrors('amount');
-      }
+    if (!amountWatch || parseCurrency(amountWatch) === 0) {
+      setError('amount', {
+        message: 'O valor deve ser maior que zero',
+      });
+      isValid = false;
+    } else {
+      clearErrors('amount');
     }
 
     return isValid;
@@ -95,9 +84,9 @@ export const FormUpsertTransaction = ({
   const onSubmit = (data: ITransactionFormSchema) => {
     if (!isValidSubmit()) return;
 
-    if (transaction) {
-      const newTransaction: ITransaction = {
-        ...transaction,
+    try {
+      const updatedData = {
+        ...data,
         name: data.name,
         amount: parseCurrency(data.amount),
         type: TransactionType[
@@ -106,37 +95,20 @@ export const FormUpsertTransaction = ({
         category: Category[data.category as keyof typeof Category],
         payment:
           TransactionPayment[data.payment as keyof typeof TransactionPayment],
-        created_at: data.date,
+        created_at: parseDateInput(data.date) as any,
       };
-      editTransaction(newTransaction);
-    } else {
-      const transaction: Omit<
-        import('@/@types/ITransaction').ITransaction,
-        'id'
-      > = {
-        name: data.name,
-        amount: parseCurrency(data.amount),
-        type: TransactionType[
-          data.transactionType as keyof typeof TransactionType
-        ],
-        category: Category[data.category as keyof typeof Category],
-        payment:
-          TransactionPayment[data.payment as keyof typeof TransactionPayment],
-        created_at: data.date,
-      };
-      addTransaction(transaction);
-    }
 
-    onSave();
+      addTransaction(updatedData);
+      onSave();
+    } catch (error) {
+      toast.error('Erro ao criar transação.');
+    }
   };
 
   return (
     <ModalBackground>
       <Modal.Root className={s.modal__root__custom} onClose={onClose}>
-        <Modal.Header
-          title={transaction ? 'Editar transação' : 'Nova transação'}
-          onClose={onClose}
-        />
+        <Modal.Header title="Nova transação" onClose={onClose} />
 
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <Modal.Content className={s.modal__content}>
