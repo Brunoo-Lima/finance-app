@@ -1,0 +1,42 @@
+.custom__tooltip {
+  background: var(--color-black-60);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: '0 4px 8px rgba(0,0,0,0.15)';
+  font-size: 0.875rem;
+  border: 1px solid var(--color-black-80);
+  min-width: 180px;
+
+  .custom__header {
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-gray-40);
+    padding-bottom: 0.25rem;
+  }
+
+  .custom__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+
+    .custom__content__item {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+
+      p {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--color-white);
+        text-transform: capitalize;
+      }
+
+      span {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--color-white);
+      }
+    }
+  }
+}

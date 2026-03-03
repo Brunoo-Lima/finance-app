@@ -1,5 +1,5 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import s from "./_pie-chart.module.scss";
+import { PieChart, Pie, Cell } from 'recharts';
+import s from './_pie-chart.module.scss';
 
 interface IData {
   name: string;
@@ -18,28 +18,22 @@ export default function PieChartSimple({
   data,
 }: PieChartSimpleProps) {
   return (
-    <ResponsiveContainer
-      width="100%"
-      height={350}
-      className={s.chart__pie__responsive}
-    >
-      <PieChart style={{ zIndex: "-1" }}>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          outerRadius={120}
-          innerRadius={100}
-          paddingAngle={2}
-          dataKey="value"
-          isAnimationActive={isAnimationActive}
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.fill} stroke="none" />
-          ))}
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
+    <PieChart width={'100%'} height={'100%'} style={{ zIndex: '-1' }}>
+      <Pie
+        data={data}
+        cx="50%"
+        cy="50%"
+        labelLine={false}
+        outerRadius={120}
+        innerRadius={100}
+        paddingAngle={2}
+        dataKey="value"
+        isAnimationActive={isAnimationActive}
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={entry.fill} stroke="none" />
+        ))}
+      </Pie>
+    </PieChart>
   );
 }

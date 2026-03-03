@@ -22,7 +22,7 @@ export const CardGoals = () => {
   return (
     <div className={s.card__container}>
       <div className={s.sub__header}>
-        <p>Metas financeiras</p>
+        <strong>Metas financeiras</strong>
       </div>
 
       <div className={s.bars__progress}>

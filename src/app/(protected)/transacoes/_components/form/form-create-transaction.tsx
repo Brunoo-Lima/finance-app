@@ -96,6 +96,7 @@ export const FormCreateTransaction = ({
         payment:
           TransactionPayment[data.payment as keyof typeof TransactionPayment],
         created_at: parseDateInput(data.date) as any,
+        date: parseDateInput(data.date) as any,
       };
 
       addTransaction(updatedData);
