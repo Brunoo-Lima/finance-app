@@ -14,10 +14,14 @@ export const CardLineChart = () => {
 
   return (
     <div className={s.card__line__chart__container}>
-      <strong>Quantidade de transações</strong>
+      <div className={s.sub__header}>
+        <strong>Quantidade de transações</strong>
+      </div>
 
-      <div className={s.chart__container}>
-        <LineChartCustom data={allTransactions} />
+      <div className={s.line__chart__container}>
+        <div className={s.chart__container}>
+          <LineChartCustom data={allTransactions} />
+        </div>
       </div>
     </div>
   );
