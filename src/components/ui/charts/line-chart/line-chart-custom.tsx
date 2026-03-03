@@ -50,15 +50,22 @@ const LineChartCustom = ({
     }));
   }, [data, year]);
 
+  const valueFormatted = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    notation: 'compact',
+  });
+
   return (
     <LineChart
       width={700}
       height={433}
       data={processedData}
       margin={{ top: 5, right: 5, left: 0, bottom: 5 }}
+      className={s.line__chart}
     >
       <XAxis dataKey="name" tickLine={false} />
-      <YAxis width={60} tickFormatter={(v) => `R$${v}`} />
+      <YAxis width={80} tickFormatter={(v) => valueFormatted.format(v)} />
       <Tooltip content={<CustomTooltip />} />
       <Line
         type="monotone"
