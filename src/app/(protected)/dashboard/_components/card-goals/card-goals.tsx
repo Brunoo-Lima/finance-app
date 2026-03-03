@@ -19,6 +19,8 @@ export const CardGoals = () => {
   const { allGoals } = useGoals();
   const loading = useLoading(true, 1000);
 
+  const isEmpty = allGoals.length === 0;
+
   return (
     <div className={s.card__container}>
       <div className={s.sub__header}>
@@ -44,6 +46,10 @@ export const CardGoals = () => {
               />
             );
           })
+        )}
+
+        {isEmpty && !loading && (
+          <span className={s.transactions__empty}>Nenhuma meta encontrada</span>
         )}
       </div>
     </div>
