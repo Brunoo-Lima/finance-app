@@ -62,7 +62,6 @@ export const CardPieChart = () => {
           </li>
           <li>
             <p>
-              {' '}
               <span className={s.dot} style={{ background: '#EF4444' }} />{' '}
               Gastos
             </p>

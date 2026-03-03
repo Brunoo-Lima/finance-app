@@ -35,5 +35,6 @@ export interface ITransaction {
   payment: TransactionPayment;
   amount: number;
   type: TransactionType;
+  date: string;
   created_at: string;
 }

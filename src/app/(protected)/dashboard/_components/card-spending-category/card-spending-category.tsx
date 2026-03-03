@@ -16,7 +16,7 @@ export const CardSpendingCategory = () => {
       className={`${s.card__spending__category__container} ${isEmpty && s.card__empty}`}
     >
       <div className={s.sub__header}>
-        <p>Gastos por categoria</p>
+        <strong>Gastos por categoria</strong>
       </div>
 
       <div className={s.bars__progress}>
