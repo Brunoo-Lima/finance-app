@@ -9,6 +9,8 @@ import {
   getTransactionType,
   getTransactionTypeClass,
 } from '../../_constants';
+import { formatDate } from '@/utils/format-date';
+import { format } from 'date-fns';
 
 interface ITableRowProps {
   item: ITransaction;
@@ -37,7 +39,7 @@ export const TableRow = ({ item, onEdit, onDelete }: ITableRowProps) => {
           {formatCurrencyBR(item.amount)}
         </p>
       </td>
-      <td>{item.created_at}</td>
+      <td>{format(item.created_at, 'dd/MM/yyyy')}</td>
       <td>
         <div className={s.td__actions}>
           <button type="button" className={s.button} onClick={onEdit}>

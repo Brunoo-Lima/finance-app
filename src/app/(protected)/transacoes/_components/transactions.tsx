@@ -9,6 +9,7 @@ import { InputSearch } from '@/components/ui/input/input-search/input-search';
 import { Filters } from './filters/filters';
 import dynamic from 'next/dynamic';
 import Loading from '@/components/ui/loading/loading';
+import { ButtonCalendar } from '../../dashboard/_components/button-calendar/button-calendar';
 
 const TableData = dynamic(
   () => import('./table-data/table-data').then((mod) => mod.TableData),
@@ -42,6 +43,8 @@ export const Transactions = () => {
         />
 
         <div className={s.filters__container}>
+          <ButtonCalendar />
+
           <Dropdown
             classNameWrapper={s.dropdown__custom}
             options={[

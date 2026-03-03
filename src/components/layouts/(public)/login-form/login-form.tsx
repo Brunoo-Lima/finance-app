@@ -1,6 +1,6 @@
 'use client';
 
-import { Input } from '@/components/ui/input/input';
+import * as Input from '@/components/ui/input/input';
 import {
   ILoginFormSchema,
   loginFormSchema,
@@ -44,12 +44,16 @@ export const LoginForm = () => {
 
   return (
     <form className={s.form__wrapper} onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        label="E-mail"
-        placeholder="Email"
-        {...register('email')}
-        error={errors.email}
-      />
+      <Input.Root>
+        <Input.Label>E-mail</Input.Label>
+        <Input.FormField
+          type="email"
+          placeholder="Digite o email"
+          {...register('email')}
+        />
+        <Input.ErrorMessage message={errors.email?.message} />
+      </Input.Root>
+
       <InputPassword
         label="Senha"
         placeholder="Senha"

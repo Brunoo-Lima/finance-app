@@ -110,8 +110,6 @@ export const CardBalance = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description="Saldo adicionado com sucesso!"
           onConfirm={() => {
             setShowSuccess(false);
@@ -122,7 +120,6 @@ export const CardBalance = () => {
       {showConfirm && (
         <DialogConfirm
           information="Ao confirmar essa ação, o valor será adicionado ao seu saldo."
-          title="Atenção!"
           textButtonConfirm="Confirmar"
           onCancel={() => {
             setShowConfirm(false);

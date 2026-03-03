@@ -88,8 +88,6 @@ export const PasswordForm = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description="A senha foi alterada com sucesso!"
           onConfirm={() => {
             setShowSuccess(false);

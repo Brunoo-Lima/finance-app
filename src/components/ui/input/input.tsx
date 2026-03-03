@@ -1,54 +1,55 @@
-import { forwardRef } from 'react';
 import { FieldError } from 'react-hook-form';
-
 import s from './_input.module.scss';
 
-interface InputProps {
-  label?: string;
-  placeholder?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  containerClassName?: string;
-  inputClassName?: string;
-  disabled?: boolean;
-  type?: string;
-  value?: string;
-  error?: FieldError;
+interface IRootProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  classNameCustom?: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      label,
-      placeholder,
-      onChange,
-      containerClassName,
-      inputClassName,
-      type = 'text',
-      value,
-      error,
-      disabled,
-      ...rest
-    },
-    ref,
-  ) => {
-    return (
-      <div className={`${s.input__container} ${containerClassName ?? ''}`}>
-        {label && <label className={s.label}>{label}</label>}
-        <input
-          ref={ref}
-          className={`${s.input__field} ${inputClassName ?? ''}`}
-          type={type}
-          placeholder={placeholder}
-          onChange={onChange}
-          value={value}
-          disabled={disabled}
-          {...rest}
-        />
+export const Root = ({ children, classNameCustom }: IRootProps) => {
+  return (
+    <div className={`${s.input__container} ${classNameCustom}`}>{children}</div>
+  );
+};
 
-        {error && <small className={s.error__text}>{error.message}</small>}
-      </div>
-    );
-  },
-);
+interface ILabelProps extends React.HtmlHTMLAttributes<HTMLLabelElement> {
+  classNameCustom?: string;
+}
 
-Input.displayName = 'Input';
+export const Label = ({ classNameCustom, ...props }: ILabelProps) => {
+  return <label className={`${s.label} ${classNameCustom}`} {...props} />;
+};
+
+interface IFormFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  classNameCustom?: string;
+}
+
+export const FormField = ({ classNameCustom, ...props }: IFormFieldProps) => {
+  return (
+    <input className={`${s.input__field} ${classNameCustom}`} {...props} />
+  );
+};
+
+interface IErrorMessageProps {
+  message: string | FieldError | undefined;
+  classNameCustom?: string;
+}
+
+export const ErrorMessage = ({
+  classNameCustom,
+  message,
+}: IErrorMessageProps) => {
+  return (
+    <small className={`${s.input__error} ${classNameCustom}`}>
+      {message as string}
+    </small>
+  );
+};
+
+interface IIconProps {
+  children: React.ReactNode;
+  classNameCustom?: string;
+}
+export const Icon = ({ children, classNameCustom }: IIconProps) => {
+  return <span className={classNameCustom}>{children}</span>;
+};

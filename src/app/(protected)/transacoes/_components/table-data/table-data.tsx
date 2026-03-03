@@ -4,10 +4,11 @@ import { ITransaction } from '@/@types/ITransaction';
 import { TableRow } from './table-row';
 import s from './_table.module.scss';
 import { useState } from 'react';
-import { FormUpsertTransaction } from '../form/form-upsert-transaction';
 import { DialogDelete } from './dialog-delete/dialog-delete';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
 import { useModalState } from '@/hooks/use-modal-state';
+import { FormUpdateTransaction } from '../form/form-update-transaction';
+import { useTransactions } from '@/hooks/use-transactions';
 
 export type IModalType = 'edit' | 'delete';
 export type IActionType = 'edit' | 'delete';
@@ -26,10 +27,14 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
     pendingAction,
     setPendingAction,
   } = useModalState<IModalType, IActionType>();
+  const {
+    handleDeleteTransaction,
+    selectedTransactionId,
+    handleSelectedTransactionId,
+  } = useTransactions();
 
   const [selectedTransaction, setSelectedTransaction] =
     useState<ITransaction | null>(null);
-  const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
 
   const handleEditTransaction = (transaction: ITransaction) => {
     setActiveModal('edit');
@@ -38,15 +43,18 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
   };
 
   const handleConfirmDelete = (id: number) => {
-    setSelectedDeleteId(id);
+    handleSelectedTransactionId(id);
     setActiveModal('delete');
     setPendingAction('delete');
   };
 
   const handleDelete = () => {
     setActiveModal(null);
-    setSelectedDeleteId(null);
     setShowSuccess(true);
+
+    if (selectedTransactionId) {
+      handleDeleteTransaction(selectedTransactionId);
+    }
   };
 
   const handleSave = () => {
@@ -66,7 +74,7 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
               <th>Método</th>
               <th>Valor</th>
               <th>Data</th>
-              <th>Ações</th>
+              <th className={s.th__actions}>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -85,7 +93,7 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
       </div>
 
       {activeModal === 'edit' && (
-        <FormUpsertTransaction
+        <FormUpdateTransaction
           transaction={selectedTransaction}
           onClose={() => setActiveModal(null)}
           onSave={handleSave}
@@ -101,8 +109,6 @@ export const TableData = ({ data, isEmpty }: ITableDataProps) => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description={
             pendingAction === 'edit'
               ? 'Transação editada com sucesso.'

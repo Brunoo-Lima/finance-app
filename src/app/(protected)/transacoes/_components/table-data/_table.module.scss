@@ -41,6 +41,11 @@
       th:not(:last-child) {
         border-right: none;
       }
+
+      .th__actions {
+        max-width: 120px;
+        width: 120px;
+      }
     }
 
     tbody {

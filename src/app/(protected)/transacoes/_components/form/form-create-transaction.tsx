@@ -2,7 +2,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTransactions } from '@/hooks/use-transactions';
 import {
   Category,
-  ITransaction,
   TransactionPayment,
   TransactionType,
 } from '@/@types/ITransaction';
@@ -12,106 +11,126 @@ import {
   ITransactionFormSchema,
   transactionFormSchema,
 } from '@/validations/transaction-form-schema';
-import { Input } from '@/components/ui/input/input';
+import * as Input from '@/components/ui/input/input';
 import { ModalBackground } from '@/components/ui/modal-background';
 import { Modal } from '@/components/ui/modal';
 import { Button } from '@/components/ui/button/button';
 import { Dropdown } from '@/components/ui/dropdown/dropdown';
 
-import { InputDate } from '@/components/ui/input/input-date/input-date';
+import { formatCurrencyInput, parseCurrency } from '@/utils/format-currency';
+import {
+  formatDateInput,
+  isValidDateInput,
+  parseDateInput,
+} from '@/utils/format-date';
+import { toast } from 'sonner';
 
-interface IFormUpsertTransactionProps {
+interface IFormCreateTransactionProps {
   onClose: () => void;
   onSave: () => void;
-  transaction?: ITransaction | null;
 }
 
-export const FormUpsertTransaction = ({
+export const FormCreateTransaction = ({
   onClose,
   onSave,
-  transaction,
-}: IFormUpsertTransactionProps) => {
+}: IFormCreateTransactionProps) => {
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
+    watch,
   } = useForm<ITransactionFormSchema>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
-      name: transaction ? transaction.name : '',
-      amount: transaction ? transaction.amount.toString() : '',
-      category: transaction ? String(transaction.category) : ('OTHER' as any),
-      transactionType: transaction
-        ? String(transaction.type)
-        : ('DEPOSIT' as any),
-      payment: transaction ? String(transaction.payment) : ('CASH' as any),
-
-      date: transaction ? transaction.created_at : '',
+      name: '',
+      amount: '',
+      category: 'EDUCATION',
+      transactionType: 'DEPOSIT',
+      payment: 'BANK_SLIP',
+      date: '',
     },
     mode: 'onChange',
   });
 
-  const { addTransaction, editTransaction } = useTransactions();
+  const { addTransaction } = useTransactions();
 
-  const onSubmit = (data: ITransactionFormSchema) => {
-    if (transaction) {
-      const newTransaction: ITransaction = {
-        ...transaction,
-        name: data.name,
-        amount: parseFloat(data.amount),
-        type: TransactionType[
-          data.transactionType as keyof typeof TransactionType
-        ],
-        category: Category[data.category as keyof typeof Category],
-        payment:
-          TransactionPayment[data.payment as keyof typeof TransactionPayment],
-        created_at: data.date,
-      };
-      editTransaction(newTransaction);
+  const amountWatch = watch('amount');
+  const dateWatch = watch('date');
+  const isDateValid = isValidDateInput(dateWatch);
+
+  const isValidSubmit = () => {
+    let isValid = true;
+
+    if (!amountWatch || parseCurrency(amountWatch) === 0) {
+      setError('amount', {
+        message: 'O valor deve ser maior que zero',
+      });
+      isValid = false;
     } else {
-      const transaction: Omit<
-        import('@/@types/ITransaction').ITransaction,
-        'id'
-      > = {
-        name: data.name,
-        amount: parseFloat(data.amount),
-        type: TransactionType[
-          data.transactionType as keyof typeof TransactionType
-        ],
-        category: Category[data.category as keyof typeof Category],
-        payment:
-          TransactionPayment[data.payment as keyof typeof TransactionPayment],
-        created_at: data.date,
-      };
-      addTransaction(transaction);
+      clearErrors('amount');
     }
 
-    onSave();
+    return isValid;
+  };
+
+  const handleInputValueNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCurrencyInput(e.target.value);
+    e.target.value = formatted;
+  };
+
+  const onSubmit = (data: ITransactionFormSchema) => {
+    if (!isValidSubmit()) return;
+
+    try {
+      const updatedData = {
+        ...data,
+        name: data.name,
+        amount: parseCurrency(data.amount),
+        type: TransactionType[
+          data.transactionType as keyof typeof TransactionType
+        ],
+        category: Category[data.category as keyof typeof Category],
+        payment:
+          TransactionPayment[data.payment as keyof typeof TransactionPayment],
+        created_at: parseDateInput(data.date) as any,
+      };
+
+      addTransaction(updatedData);
+      onSave();
+    } catch (error) {
+      toast.error('Erro ao criar transação.');
+    }
   };
 
   return (
     <ModalBackground>
       <Modal.Root className={s.modal__root__custom} onClose={onClose}>
-        <Modal.Header
-          title={transaction ? 'Editar transação' : 'Nova transação'}
-          onClose={onClose}
-        />
+        <Modal.Header title="Nova transação" onClose={onClose} />
 
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <Modal.Content className={s.modal__content}>
-            <Input
-              label="Título"
-              placeholder="Digite o titulo"
-              {...register('name')}
-              error={errors.name}
-            />
-            <Input
-              label="Valor"
-              placeholder="Digite o valor"
-              {...register('amount')}
-              error={errors.amount}
-            />
+            <Input.Root>
+              <Input.Label>Título</Input.Label>
+              <Input.FormField
+                placeholder="Digite o titulo"
+                {...register('name')}
+              />
+              <Input.ErrorMessage message={errors.name?.message} />
+            </Input.Root>
+
+            <Input.Root>
+              <Input.Label>Valor</Input.Label>
+              <Input.FormField
+                placeholder="Digite o valor"
+                {...register('amount', {
+                  onChange: handleInputValueNumber,
+                })}
+              />
+              <Input.ErrorMessage message={errors.amount?.message} />
+            </Input.Root>
 
             <Controller
               control={control}
@@ -242,19 +261,23 @@ export const FormUpsertTransaction = ({
               )}
             />
 
-            <Controller
-              control={control}
-              name="date"
-              render={({ field }) => (
-                <InputDate
-                  {...field}
-                  label="Data"
-                  value={field.value}
-                  onChange={field.onChange}
-                  error={errors?.date}
-                />
+            <Input.Root>
+              <Input.Label>Data de validade</Input.Label>
+              <Input.FormField
+                type="text"
+                placeholder="dd/mm/aaaa"
+                {...register('date', {
+                  onChange: (e) => {
+                    e.target.value = formatDateInput(e.target.value);
+                  },
+                })}
+              />
+              <Input.ErrorMessage message={errors.date?.message} />
+
+              {isDateValid === false && (
+                <Input.ErrorMessage message="Data inválida" />
               )}
-            />
+            </Input.Root>
           </Modal.Content>
 
           <Modal.Footer className={s.modal__footer}>

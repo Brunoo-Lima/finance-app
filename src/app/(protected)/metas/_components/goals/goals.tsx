@@ -11,11 +11,8 @@ import { IGoalData } from '@/@types/IGoal';
 import dynamic from 'next/dynamic';
 import { memo, useMemo } from 'react';
 
-const FormUpsertGoal = dynamic(
-  () =>
-    import('../form-upsert-goal/form-upsert-goal').then(
-      (mod) => mod.FormUpsertGoal,
-    ),
+const FormUpdateGoal = dynamic(
+  () => import('../form/form-update-goal').then((mod) => mod.FormUpdateGoal),
   { loading: () => null },
 );
 
@@ -148,8 +145,7 @@ export const Goals = () => {
       </div>
 
       {activeModal === 'update' && (
-        <FormUpsertGoal
-          mode="update"
+        <FormUpdateGoal
           selected={selectedGoal}
           onClose={() => setActiveModal(null)}
           onSave={handleSave}

@@ -21,6 +21,17 @@
     }
   }
 
+  .cards__resumes {
+    display: grid;
+    // grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    // @media (max-width:1168px) {
+    //   grid-template-columns: repeat(2, 1fr);
+    // }
+  }
+
   .management {
     display: grid;
     grid-template-columns: 2fr minmax(300px, 400px);

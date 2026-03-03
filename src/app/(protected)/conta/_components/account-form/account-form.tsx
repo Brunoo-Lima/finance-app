@@ -7,7 +7,7 @@ import {
   accountFormSchema,
   IAccountFormSchema,
 } from '@/validations/account-form-schema';
-import { Input } from '@/components/ui/input/input';
+import * as Input from '@/components/ui/input/input';
 import { Button } from '@/components/ui/button/button';
 import { useEffect } from 'react';
 import { useModalState } from '@/hooks/use-modal-state';
@@ -52,20 +52,26 @@ export const AccountForm = () => {
   return (
     <>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          label="Nome"
-          placeholder="Digite o nome"
-          {...register('name')}
-          error={errors.name}
-        />
-        <Input
-          label="E-mail"
-          placeholder="Digite o e-mail"
-          {...register('email')}
-          error={errors.email}
-        />
+        <Input.Root>
+          <Input.Label>Nome</Input.Label>
+          <Input.FormField placeholder="Digite o nome" {...register('name')} />
+          <Input.ErrorMessage message={errors.name?.message} />
+        </Input.Root>
 
-        <Input label="Membro desde" placeholder="14/01/2026" disabled />
+        <Input.Root>
+          <Input.Label>Nome</Input.Label>
+          <Input.FormField
+            type="email"
+            placeholder="Digite o e-mail"
+            {...register('email')}
+          />
+          <Input.ErrorMessage message={errors.email?.message} />
+        </Input.Root>
+
+        <Input.Root>
+          <Input.Label>Membro desde</Input.Label>
+          <Input.FormField placeholder="14/01/2026" disabled />
+        </Input.Root>
 
         <Button
           className={s.button}
@@ -79,8 +85,6 @@ export const AccountForm = () => {
 
       {showSuccess && (
         <DialogSuccess
-          title="Sucesso!"
-          textButton="Continuar"
           description="Conta atualizada com sucesso!"
           onConfirm={() => {
             setShowSuccess(false);

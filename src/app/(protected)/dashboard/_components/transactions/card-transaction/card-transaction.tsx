@@ -1,8 +1,8 @@
-import { ITransaction, TransactionType } from "@/@types/ITransaction";
-import { formatCurrencyBR } from "@/utils/format-currency";
-import { formatDateTransaction } from "@/utils/format-date";
-import s from "./_card-transaction.module.scss";
-import { TransactionIcon } from "../../../_constants";
+import { ITransaction, TransactionType } from '@/@types/ITransaction';
+import { formatCurrencyBR } from '@/utils/format-currency';
+import s from './_card-transaction.module.scss';
+import { TransactionIcon } from '../../../_constants';
+import { format } from 'date-fns';
 
 interface ICardTransactionProps {
   transaction: ITransaction;
@@ -12,12 +12,12 @@ export const CardTransaction = ({ transaction }: ICardTransactionProps) => {
   const getAmountPrefix = (transaction: ITransaction) => {
     switch (transaction.type) {
       case TransactionType.DEPOSIT:
-        return "+";
+        return '+';
       case TransactionType.EXPENSE:
       case TransactionType.INVESTMENT:
-        return "-";
+        return '-';
       default:
-        return "";
+        return '';
     }
   };
 
@@ -33,7 +33,7 @@ export const CardTransaction = ({ transaction }: ICardTransactionProps) => {
 
         <div className={s.info__data}>
           <p>{transaction.name}</p>
-          <span>{formatDateTransaction(transaction.created_at)}</span>
+          <span>{format(transaction.created_at, 'dd/MM/yyyy')}</span>
         </div>
       </div>
 

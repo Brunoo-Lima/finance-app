@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { CardTransaction } from "./card-transaction/card-transaction";
-import Link from "next/link";
+import { CardTransaction } from './card-transaction/card-transaction';
+import Link from 'next/link';
 
-import s from "./_transactions.module.scss";
-import { useTransactions } from "@/hooks/use-transactions";
+import s from './_transactions.module.scss';
+import { useTransactions } from '@/hooks/use-transactions';
 
 export const Transactions = () => {
   const { allTransactions } = useTransactions();
@@ -13,7 +13,7 @@ export const Transactions = () => {
     <div className={s.transactions__wrapper}>
       <div className={s.transactions__header}>
         <strong>Transações</strong>
-        <Link href={"/transacoes"} className={s.link__more}>
+        <Link href={'/transacoes'} className={s.link__more}>
           Ver mais
         </Link>
       </div>
