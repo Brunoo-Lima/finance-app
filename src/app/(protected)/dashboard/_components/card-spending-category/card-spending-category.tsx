@@ -43,9 +43,7 @@ export const CardSpendingCategory = () => {
         )}
 
         {isEmpty && !loading && (
-          <span className={s.transactions__empty}>
-            Nenhuma transação encontrada
-          </span>
+          <span className={s.transactions__empty}>Nenhum gasto encontrado</span>
         )}
       </div>
     </div>

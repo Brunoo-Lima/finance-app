@@ -8,7 +8,7 @@ import Loading from '@/components/ui/loading/loading';
 
 const PieChartCustom = dynamic(
   () => import('@/components/ui/charts/pie-chart/pie-chart-custom'),
-  { ssr: false },
+  { ssr: false, loading: () => <Loading size={32} /> },
 );
 
 export const CardPieChart = () => {
@@ -50,16 +50,6 @@ export const CardPieChart = () => {
       <div className={`${s.card__pie__chart_container} ${s.card__empty}`}>
         <div className={s.chart__container}>
           <span>Não há dados</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className={s.card__pie__chart_container}>
-        <div className={s.chart__container}>
-          <Loading size={32} />
         </div>
       </div>
     );

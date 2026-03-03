@@ -5,6 +5,8 @@
   }
 
   .page__actions__custom {
+    margin-left: auto;
+
     @media (max-width: 468px) {
       flex-wrap: wrap;
     }
