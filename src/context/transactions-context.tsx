@@ -34,6 +34,8 @@ interface ITransactionsContextProps {
     React.SetStateAction<TransactionPayment | ''>
   >;
 
+  deleteDataUser: boolean;
+
   investmentBalance: number;
   expenseBalance: number;
   revenueBalance: number;
@@ -48,6 +50,7 @@ interface ITransactionsContextProps {
   editTransaction: (transaction: ITransaction) => void;
   handleDeleteTransaction: (id: number) => void;
   handleSelectedTransactionId: (id: number) => void;
+  handleDeleteDataUser: () => void;
 }
 
 interface ITransactionsProvider {
@@ -71,6 +74,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
   const [selectedMethodPayment, setSelectedMethodPayment] = useState<
     TransactionPayment | ''
   >('');
+  const [deleteDataUser, setDeleteDataUser] = useState<boolean>(false);
   const itemsPerPage = 7;
   const { from, to } = useDashboard();
 
@@ -171,6 +175,16 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     }
   }, [setBalance]);
 
+  useEffect(() => {
+    if (deleteDataUser) {
+      localStorage.removeItem('transactions');
+      localStorage.removeItem('balance');
+      localStorage.removeItem('goals');
+      setTransactions([]);
+      setBalance(0);
+    }
+  }, [deleteDataUser, setTransactions, setBalance]);
+
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     handlePageChange(1);
@@ -234,6 +248,10 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
   };
 
+  const handleDeleteDataUser = () => {
+    setDeleteDataUser(true);
+  };
+
   const contextValue = {
     paginatedData,
     page,
@@ -247,6 +265,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     selectedTransactionId,
     selectedMethodPayment,
     setSelectedMethodPayment,
+    deleteDataUser,
     addTransaction,
     allTransactions: transactions,
     editTransaction,
@@ -260,6 +279,7 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
     handleAddBalance,
     handleDeleteTransaction,
     handleSelectedTransactionId,
+    handleDeleteDataUser,
   };
 
   return (

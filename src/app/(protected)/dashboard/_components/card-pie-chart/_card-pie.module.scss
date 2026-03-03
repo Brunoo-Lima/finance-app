@@ -4,7 +4,7 @@
   padding: 1.5rem 2rem;
 
   min-height: 463px;
-  height: max-content;
+  flex: 1;
 
   min-width: 300px;
 
@@ -16,6 +16,7 @@
 
   &.card__empty {
     min-height: max-content;
+    // align-self: flex-start;
   }
 
   @media (max-width: 968px) {

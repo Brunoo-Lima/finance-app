@@ -6,9 +6,11 @@ import { useModalState } from '@/hooks/use-modal-state';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
 import { useRouter } from 'next/navigation';
 import { DialogConfirm } from '@/components/ui/dialog/dialog-confirm';
+import { useTransactions } from '@/hooks/use-transactions';
 
 export const ClearData = () => {
   const router = useRouter();
+  const { handleDeleteDataUser } = useTransactions();
   const {
     showSuccess,
     setShowSuccess,
@@ -35,6 +37,10 @@ export const ClearData = () => {
     if (pendingAction === 'delete-account') {
       localStorage.removeItem('user');
       router.push('/');
+    }
+
+    if (pendingAction === 'clear-data') {
+      handleDeleteDataUser();
     }
   };
 

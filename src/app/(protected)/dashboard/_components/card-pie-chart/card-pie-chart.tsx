@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import s from './_card-pie.module.scss';
 import { useTransactions } from '@/hooks/use-transactions';
-import { useLoading } from '@/hooks/use-loading';
 import Loading from '@/components/ui/loading/loading';
 
 const PieChartCustom = dynamic(
@@ -14,7 +13,6 @@ const PieChartCustom = dynamic(
 export const CardPieChart = () => {
   const { allTransactions, investmentBalance, revenueBalance, expenseBalance } =
     useTransactions();
-  const loading = useLoading(true, 1000);
 
   const total = revenueBalance + expenseBalance + investmentBalance;
 
@@ -45,21 +43,15 @@ export const CardPieChart = () => {
 
   const isEmpty = allTransactions.length === 0;
 
-  if (isEmpty) {
-    return (
-      <div className={`${s.card__pie__chart_container} ${s.card__empty}`}>
-        <div className={s.chart__container}>
-          <span>Não há dados</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={s.card__pie__chart_container}>
-      <div className={s.chart__container}>
-        <PieChartCustom data={data} />
-      </div>
+      {isEmpty ? (
+        <span>Não há dados</span>
+      ) : (
+        <div className={s.chart__container}>
+          <PieChartCustom data={data} />
+        </div>
+      )}
 
       <div className={s.legend}>
         <ul>
