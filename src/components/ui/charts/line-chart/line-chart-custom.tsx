@@ -28,8 +28,6 @@ const LineChartCustom = ({
   data,
   year = new Date().getFullYear(),
 }: ILineChartCustomProps) => {
-  console.log(data);
-
   const processedData = useMemo(() => {
     const grouped = data.reduce<
       Record<string, { total: number; count: number }>
