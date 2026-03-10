@@ -24,7 +24,11 @@ import {
   parseCurrency,
 } from '@/utils/format-currency';
 import { formatDateInput, isValidDateInput } from '@/utils/format-date';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
+import { categoryListSelect } from '@/utils/category-list';
+import { DatePicker } from '@/components/ui/date-picker/date-picker';
+import { paymentList } from '@/utils/payment-list';
+import { transactionTypeList } from '@/utils/transaction-type-list';
 
 interface IFormUpdateTransactionProps {
   onClose: () => void;
@@ -56,7 +60,9 @@ export const FormUpdateTransaction = ({
         : ('DEPOSIT' as any),
       payment: transaction ? String(transaction.payment) : ('CASH' as any),
 
-      date: transaction ? format(transaction.created_at, 'dd/MM/yyyy') : '',
+      date: transaction
+        ? parse(transaction.date, 'dd/MM/yyyy', new Date())
+        : new Date(),
     },
     mode: 'onChange',
   });
@@ -64,8 +70,6 @@ export const FormUpdateTransaction = ({
   const { editTransaction } = useTransactions();
 
   const amountWatch = watch('amount');
-  const dateWatch = watch('date');
-  const isDateValid = isValidDateInput(dateWatch);
 
   const isValidSubmit = () => {
     let isValid = true;
@@ -103,7 +107,7 @@ export const FormUpdateTransaction = ({
         category: Category[data.category as keyof typeof Category],
         payment:
           TransactionPayment[data.payment as keyof typeof TransactionPayment],
-        created_at: data.date,
+        created_at: format(data.date, 'dd/MM/yyyy'),
       };
       editTransaction(newTransaction);
     }
@@ -137,152 +141,85 @@ export const FormUpdateTransaction = ({
               <Input.ErrorMessage message={errors.amount?.message} />
             </Input.Root>
 
-            <Controller
-              control={control}
-              name="category"
-              render={({ field }) => (
-                <Dropdown
-                  label="Categoria"
-                  {...field}
-                  options={[
-                    {
-                      label: 'Transporte',
-                      value: 'TRANSPORTATION',
-                    },
-                    {
-                      label: 'Entretenimento',
-                      value: 'ENTERTAINMENT',
-                    },
-                    {
-                      label: 'Educação',
-                      value: 'EDUCATION',
-                    },
-                    {
-                      label: 'Moradia',
-                      value: 'HOUSING',
-                    },
-                    {
-                      label: 'Utilidades',
-                      value: 'UTILITY',
-                    },
-                    {
-                      label: 'Saúde',
-                      value: 'HEALTH',
-                    },
-                    {
-                      label: 'Alimentação',
-                      value: 'FOOD',
-                    },
-                    {
-                      label: 'Salário',
-                      value: 'SALARY',
-                    },
-                    {
-                      label: 'Carro',
-                      value: 'CAR',
-                    },
-                    {
-                      label: 'Trabalho',
-                      value: 'WORK',
-                    },
-                    {
-                      label: 'Outro',
-                      value: 'OTHER',
-                    },
-                  ]}
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Selecione"
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="transactionType"
-              render={({ field }) => (
-                <Dropdown
-                  label="Tipo da transação"
-                  {...field}
-                  options={[
-                    {
-                      label: 'Depósito',
-                      value: 'DEPOSIT',
-                    },
-                    {
-                      label: 'Despesa',
-                      value: 'EXPENSE',
-                    },
-                    {
-                      label: 'Investimento',
-                      value: 'INVESTMENT',
-                    },
-                  ]}
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Selecione"
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="payment"
-              render={({ field }) => (
-                <Dropdown
-                  label="Método de pagamento"
-                  {...field}
-                  options={[
-                    {
-                      label: 'Dinheiro',
-                      value: 'CASH',
-                    },
-                    {
-                      label: 'Pix',
-                      value: 'PIX',
-                    },
-                    {
-                      label: 'Cartão de Crédito',
-                      value: 'CREDIT_CARD',
-                    },
-                    {
-                      label: 'Cartão de Débito',
-                      value: 'DEBIT_CARD',
-                    },
-                    {
-                      label: 'Transferência bancária',
-                      value: 'BANK_TRANSFER',
-                    },
-                    {
-                      label: 'Comprovante bancário',
-                      value: 'BANK_SLIP',
-                    },
-                    { label: 'Outro', value: 'OTHER' },
-                  ]}
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Selecione"
-                />
-              )}
-            />
-
-            <Input.Root>
-              <Input.Label>Data de validade</Input.Label>
-              <Input.FormField
-                type="text"
-                placeholder="dd/mm/aaaa"
-                {...register('date', {
-                  onChange: (e) => {
-                    e.target.value = formatDateInput(e.target.value);
-                  },
-                })}
+            <div>
+              <Controller
+                control={control}
+                name="category"
+                render={({ field }) => (
+                  <Dropdown
+                    label="Categoria"
+                    {...field}
+                    options={categoryListSelect}
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione"
+                  />
+                )}
               />
-              <Input.ErrorMessage message={errors.date?.message} />
-
-              {isDateValid === false && (
-                <Input.ErrorMessage message="Data inválida" />
+              {errors.category && (
+                <small className={s.error__message}>
+                  {errors.category.message}
+                </small>
               )}
-            </Input.Root>
+            </div>
+
+            <div>
+              <Controller
+                control={control}
+                name="transactionType"
+                render={({ field }) => (
+                  <Dropdown
+                    label="Tipo da transação"
+                    {...field}
+                    options={transactionTypeList}
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione"
+                  />
+                )}
+              />
+              {errors.transactionType && (
+                <small className={s.error__message}>
+                  {errors.transactionType.message}
+                </small>
+              )}
+            </div>
+
+            <div>
+              <Controller
+                control={control}
+                name="payment"
+                render={({ field }) => (
+                  <Dropdown
+                    label="Método de pagamento"
+                    {...field}
+                    options={paymentList}
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione"
+                  />
+                )}
+              />
+              {errors.payment && (
+                <small className={s.error__message}>
+                  {errors.payment.message}
+                </small>
+              )}
+            </div>
+
+            <Controller
+              control={control}
+              name="date"
+              render={({ field }) => (
+                <DatePicker
+                  label="Data final"
+                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder="Selecione uma data"
+                />
+              )}
+            />
           </Modal.Content>
 
           <Modal.Footer className={s.modal__footer}>

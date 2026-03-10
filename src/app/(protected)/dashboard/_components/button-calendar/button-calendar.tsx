@@ -9,22 +9,23 @@ import { useDashboard } from '@/hooks/use-dashboard';
 import { useEffect, useState } from 'react';
 import { startOfMonth, endOfMonth } from 'date-fns';
 import { MONTHS, YEARS } from './_constants';
+import { usePathname } from 'next/navigation';
+
+type FilterMode = 'general' | 'month';
 
 export const ButtonCalendar = () => {
-  const now = new Date();
+  const pathname = usePathname();
   const [, setFromUrl] = useQueryState(
     'from',
-    parseAsIsoDate
-      .withDefault(startOfMonth(now))
-      .withOptions({ scroll: false, shallow: false }),
+    parseAsIsoDate.withOptions({ scroll: false, shallow: false }),
   );
   const [, setToUrl] = useQueryState(
     'to',
-    parseAsIsoDate
-      .withDefault(endOfMonth(now))
-      .withOptions({ scroll: false, shallow: false }),
+    parseAsIsoDate.withOptions({ scroll: false, shallow: false }),
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [filterMode, setFilterMode] = useState<FilterMode>('general');
+
   const {
     setFrom,
     setTo,
@@ -45,9 +46,34 @@ export const ButtonCalendar = () => {
     setIsExpanded(false);
   };
 
-  useEffect(() => {
+  const handleGeneralMode = () => {
+    setFilterMode('general');
+    setFromUrl(null);
+    setToUrl(null);
+    setFrom(null);
+    setTo(null);
+    setIsExpanded(false);
+  };
+
+  const handleMonthMode = () => {
+    setFilterMode('month');
     handleApply(selectedMonth, selectedYear);
+  };
+
+  useEffect(() => {
+    if (filterMode === 'month') handleApply(selectedMonth, selectedYear);
   }, [selectedMonth, selectedYear]);
+
+  useEffect(() => {
+    if (filterMode === 'general') handleGeneralMode();
+  }, [filterMode]);
+
+  useEffect(() => {
+    if (pathname) {
+      setSelectedYear(new Date().getFullYear());
+      setSelectedMonth(new Date().getMonth());
+    }
+  }, [pathname]);
 
   const handleMonthChange = (month: number) => {
     setSelectedMonth(month);
@@ -59,7 +85,10 @@ export const ButtonCalendar = () => {
     handleApply(selectedMonth, year);
   };
 
-  const label = `${MONTHS[selectedMonth].label} / ${selectedYear}`;
+  const label =
+    filterMode === 'general'
+      ? 'Geral'
+      : `${MONTHS[selectedMonth].label} / ${selectedYear}`;
 
   return (
     <div className={s.button__container}>
@@ -74,29 +103,48 @@ export const ButtonCalendar = () => {
 
       {isExpanded && (
         <div className={s.calendar__container}>
-          <select
-            value={selectedMonth}
-            onChange={(e) => handleMonthChange(Number(e.target.value))}
-            className={s.select__custom}
-          >
-            {MONTHS.map((m) => (
-              <option key={m.value} value={m.value}>
-                {m.label}
-              </option>
-            ))}
-          </select>
+          <div className={s.mode__toggle}>
+            <button
+              className={`${s.mode__btn} ${filterMode === 'general' ? s.mode__btn_active : ''}`}
+              onClick={handleGeneralMode}
+            >
+              Geral
+            </button>
+            <button
+              className={`${s.mode__btn} ${filterMode === 'month' ? s.mode__btn_active : ''}`}
+              onClick={handleMonthMode}
+            >
+              Por mês
+            </button>
+          </div>
 
-          <select
-            value={selectedYear}
-            onChange={(e) => handleYearChange(Number(e.target.value))}
-            className={s.select__custom}
-          >
-            {YEARS.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
+          {filterMode === 'month' && (
+            <div className={s.month__container}>
+              <select
+                value={selectedMonth}
+                onChange={(e) => handleMonthChange(Number(e.target.value))}
+                className={s.select__custom}
+              >
+                {MONTHS.map((m) => (
+                  <option key={m.value} value={m.value}>
+                    {m.label}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                value={selectedYear}
+                onChange={(e) => handleYearChange(Number(e.target.value))}
+                className={s.select__custom}
+              >
+                {YEARS.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
       )}
     </div>

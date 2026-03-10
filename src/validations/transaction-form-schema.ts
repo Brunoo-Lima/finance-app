@@ -29,10 +29,7 @@ export const transactionFormSchema = z.object({
   transactionType: TransactionTypeEnum,
   payment: TransactionPaymentEnum,
   category: TransactionCategory,
-  date: z
-    .string()
-    .min(10, 'Data deve estar no formato DD/MM/AAAA')
-    .regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Formato de data inválido (DD/MM/AAAA)'),
+  date: z.date().min(1, 'Data é obrigatória'),
 });
 
 export type ITransactionFormSchema = z.infer<typeof transactionFormSchema>;

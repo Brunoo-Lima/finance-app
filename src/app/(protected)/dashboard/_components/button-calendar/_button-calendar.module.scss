@@ -19,6 +19,7 @@
 
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
     gap: 1rem;
 
@@ -26,16 +27,54 @@
 
     animation: dropIn 0.3s ease;
 
-    .select__custom {
+    @media (max-width: 468px) {
+      width: 200px;
+    }
+
+    .mode__toggle {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .mode__btn {
+        background-color: transparent;
+        border: none;
+
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--color-white);
+
+        &.mode__btn_active {
+          color: var(--primary-color);
+        }
+
+        &:hover {
+          color: var(--color-white-80);
+        }
+      }
+    }
+
+    .month__container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       width: 100%;
 
-      background-color: var(--color-gray);
+      @media (max-width: 468px) {
+        flex-wrap: wrap;
+      }
 
-      padding: 0.5rem;
-      border-radius: 0.5rem;
+      .select__custom {
+        width: 100%;
 
-      font-size: 0.875rem;
-      color: var(--color-white);
+        background-color: var(--color-gray);
+
+        padding: 8px;
+        border-radius: 8px;
+
+        font-size: 14px;
+        color: var(--color-white);
+      }
     }
   }
 }
@@ -43,7 +82,7 @@
 @keyframes dropIn {
   0% {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-0.625rem);
   }
   100% {
     opacity: 1;

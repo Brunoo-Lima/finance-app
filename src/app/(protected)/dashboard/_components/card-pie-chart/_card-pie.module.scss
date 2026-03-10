@@ -35,6 +35,10 @@
   .chart__container {
     height: 380px;
     width: 100%;
+
+    @media (max-width: 400px) {
+      height: 300px;
+    }
   }
 
   .legend {

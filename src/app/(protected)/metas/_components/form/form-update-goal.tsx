@@ -20,7 +20,8 @@ import {
   parseCurrency,
 } from '@/utils/format-currency';
 import { useEffect } from 'react';
-import { formatDateInput, isValidDateInput } from '@/utils/format-date';
+import { format, parse } from 'date-fns';
+import { DatePicker } from '@/components/ui/date-picker/date-picker';
 
 interface IFormUpdateGoalProps {
   selected: IGoal | null;
@@ -51,8 +52,9 @@ export const FormUpdateGoal = ({
       ),
       valueAchieved: formatCurrencyBR(selected?.valueAchieved as number) ?? '',
       valueTotal: formatCurrencyBR(selected?.valueTotal as number) ?? '',
-
-      dateFinal: selected?.dateFinal ?? '',
+      dateFinal: selected?.dateFinal
+        ? parse(selected.dateFinal, 'dd/MM/yyyy', new Date())
+        : new Date(),
     },
     mode: 'onChange',
   });
@@ -61,8 +63,6 @@ export const FormUpdateGoal = ({
 
   const valueTotalWatch = watch('valueTotal');
   const contributionMonthlyWatch = watch('contributionMonthly');
-  const dateFinalWatch = watch('dateFinal');
-  const isDateValid = isValidDateInput(dateFinalWatch);
 
   useEffect(() => {
     clearErrors('valueTotal');
@@ -111,6 +111,7 @@ export const FormUpdateGoal = ({
         valueAchieved: parseCurrency(data.valueAchieved),
         contributionMonthly: parseCurrency(data.contributionMonthly),
         id: selected?.id as number,
+        dateFinal: format(data.dateFinal, 'dd/MM/yyyy'),
       };
 
       if (!isValidSubmit()) {
@@ -120,8 +121,6 @@ export const FormUpdateGoal = ({
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
       await editGoal(updatedData);
-
-      console.log(updatedData);
 
       onSave();
     } catch (error) {
@@ -185,38 +184,41 @@ export const FormUpdateGoal = ({
               />
             </Input.Root>
 
-            <Input.Root>
-              <Input.Label>Data final</Input.Label>
-              <Input.FormField
-                type="text"
-                placeholder="dd/mm/aaaa"
-                {...register('dateFinal', {
-                  onChange: (e) => {
-                    e.target.value = formatDateInput(e.target.value);
-                  },
-                })}
-              />
-              <Input.ErrorMessage message={errors.dateFinal?.message} />
-
-              {isDateValid === false && (
-                <Input.ErrorMessage message="Data inválida" />
-              )}
-            </Input.Root>
-
             <Controller
               control={control}
-              name="category"
+              name="dateFinal"
               render={({ field }) => (
-                <Dropdown
-                  label="Categoria"
+                <DatePicker
+                  label="Data final"
                   {...field}
-                  options={categoryListSelect}
                   value={field.value}
                   onChange={field.onChange}
-                  placeholder="Selecione"
+                  placeholder="Selecione uma data"
                 />
               )}
             />
+
+            <div>
+              <Controller
+                control={control}
+                name="category"
+                render={({ field }) => (
+                  <Dropdown
+                    label="Categoria"
+                    {...field}
+                    options={categoryListSelect}
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione"
+                  />
+                )}
+              />
+              {errors.category && (
+                <small className={s.error__message}>
+                  {errors.category.message}
+                </small>
+              )}
+            </div>
           </Modal.Content>
           <Modal.Footer className={s.modal__footer}>
             <Button variant="cancel" type="button" onClick={onClose}>

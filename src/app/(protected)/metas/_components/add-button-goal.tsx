@@ -4,7 +4,12 @@ import { Button } from '@/components/ui/button/button';
 import { useModalState } from '@/hooks/use-modal-state';
 import { PlusIcon } from 'lucide-react';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
-import { FormCreateGoal } from './form/form-create-goal';
+import dynamic from 'next/dynamic';
+
+const FormCreateGoal = dynamic(
+  () => import('./form/form-create-goal').then((mod) => mod.FormCreateGoal),
+  { ssr: false },
+);
 
 export const AddButtonGoal = () => {
   const {
@@ -12,8 +17,6 @@ export const AddButtonGoal = () => {
     setActiveModal,
     showSuccess,
     setShowSuccess,
-    showConfirm,
-    setShowConfirm,
     handleOpenActiveSheet,
   } = useModalState();
 
