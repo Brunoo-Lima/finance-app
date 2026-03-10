@@ -6,7 +6,7 @@ export const goalFormSchema = z.object({
   contributionMonthly: z.string().min(1, 'Contribuição mensal é obrigatória'),
   valueAchieved: z.string(),
   valueTotal: z.string().min(1, 'Valor total é obrigatório'),
-  dateFinal: z.string().min(1, 'Prazo é obrigatório'),
+  dateFinal: z.date().min(1, 'Prazo é obrigatório'),
 });
 
 export type IGoalFormSchema = z.infer<typeof goalFormSchema>;

@@ -15,7 +15,8 @@ import { categoryListSelect } from '@/utils/category-list';
 import { useGoals } from '@/hooks/use-goals';
 import { formatCurrencyInput, parseCurrency } from '@/utils/format-currency';
 import { useEffect } from 'react';
-import { formatDateInput, isValidDateInput } from '@/utils/format-date';
+import { DatePicker } from '@/components/ui/date-picker/date-picker';
+import { format } from 'date-fns';
 
 interface IFormCreateGoalProps {
   onClose: () => void;
@@ -39,7 +40,7 @@ export const FormCreateGoal = ({ onClose, onSave }: IFormCreateGoalProps) => {
       contributionMonthly: '',
       valueAchieved: '',
       valueTotal: '',
-      dateFinal: '',
+      dateFinal: new Date(),
     },
     mode: 'onChange',
   });
@@ -48,8 +49,6 @@ export const FormCreateGoal = ({ onClose, onSave }: IFormCreateGoalProps) => {
 
   const valueTotalWatch = watch('valueTotal');
   const contributionMonthlyWatch = watch('contributionMonthly');
-  const dateFinalWatch = watch('dateFinal');
-  const isDateValid = isValidDateInput(dateFinalWatch);
 
   useEffect(() => {
     clearErrors('valueTotal');
@@ -97,6 +96,7 @@ export const FormCreateGoal = ({ onClose, onSave }: IFormCreateGoalProps) => {
         valueTotal: parseCurrency(data.valueTotal),
         valueAchieved: parseCurrency(data.valueAchieved),
         contributionMonthly: parseCurrency(data.contributionMonthly),
+        dateFinal: format(data.dateFinal, 'dd/MM/yyyy'),
       };
 
       if (!isValidSubmit()) {
@@ -149,7 +149,7 @@ export const FormCreateGoal = ({ onClose, onSave }: IFormCreateGoalProps) => {
             </Input.Root>
 
             <Input.Root>
-              <Input.Label>Valor já economizado</Input.Label>
+              <Input.Label>Valor já economizado (opcional)</Input.Label>
               <Input.FormField
                 placeholder="R$ 0,00"
                 {...register('valueAchieved', {
@@ -174,38 +174,41 @@ export const FormCreateGoal = ({ onClose, onSave }: IFormCreateGoalProps) => {
               />
             </Input.Root>
 
-            <Input.Root>
-              <Input.Label>Data final</Input.Label>
-              <Input.FormField
-                type="text"
-                placeholder="dd/mm/aaaa"
-                {...register('dateFinal', {
-                  onChange: (e) => {
-                    e.target.value = formatDateInput(e.target.value);
-                  },
-                })}
-              />
-              <Input.ErrorMessage message={errors.dateFinal?.message} />
-
-              {isDateValid === false && (
-                <Input.ErrorMessage message="Data inválida" />
-              )}
-            </Input.Root>
-
             <Controller
               control={control}
-              name="category"
+              name="dateFinal"
               render={({ field }) => (
-                <Dropdown
-                  label="Categoria"
+                <DatePicker
+                  label="Data final"
                   {...field}
-                  options={categoryListSelect}
-                  value={field.value}
+                  value={field.value as Date | undefined}
                   onChange={field.onChange}
-                  placeholder="Selecione"
+                  placeholder="Selecione uma data"
                 />
               )}
             />
+
+            <div>
+              <Controller
+                control={control}
+                name="category"
+                render={({ field }) => (
+                  <Dropdown
+                    label="Categoria"
+                    {...field}
+                    options={categoryListSelect}
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione"
+                  />
+                )}
+              />
+              {errors.category && (
+                <small className={s.error__message}>
+                  {errors.category.message}
+                </small>
+              )}
+            </div>
           </Modal.Content>
           <Modal.Footer className={s.modal__footer}>
             <Button variant="cancel" type="button" onClick={onClose}>
