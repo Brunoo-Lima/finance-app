@@ -65,6 +65,10 @@ export const ButtonCalendar = () => {
   }, [selectedMonth, selectedYear]);
 
   useEffect(() => {
+    if (filterMode === 'general') handleGeneralMode();
+  }, [filterMode]);
+
+  useEffect(() => {
     if (pathname) {
       setSelectedYear(new Date().getFullYear());
       setSelectedMonth(new Date().getMonth());

@@ -69,12 +69,6 @@ export const FormUpdateGoal = ({
     clearErrors('contributionMonthly');
   }, [clearErrors]);
 
-  useEffect(() => {
-    if (errors) {
-      console.log('errors', errors);
-    }
-  }, [errors]);
-
   const isValidSubmit = () => {
     let isValid = true;
 
