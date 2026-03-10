@@ -10,6 +10,7 @@ const LineChartCustom = dynamic(
   () => import('@/components/ui/charts/line-chart/line-chart-custom'),
   { ssr: false, loading: () => <Loading size={32} /> },
 );
+
 export const CardLineChart = () => {
   const { allTransactions } = useTransactions();
   const { from, selectedMonth, selectedYear } = useDashboard();

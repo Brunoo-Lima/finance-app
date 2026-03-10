@@ -5,7 +5,15 @@ import { ArrowUpDownIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button/button';
 import { useModalState } from '@/hooks/use-modal-state';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
-import { FormCreateTransaction } from '../form/form-create-transaction';
+import dynamic from 'next/dynamic';
+
+const FormCreateTransaction = dynamic(
+  () =>
+    import('../form/form-create-transaction').then(
+      (mod) => mod.FormCreateTransaction,
+    ),
+  { ssr: false },
+);
 
 export const AddButtonTransaction = () => {
   const { showSuccess, setShowSuccess, activeModal, setActiveModal } =

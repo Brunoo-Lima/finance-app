@@ -32,8 +32,6 @@ export const Transactions = () => {
           ))
         )}
 
-        {}
-
         {allTransactions.length === 0 && !loading && (
           <span className={s.transactions__empty}>
             Nenhuma transação encontrada

@@ -9,7 +9,6 @@ import {
   getTransactionType,
   getTransactionTypeClass,
 } from '../../_constants';
-import { formatDate } from '@/utils/format-date';
 import { format } from 'date-fns';
 
 interface ITableRowProps {

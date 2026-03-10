@@ -3,8 +3,13 @@
 import s from './_filters.module.scss';
 import { useState } from 'react';
 import { useTransactions } from '@/hooks/use-transactions';
-import { ModalFilter } from './modal-filter/modal-filter';
 import { FilterIcon } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const ModalFilter = dynamic(
+  () => import('./modal-filter/modal-filter').then((mod) => mod.ModalFilter),
+  { ssr: false },
+);
 
 export const Filters = () => {
   const {

@@ -7,8 +7,16 @@ import { useState } from 'react';
 import { DialogDelete } from './dialog-delete/dialog-delete';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
 import { useModalState } from '@/hooks/use-modal-state';
-import { FormUpdateTransaction } from '../form/form-update-transaction';
 import { useTransactions } from '@/hooks/use-transactions';
+import dynamic from 'next/dynamic';
+
+const FormUpdateTransaction = dynamic(
+  () =>
+    import('../form/form-update-transaction').then(
+      (mod) => mod.FormUpdateTransaction,
+    ),
+  { ssr: false },
+);
 
 export type IModalType = 'edit' | 'delete';
 export type IActionType = 'edit' | 'delete';
