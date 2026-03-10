@@ -95,7 +95,9 @@ export function TransactionsProvider({ children }: ITransactionsProvider) {
 
       const itemDate = new Date(item.created_at);
       const matchesDate =
-        itemDate >= startOfMonth(from) && itemDate <= endOfMonth(to);
+        !from && !to
+          ? true
+          : itemDate >= startOfMonth(from!) && itemDate <= endOfMonth(to!);
 
       return (
         matchesSearch &&

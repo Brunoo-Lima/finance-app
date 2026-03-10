@@ -11,6 +11,10 @@
   justify-content: center;
   gap: 2rem;
 
+  @media (max-width: 468px) {
+    min-width: 200px;
+  }
+
   .sub__header {
     padding: 1.5rem 2rem 0 2rem;
   }

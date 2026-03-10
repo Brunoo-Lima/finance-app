@@ -7,6 +7,8 @@ import { formatCurrencyBR } from '@/utils/format-currency';
 interface ILineChartCustomProps {
   data: ITransaction[];
   year?: number;
+  filterMode?: 'general' | 'month';
+  month?: number;
 }
 
 const MONTHS = [
@@ -27,28 +29,57 @@ const MONTHS = [
 const LineChartCustom = ({
   data,
   year = new Date().getFullYear(),
+  filterMode = 'general',
+  month = new Date().getMonth(),
 }: ILineChartCustomProps) => {
   const processedData = useMemo(() => {
+    if (filterMode === 'general') {
+      const grouped = data.reduce<
+        Record<string, { total: number; count: number }>
+      >((acc, item) => {
+        const date = new Date(item.date);
+        if (date.getUTCFullYear() !== year) return acc;
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        acc[month] = {
+          total: (acc[month]?.total || 0) + item.amount,
+          count: (acc[month]?.count || 0) + 1,
+        };
+        return acc;
+      }, {});
+
+      return MONTHS.map(({ key, label }) => ({
+        name: label,
+        Transações: grouped[key]?.total ?? 0,
+        count: grouped[key]?.count ?? 0,
+      }));
+    }
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
     const grouped = data.reduce<
-      Record<string, { total: number; count: number }>
+      Record<number, { total: number; count: number }>
     >((acc, item) => {
       const date = new Date(item.date);
-      if (date.getUTCFullYear() !== year) return acc;
+      if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month)
+        return acc;
 
-      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-      acc[month] = {
-        total: (acc[month]?.total || 0) + item.amount,
-        count: (acc[month]?.count || 0) + 1,
+      const day = date.getUTCDate();
+      acc[day] = {
+        total: (acc[day]?.total || 0) + item.amount,
+        count: (acc[day]?.count || 0) + 1,
       };
       return acc;
     }, {});
 
-    return MONTHS.map(({ key, label }) => ({
-      name: label,
-      Transações: grouped[key]?.total ?? 0,
-      count: grouped[key]?.count ?? 0,
-    }));
-  }, [data, year]);
+    return Array.from({ length: daysInMonth }, (_, i) => {
+      const day = i + 1;
+      return {
+        name: String(day),
+        Transações: grouped[day]?.total ?? 0,
+        count: grouped[day]?.count ?? 0,
+      };
+    });
+  }, [data, year, month, filterMode]);
 
   const valueFormatted = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
