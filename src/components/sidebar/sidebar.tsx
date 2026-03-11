@@ -17,22 +17,22 @@ import Image from 'next/image';
 const items = [
   {
     title: 'Dashboard',
-    url: '/dashboard',
+    href: '/dashboard',
     icon: LayoutDashboardIcon,
   },
   {
     title: 'Transações',
-    url: '/transacoes',
+    href: '/transacoes',
     icon: ArrowLeftRightIcon,
   },
   {
     title: 'Metas',
-    url: '/metas',
+    href: '/metas',
     icon: TargetIcon,
   },
   {
     title: 'Conta',
-    url: '/conta',
+    href: '/conta',
     icon: UserIcon,
   },
 ];
@@ -60,8 +60,8 @@ export const Sidebar = () => {
         {items.map((item, index) => (
           <div key={index} className={s.nav__item_wrapper}>
             <Link
-              href={item.url}
-              className={`${s.nav__item} ${pathname.includes(item.url) ? s.active : ''}`}
+              href={item.href}
+              className={`${s.nav__item} ${pathname.includes(item.href) ? s.active : ''}`}
               onMouseEnter={() => setHoveredItem(item.title)}
               onMouseLeave={() => setHoveredItem(null)}
             >
@@ -70,7 +70,9 @@ export const Sidebar = () => {
             </Link>
 
             {hoveredItem === item.title && (
-              <div className={s.tooltip}>{item.title}</div>
+              <div className={s.tooltip} data-testid="tooltip">
+                {item.title}
+              </div>
             )}
           </div>
         ))}
