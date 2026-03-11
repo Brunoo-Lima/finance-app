@@ -12,7 +12,7 @@ export const Root = ({ children, classNameCustom }: IRootProps) => {
   );
 };
 
-interface ILabelProps extends React.HtmlHTMLAttributes<HTMLLabelElement> {
+interface ILabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   classNameCustom?: string;
 }
 

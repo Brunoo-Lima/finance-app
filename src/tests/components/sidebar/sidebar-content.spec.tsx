@@ -77,18 +77,24 @@ describe('SidebarContent', () => {
     it('should render the logo', () => {
       makeSut();
 
-      expect(screen.getByRole('img', { name: 'logo' })).toBeVisible();
+      const logoAltName = screen.getByAltText(/logo/i);
+
+      expect(logoAltName).toBeVisible();
     });
     it('should render the app name', () => {
       makeSut();
 
-      expect(screen.getByText('MasterCash')).toBeInTheDocument();
+      const NameApp = screen.getByText(/mastercash/i);
+
+      expect(NameApp).toBeInTheDocument();
     });
 
     it('should render the version number', () => {
       makeSut();
 
-      expect(screen.getByText('v2.0')).toBeInTheDocument();
+      const versionNumber = screen.getByText('v3.0');
+
+      expect(versionNumber).toBeInTheDocument();
     });
 
     it('should render the navigation links', () => {

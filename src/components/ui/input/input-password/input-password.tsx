@@ -36,11 +36,16 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
 
     return (
       <div className={`${s.input__container} ${containerClassName ?? ''}`}>
-        {label && <label className={s.label}>{label}</label>}
+        {label && (
+          <label className={s.label} htmlFor={label}>
+            {label}
+          </label>
+        )}
 
         <div className={s.input__wrapper}>
           <input
             ref={ref}
+            id={label}
             className={`${s.input__field} ${inputClassName ?? ''}`}
             type={showPassword ? 'text' : 'password'}
             placeholder={placeholder}

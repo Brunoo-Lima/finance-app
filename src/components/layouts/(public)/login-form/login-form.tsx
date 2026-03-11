@@ -37,7 +37,6 @@ export const LoginForm = () => {
     try {
       await loginService(data.email, data.password, data.remember || false);
     } catch (error) {
-      console.log(error);
       toast.error('Credenciais inválidas');
     }
   };
@@ -45,9 +44,10 @@ export const LoginForm = () => {
   return (
     <form className={s.form__wrapper} onSubmit={handleSubmit(onSubmit)}>
       <Input.Root>
-        <Input.Label>E-mail</Input.Label>
+        <Input.Label htmlFor="e-mail">E-mail</Input.Label>
         <Input.FormField
           type="email"
+          id="e-mail"
           placeholder="Digite o email"
           {...register('email')}
         />
