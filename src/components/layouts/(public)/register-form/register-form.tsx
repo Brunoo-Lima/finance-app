@@ -11,7 +11,6 @@ import * as Input from '@/components/ui/input/input';
 import { Button } from '@/components/ui/button/button';
 import { useModalState } from '@/hooks/use-modal-state';
 import { DialogSuccess } from '@/components/ui/dialog/dialog-success';
-import { DialogConfirm } from '@/components/ui/dialog/dialog-confirm';
 import { useRouter } from 'next/navigation';
 import { InputPassword } from '@/components/ui/input/input-password/input-password';
 import { useAuth } from '@/hooks/use-auth';
@@ -20,8 +19,7 @@ import { toast } from 'sonner';
 export const RegisterForm = () => {
   const router = useRouter();
   const { register: registerService } = useAuth();
-  const { showSuccess, setShowSuccess, showConfirm, setShowConfirm } =
-    useModalState();
+  const { showSuccess, setShowSuccess } = useModalState();
   const {
     handleSubmit,
     register,
@@ -38,12 +36,10 @@ export const RegisterForm = () => {
 
   const onSubmit = async (data: IRegisterFormSchema) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       await registerService(data.name, data.email, data.password);
 
       setShowSuccess(true);
     } catch (error) {
-      console.log(error);
       toast.error('Erro ao criar conta.');
     }
   };
@@ -52,15 +48,20 @@ export const RegisterForm = () => {
     <>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <Input.Root>
-          <Input.Label>Nome</Input.Label>
-          <Input.FormField placeholder="Digite o nome" {...register('name')} />
+          <Input.Label htmlFor="nome">Nome</Input.Label>
+          <Input.FormField
+            id="nome"
+            placeholder="Digite o nome"
+            {...register('name')}
+          />
           <Input.ErrorMessage message={errors.name?.message} />
         </Input.Root>
 
         <Input.Root>
-          <Input.Label>E-mail</Input.Label>
+          <Input.Label htmlFor="email">E-mail</Input.Label>
           <Input.FormField
             type="email"
+            id="email"
             placeholder="Digite o email"
             {...register('email')}
           />
@@ -92,19 +93,6 @@ export const RegisterForm = () => {
           {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
         </Button>
       </form>
-
-      {showConfirm && (
-        <DialogConfirm
-          information={errors.root?.message || ''}
-          textButtonConfirm="Tentar novamente"
-          onCancel={() => {
-            setShowConfirm(false);
-          }}
-          onConfirm={() => {
-            setShowConfirm(false);
-          }}
-        />
-      )}
 
       {showSuccess && (
         <DialogSuccess

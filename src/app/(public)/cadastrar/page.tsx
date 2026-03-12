@@ -15,7 +15,7 @@ export default function RegisterPage() {
     <section className={s.register__wrapper}>
       <div className={s.register__container}>
         <div className={s.register__header}>
-          <Link href={'/'}>
+          <Link href={'/'} aria-label="Voltar">
             <ChevronLeftIcon size={24} color="currentColor" />
           </Link>
           <h1>Vamos criar sua conta</h1>
