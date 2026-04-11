@@ -128,6 +128,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const logout = () => {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
     router.push('/');
   };
