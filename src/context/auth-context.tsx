@@ -19,7 +19,7 @@ interface IAuthContextData {
     isRemember: boolean,
   ) => Promise<void>;
   logout: () => void;
-  register: (name: string, email: string, password: string) => boolean;
+  register: (name: string, email: string, password: string) => Promise<boolean>;
   isLoading: boolean;
   isAuthenticated: boolean;
   user: IUser | null;
@@ -55,7 +55,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     setIsLoading(false);
   }, []);
 
-  const register = (name: string, email: string, password: string) => {
+  const register = async (name: string, email: string, password: string) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     if (users.some((u) => u.email === email)) return false;
 
     const newUser: IUser = {
@@ -126,6 +128,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const logout = () => {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
     router.push('/');
   };
