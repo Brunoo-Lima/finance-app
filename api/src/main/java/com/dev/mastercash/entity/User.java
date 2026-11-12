@@ -1,12 +1,16 @@
 package com.dev.mastercash.entity;
 
 import jakarta.persistence.*;
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -14,16 +18,17 @@ public class User {
     private String name;
     private String email;
     private String password;
-//    private UserRole role;
+    private UserRole role;
 
     public User() {
     }
 
-    public User(String id, String name, String email, String password) {
+    public User(String id, String name, String email, String password, UserRole role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public String getId() {
@@ -54,17 +59,18 @@ public class User {
         this.password = password;
     }
 
-    public String getPassword() {
+    @Override
+    public @Nullable String getPassword() {
         return password;
     }
 
-//    public UserRole getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(UserRole role) {
-//        this.role = role;
-//    }
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -76,5 +82,37 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+       if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+       else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 }
