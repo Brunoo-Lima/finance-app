@@ -1,5 +1,6 @@
 package com.dev.mastercash.service;
 
+import com.dev.mastercash.dto.auth.RegisterRequestDTO;
 import com.dev.mastercash.dto.user.*;
 import com.dev.mastercash.entity.User;
 import com.dev.mastercash.exception.DatabaseException;
@@ -42,9 +43,9 @@ public class UserService {
     }
 
     @Transactional
-    public User create(UserDTO dto) {
+    public User create(RegisterRequestDTO dto) {
 
-        if (userRepository.existsByEmail(dto.getEmail())) {
+        if (userRepository.existsByEmail(dto.email())) {
             throw new EmailAlreadyExistsException();
         }
 
@@ -96,11 +97,11 @@ public class UserService {
     }
 
 
-    private void copyDtoToEntity(UserDTO dto, User entity){
-        entity.setName(dto.getName());
-        entity.setEmail(dto.getEmail());
+    private void copyDtoToEntity(RegisterRequestDTO dto, User entity){
+        entity.setName(dto.name());
+        entity.setEmail(dto.email());
         entity.setPassword(
-                passwordEncoder.encode(dto.getPassword())
+                passwordEncoder.encode(dto.password())
         );
     }
 }
