@@ -1,6 +1,7 @@
 package com.dev.mastercash.service;
 
 import com.dev.mastercash.dto.auth.*;
+import com.dev.mastercash.dto.user.UserResponseDTO;
 import com.dev.mastercash.entity.User;
 import com.dev.mastercash.exception.auth.InvalidCredentialsException;
 import com.dev.mastercash.infra.security.CustomUserDetailsService;
@@ -25,27 +26,25 @@ public class AuthService extends CustomUserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public LoginResponseDTO login(LoginRequestDTO body){
-        User user = repository.findByEmail(body.email()).orElseThrow(InvalidCredentialsException::new);
+    public AuthResult login(LoginRequestDTO body){
+        User user = repository.findByEmail(body.email())
+                .orElseThrow(InvalidCredentialsException::new);
 
         if(!passwordEncoder.matches(body.password(), user.getPassword())){
             throw new InvalidCredentialsException();
         }
 
         String token = tokenService.generateToken(user);
-        return new LoginResponseDTO(user.getName(), user.getEmail(), token);
+        return new AuthResult(token, UserResponseDTO.from(user));
     }
 
-    public RegisterResponseDTO register(RegisterRequestDTO dto) {
+    public AuthResult register(RegisterRequestDTO dto) {
         User user = userService.create(dto);
-
         String token = tokenService.generateToken(user);
 
-        return new RegisterResponseDTO(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                token
+        return new AuthResult(
+                token,
+                UserResponseDTO.from(user)
         );
     }
 
