@@ -1,8 +1,6 @@
 package com.dev.mastercash.controller;
 
-import com.dev.mastercash.dto.user.UpdateUserRequestDTO;
-import com.dev.mastercash.dto.user.UserDTO;
-import com.dev.mastercash.dto.user.UserResponseDTO;
+import com.dev.mastercash.dto.user.*;
 import com.dev.mastercash.service.UserService;
 import com.dev.mastercash.utils.PageResponse;
 import jakarta.validation.Valid;
