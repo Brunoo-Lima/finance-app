@@ -8,9 +8,7 @@ import com.dev.mastercash.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 
 @Service
 public class TokenService {
@@ -51,6 +49,6 @@ public class TokenService {
     }
 
     private Instant generateExpirationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.of("-03:00"));
     }
 }
