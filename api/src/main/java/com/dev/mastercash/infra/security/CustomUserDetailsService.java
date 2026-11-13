@@ -25,4 +25,9 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getPassword(),
                 new ArrayList<>());
     }
+
+    public UserDetails loadUserById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 }
