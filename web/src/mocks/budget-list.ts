@@ -1,0 +1,42 @@
+export const budgetList = [
+  {
+    id: 1,
+    category: "Moradia",
+    amountUsed: 2500,
+    amountTotal: 5000,
+    period: "Mensal",
+    percentageUsed: 50,
+  },
+  {
+    id: 2,
+    category: "Alimentação",
+    amountUsed: 1200,
+    amountTotal: 1500,
+    period: "Mensal",
+    percentageUsed: 80,
+  },
+  {
+    id: 3,
+    category: "Saúde",
+    amountUsed: 320,
+    amountTotal: 500,
+    period: "Mensal",
+    percentageUsed: 64,
+  },
+  {
+    id: 4,
+    category: "Transporte",
+    amountUsed: 150,
+    amountTotal: 200,
+    period: "Mensal",
+    percentageUsed: 75,
+  },
+  {
+    id: 5,
+    category: "Educação",
+    amountUsed: 180,
+    amountTotal: 100,
+    period: "Mensal",
+    percentageUsed: 180,
+  },
+];

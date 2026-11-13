@@ -1,0 +1,52 @@
+.transactions__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .header__transactions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @media (max-width: 868px) {
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 468px) {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+
+    .dropdown__custom {
+      max-width: 150px;
+
+      @media (max-width: 668px) {
+        margin-left: auto;
+      }
+
+      @media (max-width: 468px) {
+        margin-left: 0;
+      }
+    }
+
+    .filters__container {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      @media (max-width: 668px) {
+        margin-left: auto;
+      }
+
+      @media (max-width: 468px) {
+        flex-wrap: wrap;
+        margin-left: 0;
+        align-items: flex-start;
+      }
+    }
+  }
+}

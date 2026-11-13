@@ -1,0 +1,44 @@
+@use 'base/reset';
+@use 'base/variables';
+
+body {
+  color: var(--color-white);
+  background-color: var(--color-black);
+}
+
+.recharts-surface:focus {
+  outline: none !important;
+}
+
+.recharts-surface {
+  outline: none !important;
+}
+
+.recharts-layer .recharts-pie-sector {
+  outline: none !important;
+}
+
+.recharts-layer .recharts-active-shape {
+  outline: none !important;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: none !important;
+}
+
+.error__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  min-height: 100vh;
+  width: 100%;
+
+  padding: 0 1rem;
+}

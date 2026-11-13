@@ -1,0 +1,8 @@
+.button__delete {
+  border-color: var(--error) !important;
+  color: var(--error) !important;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}

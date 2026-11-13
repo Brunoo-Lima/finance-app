@@ -1,0 +1,82 @@
+.card__pie__chart_container {
+  border-radius: 1.25rem;
+  border: 1px solid var(--second-color);
+  padding: 1.5rem 2rem;
+
+  min-height: 463px;
+  flex: 1;
+
+  min-width: 300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  &.card__empty {
+    min-height: max-content;
+    // align-self: flex-start;
+  }
+
+  @media (max-width: 968px) {
+    flex: 1;
+  }
+
+  @media (max-width: 568px) {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  @media (max-width: 468px) {
+    min-width: 100%;
+  }
+
+  .chart__container {
+    height: 380px;
+    width: 100%;
+
+    @media (max-width: 400px) {
+      height: 300px;
+    }
+  }
+
+  .legend {
+    margin: 0 auto;
+    max-width: 300px;
+    width: 100%;
+
+    margin-top: auto;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+
+        p {
+          font-size: 0.875rem;
+          font-weight: 400;
+          color: var(--color-gray-40);
+
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .dot {
+            height: 16px;
+            width: 16px;
+            border-radius: 0.25rem;
+
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

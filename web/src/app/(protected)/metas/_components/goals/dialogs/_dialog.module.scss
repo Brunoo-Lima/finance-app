@@ -1,0 +1,43 @@
+.dialog__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  height: max-content;
+  min-height: 180px;
+  max-width: 500px;
+  width: 100%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-black-100);
+  z-index: 9999px;
+
+  @media (max-width: 568px) {
+    max-width: calc(100% - 2rem) !important;
+  }
+
+  strong {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-gray-40);
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+
+    margin-top: auto;
+  }
+}

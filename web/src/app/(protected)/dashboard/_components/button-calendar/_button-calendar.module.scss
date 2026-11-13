@@ -1,0 +1,91 @@
+.button__container {
+  position: relative;
+
+  .button {
+    background-color: var(--color-black-60);
+  }
+
+  .calendar__container {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    width: 300px;
+    height: max-content;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    z-index: 1000;
+
+    background-color: var(--color-black-80);
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+
+    transition: all 0.3s ease;
+
+    animation: dropIn 0.3s ease;
+
+    @media (max-width: 468px) {
+      width: 200px;
+    }
+
+    .mode__toggle {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .mode__btn {
+        background-color: transparent;
+        border: none;
+
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--color-white);
+
+        &.mode__btn_active {
+          color: var(--primary-color);
+        }
+
+        &:hover {
+          color: var(--color-white-80);
+        }
+      }
+    }
+
+    .month__container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+
+      @media (max-width: 468px) {
+        flex-wrap: wrap;
+      }
+
+      .select__custom {
+        width: 100%;
+
+        background-color: var(--color-gray);
+
+        padding: 8px;
+        border-radius: 8px;
+
+        font-size: 14px;
+        color: var(--color-white);
+      }
+    }
+  }
+}
+
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-0.625rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

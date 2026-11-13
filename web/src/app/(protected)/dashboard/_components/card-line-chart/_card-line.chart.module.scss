@@ -1,0 +1,40 @@
+.card__line__chart__container {
+  border-radius: 1.25rem;
+  border: 1px solid var(--second-color);
+
+  height: max-content;
+
+  min-width: 300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+
+  @media (max-width: 468px) {
+    min-width: 200px;
+  }
+
+  .sub__header {
+    padding: 1.5rem 2rem 0 2rem;
+  }
+
+  .line__chart__container {
+    padding: 1rem;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .chart__container {
+    height: 433px;
+    overflow-x: auto;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+  }
+}

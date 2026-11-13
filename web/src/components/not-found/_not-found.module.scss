@@ -1,0 +1,24 @@
+.not__found__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 1rem;
+
+  p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-gray-20);
+  }
+
+  .button {
+    max-width: 190px;
+    width: 100%;
+
+    margin-top: 1rem;
+  }
+}

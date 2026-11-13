@@ -1,0 +1,17 @@
+.main__container {
+  display: flex;
+
+  .content {
+    padding-left: 11.875rem;
+    flex-grow: 1;
+    overflow: hidden;
+
+    @media (max-width: 968px) {
+      padding-left: 9.375rem;
+    }
+
+    @media (max-width: 568px) {
+      padding-left: 3.75rem;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+$primary-color: #60c830;
+$primary-color-100: #378712;
+$primary-color-80: #4aa81e;
+$primary-color-20: #7cdf4e;
+
+$second-color: #ffffff1a;
+
+$color-black: #0d0d0d;
+$color-black-100: #171717;
+$color-black-80: #212121;
+$color-black-60: #2b2b2b;
+
+$color-white: #ffffff;
+$color-white-80: #f1f1f5;
+
+$color-gray: #4a4a4a;
+$color-gray-80: #575757;
+$color-gray-60: #7c7c7c;
+$color-gray-40: #a7a7a7;
+$color-gray-20: #d5d5d5;
+
+$error: #e93030;
+$error-80: #ff3838;
+$error-hover: #ff3838cb;
+
+$success: #10b981;
+// $success-80: #16a34a;
+// $success-60: #34c759;
+$success-hover: #10b98133;
+
+:root {
+  --primary-color: #{$primary-color};
+  --primary-color-100: #{$primary-color-100};
+  --primary-color-80: #{$primary-color-80};
+  --primary-color-20: #{$primary-color-20};
+
+  --second-color: #{$second-color};
+
+  --color-black: #{$color-black};
+  --color-black-100: #{$color-black-100};
+  --color-black-80: #{$color-black-80};
+  --color-black-60: #{$color-black-60};
+
+  --color-white: #{$color-white};
+  --color-white-80: #{$color-white-80};
+
+  --color-gray: #{$color-gray};
+  --color-gray-80: #{$color-gray-80};
+  --color-gray-60: #{$color-gray-60};
+  --color-gray-40: #{$color-gray-40};
+  --color-gray-20: #{$color-gray-20};
+
+  --error: #{$error};
+  --error-80: #{$error-80};
+  --error-hover: #{$error-hover};
+
+  --success: #{$success};
+  --success-hover: #{$success-hover};
+}
