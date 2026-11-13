@@ -1,0 +1,2 @@
+# MasterCash - Documentação
+
