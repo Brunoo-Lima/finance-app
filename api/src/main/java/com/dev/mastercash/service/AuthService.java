@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthorizationService extends CustomUserDetailsService {
+public class AuthService extends CustomUserDetailsService {
 
     @Autowired
     private UserService userService;

@@ -1,7 +1,7 @@
 package com.dev.mastercash.controller;
 
 import com.dev.mastercash.dto.auth.*;
-import com.dev.mastercash.service.AuthorizationService;
+import com.dev.mastercash.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ import java.net.URI;
 public class AuthController {
 
     @Autowired
-    private AuthorizationService authorizationService;
+    private AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO body) {
-        return ResponseEntity.ok(authorizationService.login(body));
+        return ResponseEntity.ok(authService.login(body));
     }
 
     @PostMapping("/register")
@@ -27,7 +27,7 @@ public class AuthController {
             @Valid @RequestBody RegisterRequestDTO body
     ) {
         RegisterResponseDTO response =
-                authorizationService.register(body);
+                authService.register(body);
 
         URI uri =  ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/users/{id}").buildAndExpand(response.id()).toUri();
