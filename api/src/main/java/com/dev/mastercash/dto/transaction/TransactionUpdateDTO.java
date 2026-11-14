@@ -9,7 +9,6 @@ import java.time.Instant;
 public class TransactionUpdateDTO {
 
     private String id;
-    private String idempotencyKey;
 
     private String title;
 
@@ -26,12 +25,11 @@ public class TransactionUpdateDTO {
     public TransactionUpdateDTO() {
     }
 
-    public TransactionUpdateDTO(String id, String idempotencyKey, String title,
+    public TransactionUpdateDTO(String id, String title,
                                 BigDecimal amount, TransactionCategory category,
                                 TransactionType type, PaymentMethod payment,
                                 Instant date) {
         this.id = id;
-        this.idempotencyKey = idempotencyKey;
         this.title = title;
         this.amount = amount;
         this.category = category;
@@ -42,7 +40,6 @@ public class TransactionUpdateDTO {
 
     public TransactionUpdateDTO(Transaction entity) {
         this.id = entity.getId();
-        this.idempotencyKey = entity.getIdempotencyKey();
         this.title = entity.getTitle();
         this.amount = entity.getAmount();
         this.category = entity.getCategory();
@@ -57,14 +54,6 @@ public class TransactionUpdateDTO {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIdempotencyKey() {
-        return idempotencyKey;
-    }
-
-    public void setIdempotencyKey(String idempotencyKey) {
-        this.idempotencyKey = idempotencyKey;
     }
 
     public String getTitle() {
