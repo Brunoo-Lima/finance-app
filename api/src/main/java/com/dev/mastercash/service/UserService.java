@@ -3,9 +3,8 @@ package com.dev.mastercash.service;
 import com.dev.mastercash.dto.auth.RegisterRequestDTO;
 import com.dev.mastercash.dto.user.*;
 import com.dev.mastercash.entity.User;
-import com.dev.mastercash.exception.DatabaseException;
-import com.dev.mastercash.exception.ForbiddenException;
-import com.dev.mastercash.exception.user.UserNotFoundException;
+import com.dev.mastercash.exception.*;
+import com.dev.mastercash.exception.user.*;
 import com.dev.mastercash.repository.UserRepository;
 import com.dev.mastercash.exception.user.EmailAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +97,16 @@ public class UserService {
         }catch (DataIntegrityViolationException exception){
             throw new DatabaseException("Integrity violation");
         }
+    }
+
+    public void changePassword(User user, ChangePasswordDTO dto) {
+        if (!passwordEncoder.matches(dto.currentPassword(), user.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+
+        user.setPassword(passwordEncoder.encode(dto.newPassword()));
+
+        repository.save(user);
     }
 
     private void copyDtoToEntity(RegisterRequestDTO dto, User entity){

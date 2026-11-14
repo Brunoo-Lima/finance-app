@@ -18,6 +18,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    // TODO: remove after esse findAll
     @GetMapping
     public ResponseEntity<PageResponse<UserDTO>> findAll(Pageable pageable){
         Page<UserDTO> list = service.findAllPaged(pageable);
@@ -29,6 +30,12 @@ public class UserController {
         return UserResponseDTO.from(user);
     }
 
+    @PutMapping("/me/password")
+    public void changePassword(@RequestBody ChangePasswordDTO dto,
+                               @AuthenticationPrincipal User user) {
+        service.changePassword(user, dto);
+    }
+
     @PatchMapping(value = "/{id}")
     public ResponseEntity<UserResponseDTO> update(@PathVariable String id,
                                                   @Valid @RequestBody UpdateUserRequestDTO body,
@@ -36,7 +43,6 @@ public class UserController {
         UserResponseDTO response  = service.update(id, body, user);
         return ResponseEntity.ok(response);
     }
-
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete (@PathVariable String id,
