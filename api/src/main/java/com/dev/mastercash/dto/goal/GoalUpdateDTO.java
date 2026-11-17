@@ -14,7 +14,6 @@ public record GoalUpdateDTO(
         @Size(max = 100)
         String title,
         @Positive BigDecimal targetValue,
-        @PositiveOrZero BigDecimal amountSaved,
         @PositiveOrZero BigDecimal monthlyContribution,
         GoalCategory category,
         Instant dateFinal

@@ -97,6 +97,21 @@ public class GoalService {
         return GoalResponseDTO.from(goal);
     }
 
+    @Transactional
+    public GoalResponseDTO addContribution(
+            String id,
+            GoalAddContributionDTO dto,
+            User user
+    ) {
+        Goal goal = repository
+                .findByIdAndUserId(id, user.getId())
+                .orElseThrow(GoalNotFoundException::new);
+
+        goal.setAmountSaved(goal.getAmountSaved().add(dto.amount()));
+
+        return GoalResponseDTO.from(goal);
+    }
+
     private void copyDtoToEntity(GoalCreateDTO dto, Goal entity) {
         entity.setTitle(dto.getTitle());
         entity.setAmountSaved(dto.getAmountSaved());
@@ -110,10 +125,6 @@ public class GoalService {
     private void patchDtoToEntity(GoalUpdateDTO dto, Goal entity) {
         if (dto.title() != null) {
             entity.setTitle(dto.title());
-        }
-
-        if (dto.amountSaved() != null) {
-            entity.setAmountSaved(dto.amountSaved());
         }
 
         if (dto.category() != null) {

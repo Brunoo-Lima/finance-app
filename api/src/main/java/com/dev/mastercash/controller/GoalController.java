@@ -73,4 +73,12 @@ public class GoalController {
         GoalResponseDTO result = service.updateStatus(id, dto, user);
         return ResponseEntity.ok().body(result);
     }
+
+    @PostMapping("/{id}/contributions")
+    public ResponseEntity<GoalResponseDTO> addContribution(@PathVariable String id,
+                                                           @Valid @RequestBody GoalAddContributionDTO dto,
+                                                           @AuthenticationPrincipal User user){
+        GoalResponseDTO result = service.addContribution(id, dto, user);
+        return ResponseEntity.ok().body(result);
+    }
 }
