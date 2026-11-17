@@ -3,9 +3,8 @@ package com.dev.mastercash.dto.user;
 import com.dev.mastercash.entity.User;
 import jakarta.validation.constraints.*;
 
-public class UserDTO {
+public class UserCreateDTO {
 
-    private String id;
     @NotBlank(message = "Name is required")
     private String name;
 
@@ -16,28 +15,18 @@ public class UserDTO {
     @NotBlank(message = "Password is required")
     private String password;
 
-    public UserDTO() {
+    public UserCreateDTO() {
     }
 
-    public UserDTO(String id, String name, String email,String password) {
-        this.id = id;
+    public UserCreateDTO(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public UserDTO(User entity) {
-        this.id = entity.getId();
+    public UserCreateDTO(User entity) {
         this.name = entity.getName();
         this.email = entity.getEmail();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {

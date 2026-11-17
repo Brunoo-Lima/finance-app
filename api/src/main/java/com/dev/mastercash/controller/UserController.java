@@ -20,8 +20,8 @@ public class UserController {
 
     // TODO: remove after esse findAll
     @GetMapping
-    public ResponseEntity<PageResponse<UserDTO>> findAll(Pageable pageable){
-        Page<UserDTO> list = service.findAllPaged(pageable);
+    public ResponseEntity<PageResponse<UserCreateDTO>> findAll(Pageable pageable){
+        Page<UserCreateDTO> list = service.findAllPaged(pageable);
         return ResponseEntity.ok(new PageResponse<>(list));
     }
 

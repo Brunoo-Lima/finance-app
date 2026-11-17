@@ -24,11 +24,11 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> findAllPaged(Pageable pageable){
+    public Page<UserCreateDTO> findAllPaged(Pageable pageable){
 
         Page<User> list = repository.findAll(pageable);
 
-        return list.map(user -> new UserDTO(user));
+        return list.map(user -> new UserCreateDTO(user));
     }
 
 //    @Transactional(readOnly = true)
