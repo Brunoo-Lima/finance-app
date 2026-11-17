@@ -31,7 +31,7 @@ public class GoalController {
 
     @PostMapping
     public ResponseEntity<GoalResponseDTO> create(
-            @Valid @RequestBody GoalDTO body,
+            @Valid @RequestBody GoalCreateDTO body,
             @RequestHeader("Idempotency-Key") String idempotencyKey,
             @AuthenticationPrincipal User user){
         GoalResponseDTO result = service.create(body, user, idempotencyKey);
@@ -64,5 +64,13 @@ public class GoalController {
                                        @AuthenticationPrincipal User user){
         service.delete(id, user);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<GoalResponseDTO> updateStatus(@PathVariable String id,
+                                                        @Valid @RequestBody GoalStatusUpdateDTO dto,
+                                                        @AuthenticationPrincipal User user){
+        GoalResponseDTO result = service.updateStatus(id, dto, user);
+        return ResponseEntity.ok().body(result);
     }
 }

@@ -1,6 +1,6 @@
 package com.dev.mastercash.entity;
 
-import com.dev.mastercash.enums.GoalCategory;
+import com.dev.mastercash.enums.*;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -37,6 +37,11 @@ public class Goal {
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal monthlyContribution;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private GoalStatus status;
+
     private Instant dateFinal;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -48,7 +53,7 @@ public class Goal {
 
     public Goal(String id, String idempotencyKey, String title,
                 GoalCategory category, BigDecimal targetValue,
-                BigDecimal amountSaved, BigDecimal monthlyContribution,
+                BigDecimal amountSaved, BigDecimal monthlyContribution, GoalStatus status,
                 Instant dateFinal, User user) {
         this.id = id;
         this.idempotencyKey = idempotencyKey;
@@ -57,6 +62,7 @@ public class Goal {
         this.targetValue = targetValue;
         this.amountSaved = amountSaved;
         this.monthlyContribution = monthlyContribution;
+        this.status = status;
         this.dateFinal = dateFinal;
         this.user = user;
     }
@@ -115,6 +121,14 @@ public class Goal {
 
     public void setMonthlyContribution(BigDecimal monthlyContribution) {
         this.monthlyContribution = monthlyContribution;
+    }
+
+    public GoalStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GoalStatus status) {
+        this.status = status;
     }
 
     public Instant getDateFinal() {

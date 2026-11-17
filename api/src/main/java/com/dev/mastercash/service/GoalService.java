@@ -25,7 +25,7 @@ public class GoalService {
     @Transactional(readOnly = true)
     public GoalResponseDTO findById(String id, User user){
         Goal goal = repository.findById(id)
-                .orElseThrow(() -> new GoalNotFoundException());
+                .orElseThrow(GoalNotFoundException::new);
 
         if(!goal.getUser().getId().equals(user.getId())){
             throw new GoalNotFoundException();
@@ -34,13 +34,13 @@ public class GoalService {
         return GoalResponseDTO.from(goal);
     }
 
-    public GoalResponseDTO create(GoalDTO dto, User user, String idempotencyKey) {
+    public GoalResponseDTO create(GoalCreateDTO dto, User user, String idempotencyKey) {
         return repository.findByUserIdAndIdempotencyKey(user.getId(), idempotencyKey)
                 .map(GoalResponseDTO::from)
                 .orElseGet(() -> insert(dto, user, idempotencyKey));
     }
 
-    private GoalResponseDTO insert(GoalDTO dto, User user, String key) {
+    private GoalResponseDTO insert(GoalCreateDTO dto, User user, String key) {
         try {
             Goal entity = new Goal();
 
@@ -83,38 +83,53 @@ public class GoalService {
         repository.delete(goal);
     }
 
-    private void copyDtoToEntity(GoalDTO dto, Goal entity) {
+    @Transactional
+    public GoalResponseDTO updateStatus(
+            String id,
+            GoalStatusUpdateDTO dto,
+            User user
+    ) {
+        Goal goal = repository
+                .findByIdAndUserId(id, user.getId())
+                .orElseThrow(GoalNotFoundException::new);
+
+        goal.setStatus(dto.status());
+        return GoalResponseDTO.from(goal);
+    }
+
+    private void copyDtoToEntity(GoalCreateDTO dto, Goal entity) {
         entity.setTitle(dto.getTitle());
         entity.setAmountSaved(dto.getAmountSaved());
         entity.setCategory(dto.getCategory());
         entity.setTargetValue(dto.getTargetValue());
         entity.setMonthlyContribution(dto.getMonthlyContribution());
+        entity.setStatus(dto.getStatus());
         entity.setDateFinal(dto.getDateFinal());
     }
 
     private void patchDtoToEntity(GoalUpdateDTO dto, Goal entity) {
-        if (dto.getTitle() != null) {
-            entity.setTitle(dto.getTitle());
+        if (dto.title() != null) {
+            entity.setTitle(dto.title());
         }
 
-        if (dto.getAmountSaved() != null) {
-            entity.setAmountSaved(dto.getAmountSaved());
+        if (dto.amountSaved() != null) {
+            entity.setAmountSaved(dto.amountSaved());
         }
 
-        if (dto.getCategory() != null) {
-            entity.setCategory(dto.getCategory());
+        if (dto.category() != null) {
+            entity.setCategory(dto.category());
         }
 
-        if (dto.getTargetValue() != null) {
-            entity.setTargetValue(dto.getTargetValue());
+        if (dto.targetValue() != null) {
+            entity.setTargetValue(dto.targetValue());
         }
 
-        if (dto.getMonthlyContribution() != null) {
-            entity.setMonthlyContribution(dto.getMonthlyContribution());
+        if (dto.monthlyContribution() != null) {
+            entity.setMonthlyContribution(dto.monthlyContribution());
         }
 
-        if (dto.getDateFinal() != null) {
-            entity.setDateFinal(dto.getDateFinal());
+        if (dto.dateFinal() != null) {
+            entity.setDateFinal(dto.dateFinal());
         }
     }
 }
