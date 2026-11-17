@@ -1,14 +1,14 @@
 package com.dev.mastercash.dto.goal;
 
+import com.dev.mastercash.entity.Goal;
 import com.dev.mastercash.enums.*;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
-public class GoalDTO {
+public class GoalCreateDTO {
 
-    private String id;
     private String idempotencyKey;
 
     @NotBlank(message = "Title is required")
@@ -18,8 +18,7 @@ public class GoalDTO {
     @Positive(message = "TargetValue must be positive")
     private BigDecimal targetValue;
 
-    @NotNull(message = "AmountSaved is required")
-    @Positive(message = "AmountSaved must be positive")
+    @PositiveOrZero(message = "AmountSaved cannot be negative")
     private BigDecimal amountSaved;
 
     @NotNull(message = "MonthlyContribution is required")
@@ -29,32 +28,37 @@ public class GoalDTO {
     @NotNull(message = "Category is required")
     private GoalCategory category;
 
+    private GoalStatus status;
+
     @NotNull(message = "DateFinal is required")
     private Instant dateFinal;
 
-    public GoalDTO() {
+    public GoalCreateDTO() {
     }
 
-    public GoalDTO(String id, String idempotencyKey, String title,
-                   BigDecimal targetValue, BigDecimal amountSaved,
-                   BigDecimal monthlyContribution, GoalCategory category,
-                   Instant dateFinal) {
-        this.id = id;
+    public GoalCreateDTO(String idempotencyKey, String title,
+                         BigDecimal targetValue, BigDecimal amountSaved,
+                         BigDecimal monthlyContribution, GoalCategory category, GoalStatus status,
+                         Instant dateFinal) {
         this.idempotencyKey = idempotencyKey;
         this.title = title;
         this.targetValue = targetValue;
         this.amountSaved = amountSaved;
         this.monthlyContribution = monthlyContribution;
         this.category = category;
+        this.status = status;
         this.dateFinal = dateFinal;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public GoalCreateDTO(Goal entity) {
+        this.idempotencyKey = entity.getIdempotencyKey();
+        this.title = entity.getTitle();
+        this.targetValue = entity.getTargetValue();
+        this.amountSaved = entity.getAmountSaved();
+        this.monthlyContribution = entity.getMonthlyContribution();
+        this.category = entity.getCategory();
+        this.status = entity.getStatus();
+        this.dateFinal = entity.getDateFinal();
     }
 
     public String getIdempotencyKey() {
@@ -103,6 +107,14 @@ public class GoalDTO {
 
     public void setCategory(GoalCategory category) {
         this.category = category;
+    }
+
+    public GoalStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GoalStatus status) {
+        this.status = status;
     }
 
     public Instant getDateFinal() {

@@ -1,14 +1,14 @@
 package com.dev.mastercash.dto.goal;
 
 import com.dev.mastercash.entity.Goal;
-import com.dev.mastercash.enums.GoalCategory;
+import com.dev.mastercash.enums.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 public record GoalResponseDTO(String id, String title, GoalCategory category,
                               BigDecimal targetValue, BigDecimal amountSaved,
-                              BigDecimal monthlyContribution, Instant dateFinal
+                              BigDecimal monthlyContribution, GoalStatus status, Instant dateFinal
 ) {
     public static GoalResponseDTO from(Goal goal) {
         return new GoalResponseDTO(
@@ -18,6 +18,7 @@ public record GoalResponseDTO(String id, String title, GoalCategory category,
                 goal.getTargetValue(),
                 goal.getAmountSaved(),
                 goal.getMonthlyContribution(),
+                goal.getStatus(),
                 goal.getDateFinal()
         );
     }
