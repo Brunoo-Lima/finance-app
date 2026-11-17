@@ -7,9 +7,8 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-public class TransactionDTO {
+public class TransactionCreateDTO {
 
-    private String id;
     private String idempotencyKey;
 
     @NotBlank(message = "Title is required")
@@ -31,14 +30,13 @@ public class TransactionDTO {
     @NotNull(message = "Date is required")
     private Instant date;
 
-    public TransactionDTO() {
+    public TransactionCreateDTO() {
     }
 
-    public TransactionDTO(String id, String idempotencyKey, String title,
-                          BigDecimal amount, TransactionCategory category,
-                          TransactionType type, PaymentMethod payment,
-                          Instant date) {
-        this.id = id;
+    public TransactionCreateDTO(String idempotencyKey, String title,
+                                BigDecimal amount, TransactionCategory category,
+                                TransactionType type, PaymentMethod payment,
+                                Instant date) {
         this.idempotencyKey = idempotencyKey;
         this.title = title;
         this.amount = amount;
@@ -48,8 +46,7 @@ public class TransactionDTO {
         this.date = date;
     }
 
-    public TransactionDTO(Transaction entity) {
-        this.id = entity.getId();
+    public TransactionCreateDTO(Transaction entity) {
         this.idempotencyKey = entity.getIdempotencyKey();
         this.title = entity.getTitle();
         this.amount = entity.getAmount();
@@ -59,13 +56,6 @@ public class TransactionDTO {
         this.date = entity.getDate();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getIdempotencyKey() {
         return idempotencyKey;

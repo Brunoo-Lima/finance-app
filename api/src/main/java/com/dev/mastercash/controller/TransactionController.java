@@ -31,7 +31,7 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<TransactionResponseDTO> create(
-            @Valid @RequestBody TransactionDTO body,
+            @Valid @RequestBody TransactionCreateDTO body,
             @RequestHeader("Idempotency-Key") String idempotencyKey,
             @AuthenticationPrincipal User user){
         TransactionResponseDTO result = service.create(body, user, idempotencyKey);

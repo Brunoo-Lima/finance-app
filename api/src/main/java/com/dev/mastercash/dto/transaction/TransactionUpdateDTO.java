@@ -8,8 +8,6 @@ import java.time.Instant;
 
 public class TransactionUpdateDTO {
 
-    private String id;
-
     private String title;
 
     private BigDecimal amount;
@@ -25,11 +23,10 @@ public class TransactionUpdateDTO {
     public TransactionUpdateDTO() {
     }
 
-    public TransactionUpdateDTO(String id, String title,
+    public TransactionUpdateDTO(String title,
                                 BigDecimal amount, TransactionCategory category,
                                 TransactionType type, PaymentMethod payment,
                                 Instant date) {
-        this.id = id;
         this.title = title;
         this.amount = amount;
         this.category = category;
@@ -39,21 +36,12 @@ public class TransactionUpdateDTO {
     }
 
     public TransactionUpdateDTO(Transaction entity) {
-        this.id = entity.getId();
         this.title = entity.getTitle();
         this.amount = entity.getAmount();
         this.category = entity.getCategory();
         this.type = entity.getType();
         this.payment = entity.getPayment();
         this.date = entity.getDate();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getTitle() {

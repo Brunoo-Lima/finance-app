@@ -34,13 +34,13 @@ public class TransactionService {
         return TransactionResponseDTO.from(transaction);
     }
 
-    public TransactionResponseDTO create(TransactionDTO dto, User user, String idempotencyKey) {
+    public TransactionResponseDTO create(TransactionCreateDTO dto, User user, String idempotencyKey) {
         return repository.findByUserIdAndIdempotencyKey(user.getId(), idempotencyKey)
                 .map(TransactionResponseDTO::from)
                 .orElseGet(() -> insert(dto, user, idempotencyKey));
     }
 
-    private TransactionResponseDTO insert(TransactionDTO dto, User user, String key) {
+    private TransactionResponseDTO insert(TransactionCreateDTO dto, User user, String key) {
         try {
             Transaction entity = new Transaction();
 
@@ -83,7 +83,7 @@ public class TransactionService {
         repository.delete(transaction);
     }
 
-    private void copyDtoToEntity(TransactionDTO dto, Transaction entity) {
+    private void copyDtoToEntity(TransactionCreateDTO dto, Transaction entity) {
         entity.setTitle(dto.getTitle());
         entity.setAmount(dto.getAmount());
         entity.setCategory(dto.getCategory());
