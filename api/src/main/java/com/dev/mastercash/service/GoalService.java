@@ -2,6 +2,7 @@ package com.dev.mastercash.service;
 
 import com.dev.mastercash.dto.goal.*;
 import com.dev.mastercash.entity.*;
+import com.dev.mastercash.enums.GoalStatus;
 import com.dev.mastercash.exception.goal.GoalNotFoundException;
 import com.dev.mastercash.repository.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,7 @@ public class GoalService {
 
     @Transactional(readOnly = true)
     public GoalResponseDTO findById(String id, User user){
-        Goal goal = repository.findById(id)
-                .orElseThrow(GoalNotFoundException::new);
+        Goal goal = getGoalFounded(id, user);
 
         if(!goal.getUser().getId().equals(user.getId())){
             throw new GoalNotFoundException();
@@ -65,20 +65,16 @@ public class GoalService {
             GoalUpdateDTO dto,
             User user
     ) {
-        Goal entity = repository
-                .findByIdAndUserId(id, user.getId())
-                .orElseThrow(GoalNotFoundException::new);
+        Goal goal = getGoalFounded(id, user);
 
-        patchDtoToEntity(dto, entity);
+        patchDtoToEntity(dto, goal);
 
-        return GoalResponseDTO.from(entity);
+        return GoalResponseDTO.from(goal);
     }
 
     @Transactional
     public void delete(String id, User user) {
-        Goal goal = repository
-                .findByIdAndUserId(id, user.getId())
-                .orElseThrow(GoalNotFoundException::new);
+        Goal goal = getGoalFounded(id, user);
 
         repository.delete(goal);
     }
@@ -89,11 +85,9 @@ public class GoalService {
             GoalStatusUpdateDTO dto,
             User user
     ) {
-        Goal goal = repository
-                .findByIdAndUserId(id, user.getId())
-                .orElseThrow(GoalNotFoundException::new);
+        Goal goal = getGoalFounded(id, user);
 
-        goal.setStatus(dto.status());
+        goal.changeStatus(dto.status());
         return GoalResponseDTO.from(goal);
     }
 
@@ -103,13 +97,15 @@ public class GoalService {
             GoalAddContributionDTO dto,
             User user
     ) {
-        Goal goal = repository
+        Goal goal = getGoalFounded(id, user);
+        goal.addContribution(dto.amount());
+        return GoalResponseDTO.from(goal);
+    }
+
+    private Goal getGoalFounded(String id, User user) {
+        return repository
                 .findByIdAndUserId(id, user.getId())
                 .orElseThrow(GoalNotFoundException::new);
-
-        goal.setAmountSaved(goal.getAmountSaved().add(dto.amount()));
-
-        return GoalResponseDTO.from(goal);
     }
 
     private void copyDtoToEntity(GoalCreateDTO dto, Goal entity) {
@@ -118,7 +114,6 @@ public class GoalService {
         entity.setCategory(dto.getCategory());
         entity.setTargetValue(dto.getTargetValue());
         entity.setMonthlyContribution(dto.getMonthlyContribution());
-        entity.setStatus(dto.getStatus());
         entity.setDateFinal(dto.getDateFinal());
     }
 
