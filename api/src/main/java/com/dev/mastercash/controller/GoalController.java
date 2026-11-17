@@ -32,9 +32,9 @@ public class GoalController {
     @PostMapping
     public ResponseEntity<GoalResponseDTO> create(
             @Valid @RequestBody GoalCreateDTO body,
-            @RequestHeader("Idempotency-Key") String idempotencyKey,
+            @RequestHeader("Event-Key") String eventKey,
             @AuthenticationPrincipal User user){
-        GoalResponseDTO result = service.create(body, user, idempotencyKey);
+        GoalResponseDTO result = service.create(body, user, eventKey);
 
         URI uri = URI.create("/goals/" + result.id());
 

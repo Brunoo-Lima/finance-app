@@ -2,7 +2,6 @@ package com.dev.mastercash.service;
 
 import com.dev.mastercash.dto.goal.*;
 import com.dev.mastercash.entity.*;
-import com.dev.mastercash.enums.GoalStatus;
 import com.dev.mastercash.exception.goal.GoalNotFoundException;
 import com.dev.mastercash.repository.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class GoalService {
     }
 
     public GoalResponseDTO create(GoalCreateDTO dto, User user, String idempotencyKey) {
-        return repository.findByUserIdAndIdempotencyKey(user.getId(), idempotencyKey)
+        return repository.findByUserIdAndEventKey(user.getId(), idempotencyKey)
                 .map(GoalResponseDTO::from)
                 .orElseGet(() -> insert(dto, user, idempotencyKey));
     }
@@ -46,14 +45,14 @@ public class GoalService {
 
             copyDtoToEntity(dto, entity);
             entity.setUser(user);
-            entity.setIdempotencyKey(key);
+            entity.setEventKey(key);
 
             entity = repository.saveAndFlush(entity); // flush força a violação aqui
 
             return GoalResponseDTO.from(entity);
         } catch (DataIntegrityViolationException e) {
             // Requisição concorrente com a mesma chave ganhou a corrida
-            return repository.findByUserIdAndIdempotencyKey(user.getId(), key)
+            return repository.findByUserIdAndEventKey(user.getId(), key)
                     .map(GoalResponseDTO::from)
                     .orElseThrow(() -> e);
         }

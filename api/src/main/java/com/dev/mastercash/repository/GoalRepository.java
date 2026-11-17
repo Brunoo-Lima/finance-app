@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface GoalRepository extends JpaRepository<Goal, String> {
     Page<Goal> findByUserId(String userId, Pageable pageable);
-    Optional<Goal> findByUserIdAndIdempotencyKey(String userId, String idempotencyKey);
+    Optional<Goal> findByUserIdAndEventKey(String userId, String eventKey);
     Optional<Goal> findByIdAndUserId(
             String id,
             String userId

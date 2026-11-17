@@ -32,9 +32,9 @@ public class TransactionController {
     @PostMapping
     public ResponseEntity<TransactionResponseDTO> create(
             @Valid @RequestBody TransactionCreateDTO body,
-            @RequestHeader("Idempotency-Key") String idempotencyKey,
+            @RequestHeader("Event-Key") String eventKey,
             @AuthenticationPrincipal User user){
-        TransactionResponseDTO result = service.create(body, user, idempotencyKey);
+        TransactionResponseDTO result = service.create(body, user, eventKey);
 
         URI uri = URI.create("/transactions/" + result.id());
 

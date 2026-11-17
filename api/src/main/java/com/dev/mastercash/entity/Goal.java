@@ -12,8 +12,8 @@ import java.util.Objects;
 @Table(
         name = "goals",
         uniqueConstraints = @UniqueConstraint(
-                name = "uk_goal_user_idem_key",
-                columnNames = {"user_id", "idempotency_key"}
+                name = "uk_goal_user_evt_key",
+                columnNames = {"user_id", "event_key"}
         )
 )
 public class Goal {
@@ -21,8 +21,8 @@ public class Goal {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "idempotency_key", nullable = false, updatable = false)
-    private String idempotencyKey;
+    @Column(name = "event_key", nullable = false, updatable = false)
+    private String eventKey; //idempotencia
 
     private String title;
 
@@ -55,12 +55,12 @@ public class Goal {
     public Goal() {
     }
 
-    public Goal(String id, String idempotencyKey, String title,
+    public Goal(String id, String eventKey, String title,
                 GoalCategory category, BigDecimal targetValue,
                 BigDecimal amountSaved, BigDecimal monthlyContribution,
                 Instant dateFinal, User user) {
         this.id = id;
-        this.idempotencyKey = idempotencyKey;
+        this.eventKey = eventKey;
         this.title = title;
         this.category = category;
         this.targetValue = targetValue;
@@ -78,12 +78,12 @@ public class Goal {
         this.id = id;
     }
 
-    public String getIdempotencyKey() {
-        return idempotencyKey;
+    public String getEventKey() {
+        return eventKey;
     }
 
-    public void setIdempotencyKey(String idempotencyKey) {
-        this.idempotencyKey = idempotencyKey;
+    public void setEventKey(String eventKey) {
+        this.eventKey = eventKey;
     }
 
     public String getTitle() {

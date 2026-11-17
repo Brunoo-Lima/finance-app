@@ -9,7 +9,7 @@ import java.time.Instant;
 
 public class GoalCreateDTO {
 
-    private String idempotencyKey;
+    private String eventKey;
 
     @NotBlank(message = "Title is required")
     private String title;
@@ -36,11 +36,11 @@ public class GoalCreateDTO {
     public GoalCreateDTO() {
     }
 
-    public GoalCreateDTO(String idempotencyKey, String title,
+    public GoalCreateDTO(String eventKey, String title,
                          BigDecimal targetValue, BigDecimal amountSaved,
                          BigDecimal monthlyContribution, GoalCategory category, GoalStatus status,
                          Instant dateFinal) {
-        this.idempotencyKey = idempotencyKey;
+        this.eventKey = eventKey;
         this.title = title;
         this.targetValue = targetValue;
         this.amountSaved = amountSaved;
@@ -51,7 +51,7 @@ public class GoalCreateDTO {
     }
 
     public GoalCreateDTO(Goal entity) {
-        this.idempotencyKey = entity.getIdempotencyKey();
+        this.eventKey = entity.getEventKey();
         this.title = entity.getTitle();
         this.targetValue = entity.getTargetValue();
         this.amountSaved = entity.getAmountSaved();
@@ -61,12 +61,12 @@ public class GoalCreateDTO {
         this.dateFinal = entity.getDateFinal();
     }
 
-    public String getIdempotencyKey() {
-        return idempotencyKey;
+    public String getEventKey() {
+        return eventKey;
     }
 
-    public void setIdempotencyKey(String idempotencyKey) {
-        this.idempotencyKey = idempotencyKey;
+    public void setEventKey(String idempotencyKey) {
+        this.eventKey = idempotencyKey;
     }
 
     public String getTitle() {

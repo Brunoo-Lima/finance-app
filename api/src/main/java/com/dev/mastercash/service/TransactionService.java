@@ -23,21 +23,16 @@ public class TransactionService {
     }
 
     @Transactional(readOnly = true)
-    public TransactionResponseDTO findById(String id, User user){
-        Transaction transaction = repository.findById(id)
-                .orElseThrow(() -> new TransactionNotFoundException());
-
-        if(!transaction.getUser().getId().equals(user.getId())){
-            throw new TransactionNotFoundException();
-        }
-
-        return TransactionResponseDTO.from(transaction);
+    public TransactionResponseDTO findById(String id, User user) {
+        return TransactionResponseDTO.from(getUserTransactionFounded(id, user));
     }
 
-    public TransactionResponseDTO create(TransactionCreateDTO dto, User user, String idempotencyKey) {
-        return repository.findByUserIdAndIdempotencyKey(user.getId(), idempotencyKey)
+    // NÃO anotar com @Transactional: a violação de unicidade precisa
+    // terminar a transação do saveAndFlush para o catch poder reconsultar.
+    public TransactionResponseDTO create(TransactionCreateDTO dto, User user, String eventKey) {
+        return repository.findByUserIdAndEventKey(user.getId(), eventKey)
                 .map(TransactionResponseDTO::from)
-                .orElseGet(() -> insert(dto, user, idempotencyKey));
+                .orElseGet(() -> insert(dto, user, eventKey));
     }
 
     private TransactionResponseDTO insert(TransactionCreateDTO dto, User user, String key) {
@@ -46,14 +41,14 @@ public class TransactionService {
 
             copyDtoToEntity(dto, entity);
             entity.setUser(user);
-            entity.setIdempotencyKey(key);
+            entity.setEventKey(key);
 
             entity = repository.saveAndFlush(entity); // flush força a violação aqui
 
             return TransactionResponseDTO.from(entity);
         } catch (DataIntegrityViolationException e) {
             // Requisição concorrente com a mesma chave ganhou a corrida
-            return repository.findByUserIdAndIdempotencyKey(user.getId(), key)
+            return repository.findByUserIdAndEventKey(user.getId(), key)
                     .map(TransactionResponseDTO::from)
                     .orElseThrow(() -> e);
         }
@@ -65,22 +60,24 @@ public class TransactionService {
             TransactionUpdateDTO dto,
             User user
     ) {
-        Transaction entity = repository
-                .findByIdAndUserId(id, user.getId())
-                .orElseThrow(TransactionNotFoundException::new);
+        Transaction transaction = getUserTransactionFounded(id, user);
 
-        patchDtoToEntity(dto, entity);
+        patchDtoToEntity(dto, transaction);
 
-        return TransactionResponseDTO.from(entity);
+        return TransactionResponseDTO.from(transaction);
     }
 
     @Transactional
     public void delete(String id, User user) {
-        Transaction transaction = repository
-                .findByIdAndUserId(id, user.getId())
-                .orElseThrow(TransactionNotFoundException::new);
+        Transaction transaction = getUserTransactionFounded(id, user);
 
         repository.delete(transaction);
+    }
+
+    private Transaction getUserTransactionFounded(String id, User user) {
+        return repository
+                .findByIdAndUserId(id, user.getId())
+                .orElseThrow(TransactionNotFoundException::new);
     }
 
     private void copyDtoToEntity(TransactionCreateDTO dto, Transaction entity) {

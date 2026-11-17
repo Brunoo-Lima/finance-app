@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
     Page<Transaction> findByUserId(String userId, Pageable pageable);
-    Optional<Transaction> findByUserIdAndIdempotencyKey(String userId, String idempotencyKey);
+    Optional<Transaction> findByUserIdAndEventKey(String userId, String eventKey);
     Optional<Transaction> findByIdAndUserId(
             String id,
             String userId

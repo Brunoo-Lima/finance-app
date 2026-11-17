@@ -11,8 +11,8 @@ import java.util.Objects;
 @Table(
         name = "transactions",
         uniqueConstraints = @UniqueConstraint(
-                name = "uk_transaction_user_idem_key",
-                columnNames = {"user_id", "idempotency_key"}
+                name = "uk_transaction_user_evt_key",
+                columnNames = {"user_id", "event_key"}
         )
 )
 public class Transaction {
@@ -21,8 +21,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "idempotency_key", nullable = false, updatable = false)
-    private String idempotencyKey;
+    @Column(name = "event_key", nullable = false, updatable = false)
+    private String eventKey;
 
     private String title;
 
@@ -50,11 +50,11 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(String id, String idempotencyKey, String title, BigDecimal amount,
+    public Transaction(String id, String eventKey, String title, BigDecimal amount,
                        TransactionCategory category, TransactionType type, PaymentMethod payment,
                        User user, Instant date) {
         this.id = id;
-        this.idempotencyKey = idempotencyKey;
+        this.eventKey = eventKey;
         this.title = title;
         this.amount = amount;
         this.category = category;
@@ -128,12 +128,12 @@ public class Transaction {
         this.user = user;
     }
 
-    public String getIdempotencyKey() {
-        return idempotencyKey;
+    public String getEventKey() {
+        return eventKey;
     }
 
-    public void setIdempotencyKey(String idempotencyKey) {
-        this.idempotencyKey = idempotencyKey;
+    public void setEventKey(String eventKey) {
+        this.eventKey = eventKey;
     }
 
     @Override

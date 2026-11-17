@@ -9,7 +9,7 @@ import java.time.Instant;
 
 public class TransactionCreateDTO {
 
-    private String idempotencyKey;
+    private String eventKey;
 
     @NotBlank(message = "Title is required")
     private String title;
@@ -33,11 +33,11 @@ public class TransactionCreateDTO {
     public TransactionCreateDTO() {
     }
 
-    public TransactionCreateDTO(String idempotencyKey, String title,
+    public TransactionCreateDTO(String eventKey, String title,
                                 BigDecimal amount, TransactionCategory category,
                                 TransactionType type, PaymentMethod payment,
                                 Instant date) {
-        this.idempotencyKey = idempotencyKey;
+        this.eventKey = eventKey;
         this.title = title;
         this.amount = amount;
         this.category = category;
@@ -47,7 +47,7 @@ public class TransactionCreateDTO {
     }
 
     public TransactionCreateDTO(Transaction entity) {
-        this.idempotencyKey = entity.getIdempotencyKey();
+        this.eventKey = entity.getEventKey();
         this.title = entity.getTitle();
         this.amount = entity.getAmount();
         this.category = entity.getCategory();
@@ -57,12 +57,12 @@ public class TransactionCreateDTO {
     }
 
 
-    public String getIdempotencyKey() {
-        return idempotencyKey;
+    public String getEventKey() {
+        return eventKey;
     }
 
-    public void setIdempotencyKey(String idempotencyKey) {
-        this.idempotencyKey = idempotencyKey;
+    public void setEventKey(String eventKey) {
+        this.eventKey = eventKey;
     }
 
     public String getTitle() {
