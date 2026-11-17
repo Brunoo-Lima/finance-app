@@ -1,6 +1,7 @@
 package com.dev.mastercash.entity;
 
 import com.dev.mastercash.enums.*;
+import com.dev.mastercash.exception.goal.GoalStatusErrorException;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -33,16 +34,19 @@ public class Goal {
     private BigDecimal targetValue;
 
     @Column(nullable = false, precision = 19, scale = 2)
-    private BigDecimal amountSaved;
+    private BigDecimal amountSaved = BigDecimal.ZERO;
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal monthlyContribution;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private GoalStatus status;
+    private GoalStatus status = GoalStatus.IN_PROGRESS;
 
     private Instant dateFinal;
+
+    @Column(name = "completed_at")
+    private Instant completedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -53,7 +57,7 @@ public class Goal {
 
     public Goal(String id, String idempotencyKey, String title,
                 GoalCategory category, BigDecimal targetValue,
-                BigDecimal amountSaved, BigDecimal monthlyContribution, GoalStatus status,
+                BigDecimal amountSaved, BigDecimal monthlyContribution,
                 Instant dateFinal, User user) {
         this.id = id;
         this.idempotencyKey = idempotencyKey;
@@ -62,7 +66,6 @@ public class Goal {
         this.targetValue = targetValue;
         this.amountSaved = amountSaved;
         this.monthlyContribution = monthlyContribution;
-        this.status = status;
         this.dateFinal = dateFinal;
         this.user = user;
     }
@@ -123,14 +126,6 @@ public class Goal {
         this.monthlyContribution = monthlyContribution;
     }
 
-    public GoalStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(GoalStatus status) {
-        this.status = status;
-    }
-
     public Instant getDateFinal() {
         return dateFinal;
     }
@@ -139,12 +134,79 @@ public class Goal {
         this.dateFinal = dateFinal;
     }
 
+    public Instant getCompletedAt() {
+        return completedAt;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void addContribution(BigDecimal amount) {
+        if (status != GoalStatus.IN_PROGRESS) {
+            throw new GoalStatusErrorException("Meta is not accepting capital injections in its current state");
+        }
+        this.amountSaved = this.amountSaved.add(amount);
+
+        if (this.amountSaved.compareTo(this.targetValue) >= 0) {
+            this.complete();
+        }
+    }
+
+    public GoalStatus getStatus() {
+        return status;
+    }
+
+    public void changeStatus(GoalStatus newStatus) {
+        if (this.status == newStatus) {
+            return; // idempotente
+        }
+
+        switch (newStatus) {
+            case COMPLETED -> {
+                if (this.status != GoalStatus.IN_PROGRESS) {
+                    throw new GoalStatusErrorException("You can only complete a goal that is in progress.");
+                }
+                complete();
+            }
+            case CANCELLED -> {
+                if (this.status == GoalStatus.COMPLETED) {
+                    throw new GoalStatusErrorException("A completed goal cannot be canceled");
+                }
+                cancel();
+            }
+            case IN_PROGRESS -> reopen();
+            case PENDING -> {
+                if (this.status == GoalStatus.COMPLETED) {
+                    throw new GoalStatusErrorException("A completed goal cannot be set back to pending");
+                }
+                markPending();
+            }
+        }
+    }
+
+    private void complete() {
+        this.status = GoalStatus.COMPLETED;
+        this.completedAt = Instant.now();
+    }
+
+    private void reopen() {
+        this.status = GoalStatus.IN_PROGRESS;
+        this.completedAt = null;
+    }
+
+    private void cancel() {
+        this.status = GoalStatus.CANCELLED;
+        this.completedAt = null;
+    }
+
+    private void markPending() {
+        this.status = GoalStatus.PENDING;
+        this.completedAt = null;
     }
 
     @Override
