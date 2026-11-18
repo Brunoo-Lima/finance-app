@@ -24,7 +24,8 @@ public class TransactionService {
 
     @Transactional(readOnly = true)
     public TransactionResponseDTO findById(String id, User user) {
-        return TransactionResponseDTO.from(getUserTransactionFounded(id, user));
+        Transaction transaction = getUserTransactionFounded(id, user);
+        return TransactionResponseDTO.from(transaction);
     }
 
     // NÃO anotar com @Transactional: a violação de unicidade precisa
@@ -70,7 +71,6 @@ public class TransactionService {
     @Transactional
     public void delete(String id, User user) {
         Transaction transaction = getUserTransactionFounded(id, user);
-
         repository.delete(transaction);
     }
 

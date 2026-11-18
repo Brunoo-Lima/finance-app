@@ -25,14 +25,11 @@ public class GoalService {
     @Transactional(readOnly = true)
     public GoalResponseDTO findById(String id, User user){
         Goal goal = getGoalFounded(id, user);
-
-        if(!goal.getUser().getId().equals(user.getId())){
-            throw new GoalNotFoundException();
-        }
-
         return GoalResponseDTO.from(goal);
     }
 
+    // NÃO anotar com @Transactional: a violação de unicidade precisa
+    // terminar a transação do saveAndFlush para o catch poder reconsultar.
     public GoalResponseDTO create(GoalCreateDTO dto, User user, String idempotencyKey) {
         return repository.findByUserIdAndEventKey(user.getId(), idempotencyKey)
                 .map(GoalResponseDTO::from)
